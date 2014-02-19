@@ -3,10 +3,11 @@
 angular.module('sphereOfInfluenceApp')
   .directive('soiCelestialBody', function () {
     return {
-      template: '<div></div>',
-      restrict: 'EA',
-      link: function postLink(scope, element) {
-        element.text('this is the soiCelestialBody directive');
+      'requires': '^soiCelestialSphere',
+      'templateUrl': 'templates/soiCelestialBody.html',
+      'restrict': 'EA',
+      'scope': {
+        'celestialBody': '='
       }
     };
   });

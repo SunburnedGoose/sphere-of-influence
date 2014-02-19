@@ -11,6 +11,8 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+      'app/bower_components/jquery/jquery.js',
+      'app/bower_components/underscore/underscore.js',
       'app/bower_components/angular/angular.js',
       'app/bower_components/angular-mocks/angular-mocks.js',
       'app/bower_components/angular-resource/angular-resource.js',
@@ -19,12 +21,14 @@ module.exports = function(config) {
       'app/bower_components/angular-route/angular-route.js',
       'app/scripts/*.js',
       'app/scripts/**/*.js',
+      'app/templates/**/*.html',
       'app/views/**/*.html',
       'test/mock/**/*.js',
       'test/spec/**/*.js'
     ],
 
     preprocessors: {
+      'app/templates/**/*.html': ['html2js'],
       'app/views/**/*.html': ['html2js']
     },
 

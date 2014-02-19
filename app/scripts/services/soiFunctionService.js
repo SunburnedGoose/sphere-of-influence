@@ -1,5 +1,3 @@
-/*global _ */
-
 'use strict';
 
 angular.module('sphereOfInfluenceApp')

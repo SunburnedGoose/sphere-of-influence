@@ -3,89 +3,322 @@ $icon-font-path: "/bower_components/sass-bootstrap/fonts/";
 @import 'sass-bootstrap/lib/bootstrap';
 
 .browsehappy {
-    margin: 0.2em 0;
-    background: #ccc;
-    color: #000;
-    padding: 0.2em 0;
+  margin: 0.2em 0;
+  background: #ccc;
+  color: #000;
+  padding: 0.2em 0;
 }
 
 /* Space out content a bit */
 body {
-    padding-top: 20px;
-    padding-bottom: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
 .header,
 .marketing,
 .footer {
-    padding-left: 15px;
-    padding-right: 15px;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 
 /* Custom page header */
 .header {
-    border-bottom: 1px solid #e5e5e5;
+  border-bottom: 1px solid #e5e5e5;
 }
 
 /* Make the masthead heading the same height as the navigation */
 .header h3 {
-    margin-top: 0;
-    margin-bottom: 0;
-    line-height: 40px;
-    padding-bottom: 19px;
+  margin-top: 0;
+  margin-bottom: 0;
+  line-height: 40px;
+  padding-bottom: 19px;
 }
 
 /* Custom page footer */
 .footer {
-    padding-top: 19px;
-    color: #777;
-    border-top: 1px solid #e5e5e5;
+  padding-top: 19px;
+  color: #777;
+  border-top: 1px solid #e5e5e5;
 }
 
 .container-narrow > hr {
-    margin: 30px 0;
+  margin: 30px 0;
 }
 
 /* Main marketing message and sign up button */
 .jumbotron {
-    text-align: center;
-    border-bottom: 1px solid #e5e5e5;
+  text-align: center;
+  border-bottom: 1px solid #e5e5e5;
 }
 
 .jumbotron .btn {
-    font-size: 21px;
-    padding: 14px 24px;
+  font-size: 21px;
+  padding: 14px 24px;
 }
 
 /* Supporting marketing content */
 .marketing {
-    margin: 40px 0;
+  margin: 40px 0;
 }
 
 .marketing p + h4 {
-    margin-top: 28px;
+  margin-top: 28px;
 }
 
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
-    .container {
-        max-width: 730px;
-    }
+  .container {
+    max-width: 730px;
+  }
 
-    /* Remove the padding we set earlier */
-    .header,
-    .marketing,
-    .footer {
-        padding-left: 0;
-        padding-right: 0;
-    }
-    /* Space out the masthead */
-    .header {
-        margin-bottom: 30px;
-    }
-    /* Remove the bottom border on the jumbotron for visual effect */
-    .jumbotron {
-        border-bottom: 0;
-    }
+  /* Remove the padding we set earlier */
+  .header,
+  .marketing,
+  .footer {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  /* Space out the masthead */
+  .header {
+    margin-bottom: 30px;
+  }
+  /* Remove the bottom border on the jumbotron for visual effect */
+  .jumbotron {
+    border-bottom: 0;
+  }
+}
+
+
+
+
+
+
+/* Put your css in here */
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  min-width: 100%;
+  min-height: 100%;
+  /*background-image: url('http://avgn.wikia.com/skins/oasis/images/themes/carbon.png');*/
+  background: #111;
+}
+
+div {
+  box-sizing: border-box;
+}
+
+soi-celestial-sphere {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: block;
+  margin: 5%;
+  border: 10px solid #333;
+  background-color: black;
+  background-image: url('http://i.imgur.com/qh2K0UW.jpg');
+  background-size: contain;
+  overflow: hidden;
+
+  > div {
+    background-color: #000;
+    background-color: rgba(0, 0, 0, .8);
+  }
+}
+
+.fill {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.celestial-object {
+  position: absolute;
+  margin: 0;
+  display: inline-block;
+  -webkit-transform: rotate3d(0, 0, 1, 30deg);
+}
+.celestial-body {
+  margin: auto;
+}
+.alpha .celestial-body {
+  background-image: url('http://i.imgur.com/vnK7y4B.jpg');
+  background-size: 80px 40px;
+  background-color: #444444;
+}
+.beta .celestial-body {
+  background-image: url('http://i.imgur.com/KWVYU0n.jpg');
+  background-size: 128px 64px;
+  background-color: #990000;
+}
+.gamma .celestial-body {
+  background-color: green;
+}
+.coord {
+  background-size: contain;
+  background-image: url('http://i.imgur.com/M64SS1b.png');
+  opacity: .7;
+background-repeat: no-repeat;
+background-position: center center;
+}
+.gravity {
+  background: radial-gradient(ellipse at center, rgba(150, 200, 255, .5) 0%, rgba(150, 200, 255, 0) 70%, rgba(150, 200, 255, 0) 100%);
+  -webkit-transition: opacity .2 linear;
+}
+@-webkit-keyframes rotateBodyA {
+  0% {
+  background-position: 0px;
+  }
+  100% {
+  background-position: 80px;
+  }
+}
+@-webkit-keyframes rotateBodyB {
+  0% {
+  background-position: 0px;
+  }
+  100% {
+  background-position: 128px;
+  }
+}
+@-webkit-keyframes bootBodyA {
+  0% {
+  opacity: 0;
+  }
+  100% {
+  opacity: 1;
+  }
+}
+@-webkit-keyframes bootA {
+  0% {
+  opacity: 0;
+  }
+  15% {
+  opacity: 0;
+  }
+  19% {
+  opacity: .5;
+  }
+  29% {
+  opacity: .3;
+  }
+  60% {
+  opacity: .7;
+  }
+  75% {
+  opacity: .6;
+  }
+  100% {
+  opacity: .7;
+  }
+}
+@-webkit-keyframes bootA2 {
+  0% {
+  opacity: 0;
+  }
+  15% {
+  opacity: 0;
+  }
+  19% {
+  opacity: .5;
+  }
+  29% {
+  opacity: .3;
+  }
+  60% {
+  opacity: .7;
+  }
+  75% {
+  opacity: .6;
+  }
+  100% {
+  opacity: 1;
+  }
+}
+@-webkit-keyframes bootB {
+  0% {
+  opacity: 0;
+  }
+  24% {
+  opacity: 0;
+  }
+  25% {
+  opacity: .6;
+  }
+  35% {
+  opacity: .3;
+  }
+  50% {
+  opacity: .5;
+  }
+  55% {
+  opacity: .7;
+  }
+  100% {
+  opacity: .6;
+  }
+}
+@-webkit-keyframes bootB2 {
+  0% {
+  opacity: 0;
+  }
+  24% {
+  opacity: 0;
+  }
+  25% {
+  opacity: .6;
+  }
+  35% {
+  opacity: .3;
+  }
+  50% {
+  opacity: .5;
+  }
+  55% {
+  opacity: .7;
+  }
+  100% {
+  opacity: 1;
+  }
+}
+@-webkit-keyframes rotateCoord {
+  0% {
+  -webkit-transform: rotateX(-60deg) rotateZ(360deg);
+  }
+  100% {
+  -webkit-transform: rotateX(-60deg) rotateZ(0deg);
+  }
+}
+.alpha .gravity {
+  -webkit-animation: bootA2 3s ease;
+}
+.beta .gravity {
+  -webkit-animation: bootB2 3s ease;
+}
+.alpha .planetRotate {
+  -webkit-animation: rotateBodyA 40s linear infinite;
+}
+.beta .planetRotate {
+  -webkit-animation: rotateBodyB 80s linear infinite;
+}
+.alpha .rotating {
+  -webkit-animation: rotateCoord 40s linear infinite, bootA 2s ease;
+}
+.beta .rotating {
+  -webkit-animation: rotateCoord 80s linear infinite, bootB 2s ease;
 }

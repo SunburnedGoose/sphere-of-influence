@@ -21,7 +21,7 @@ app.directive('soiCelestialObject',  ['soiCelestialBodyService', 'soiFunctionSer
         if (refBody.mass > $scope.body.mass) {
           majorBody = refBody;
           minorBody = $scope.body;
-        } else { 
+        } else {
           majorBody = $scope.body;
           minorBody = refBody;
         }
@@ -43,7 +43,7 @@ app.directive('soiCelestialObject',  ['soiCelestialBodyService', 'soiFunctionSer
       if (!element.hasClass('celestial-object')) {
         element.addClass('celestial-object');
       }
-      
+
       var drawOrbit = function() {
         var canvas = $('.space > div canvas.fill').get(0);
         var context = canvas.getContext('2d');
@@ -55,13 +55,13 @@ app.directive('soiCelestialObject',  ['soiCelestialBodyService', 'soiFunctionSer
         var startAngle = 0 * Math.PI;
         var endAngle = 1.9 * Math.PI;
         var counterClockwise = false;
-        
+
         context.setLineDash([10]);
-  
+
         context.beginPath();
         context.arc(x, y, radius, startAngle, endAngle, counterClockwise);
         context.lineWidth = 1;
-  
+
         // line color
         context.strokeStyle = 'yellow';
         context.stroke();
@@ -71,21 +71,21 @@ app.directive('soiCelestialObject',  ['soiCelestialBodyService', 'soiFunctionSer
 
       scope.body.soiRadius = scope.soiRadius();
       element.css('left', scope.body.coordinates[0]);
-      element.css('top', scope.body.coordinates[1]); 
-      element.css('width', Math.floor(scope.body.soiRadius) + 'px'); 
+      element.css('top', scope.body.coordinates[1]);
+      element.css('width', Math.floor(scope.body.soiRadius) + 'px');
       element.css('height', Math.floor(scope.body.soiRadius) + 'px');
 
       body.css('width', Math.floor(scope.body.radius * .06));
       body.css('height', Math.floor(scope.body.radius * .06));
       body.css('border-radius', Math.floor(scope.body.radius * .06));
-      body.css('box-shadow', '#000 ' + Math.floor(scope.body.radius * .007) + 'px ' + Math.floor(scope.body.radius * .007) + 'px ' + Math.floor(scope.body.radius * .035) + 'px 0 inset, rgba(255,150,0,0.7) ' + 
+      body.css('box-shadow', '#000 ' + Math.floor(scope.body.radius * .007) + 'px ' + Math.floor(scope.body.radius * .007) + 'px ' + Math.floor(scope.body.radius * .035) + 'px 0 inset, rgba(255,150,0,0.7) ' +
         '0 0 ' + Math.floor(scope.body.radius * .06) + 'px ' + Math.floor(scope.body.radius * .004) + 'px');
-        
+
       // var lastSheet = document.styleSheets[document.styleSheets.length - 1];
-      // lastSheet.insertRule('@-webkit-keyframes bootBodyA { 0% { box-shadow: #000 ' + Math.floor(scope.body.radius * .007) + 'px ' + Math.floor(scope.body.radius * .007) + 'px ' + Math.floor(scope.body.radius * .035) + 'px 0 inset, rgba(255,150,0,0.0) ' + 
-      //   '0 0 ' + Math.floor(scope.body.radius * .06) + 'px ' + Math.floor(scope.body.radius * .004) + 'px } 100% { box-shadow: #000 ' + Math.floor(scope.body.radius * .007) + 'px ' + Math.floor(scope.body.radius * .007) + 'px ' + Math.floor(scope.body.radius * .035) + 'px 0 inset, rgba(255,150,0,0.7) ' + 
+      // lastSheet.insertRule('@-webkit-keyframes bootBodyA { 0% { box-shadow: #000 ' + Math.floor(scope.body.radius * .007) + 'px ' + Math.floor(scope.body.radius * .007) + 'px ' + Math.floor(scope.body.radius * .035) + 'px 0 inset, rgba(255,150,0,0.0) ' +
+      //   '0 0 ' + Math.floor(scope.body.radius * .06) + 'px ' + Math.floor(scope.body.radius * .004) + 'px } 100% { box-shadow: #000 ' + Math.floor(scope.body.radius * .007) + 'px ' + Math.floor(scope.body.radius * .007) + 'px ' + Math.floor(scope.body.radius * .035) + 'px 0 inset, rgba(255,150,0,0.7) ' +
       //   '0 0 ' + Math.floor(scope.body.radius * .06) + 'px ' + Math.floor(scope.body.radius * .004) + 'px } }', lastSheet.cssRules.length);
-        
+
       //drawOrbit();
     }
   };
