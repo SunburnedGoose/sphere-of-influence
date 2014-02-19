@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('sphereOfInfluenceApp')
-  .service('soiFunctionService', function soiFunctionService() {
+  .service('soiFunctionService', ['soiCelestialBodyService', function soiFunctionService(cbs) {
     var getPositionAtCenter = function (element) {
       var data = element.getBoundingClientRect();
       return {
@@ -51,8 +51,54 @@ angular.module('sphereOfInfluenceApp')
       return d;
     }
 
+    var soiRadius = function(bodyA, bodyB) {
+      if (_.isEmpty(bodyB)) {
+        bodyB = cbs.sun;
+      }
+
+      var majorBody = null;
+      var minorBody = null;
+      var distance = 0;
+
+      if (bodyB.mass > bodyA.mass) {
+        majorBody = bodyB;
+        minorBody = bodyA;
+      } else {
+        majorBody = bodyA;
+        minorBody = bodyB;
+      }
+
+      if (bodyB.id === 'sun') {
+        distance = minorBody.sma;
+      } else {
+        // TODO
+        // Calculate distance between two bodies
+        // on the screen.
+      }
+
+      var soiRadius = distance * Math.pow((minorBody.mass / majorBody.mass), 0.4);
+
+      return (soiRadius / 9000); // Radius Scale
+    };
+
+    var viewport = function() {
+      return verge.viewport();
+    };
+
+    var viewportRatio = function() {
+      var v = viewport();
+
+      return {
+        'horizontal': v.width / 1920,
+        'vertical': v.height / 1200
+      };
+    };
+
     return {
       'describeArc': describeArc,
-      'pythagDistance': pythagDistance
+      'pythagDistance': pythagDistance,
+      'hillSphereRadius': soiRadius,
+      'viewport': viewport,
+      'viewportRatio': viewportRatio
     };
-  });
+  }]);

@@ -115,12 +115,24 @@ div {
   box-sizing: border-box;
 }
 
-soi-celestial-sphere {
+soi-celestial-sphere,
+.stretch {
   position: absolute;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
+  margin: auto;
+}
+
+.fill,
+svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+soi-celestial-sphere {
   display: block;
   margin: 5%;
   border: 10px solid #333;
@@ -135,51 +147,57 @@ soi-celestial-sphere {
   }
 }
 
-.fill {
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-
-svg {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-
-.celestial-object {
-  position: absolute;
-  margin: 0;
+soi-celestial-body {
   display: inline-block;
-  -webkit-transform: rotate3d(0, 0, 1, 30deg);
-}
-.celestial-body {
+  position: absolute;
+  -webkit-transform: rotate3d(0, 0, 1, 15deg);
   margin: auto;
+
+  > div {
+    width: 100%;
+    height: 100%;
+
+    > div {
+      position: absolute;
+    }
+  }
+
+  .alpha {
+    .celestial-body {
+      background-image: url('http://i.imgur.com/vnK7y4B.jpg');
+      background-size: 80px 40px;
+      background-color: #444444;
+    }
+  }
+
+  .beta {
+    .celestial-body {
+      background-image: url('http://i.imgur.com/KWVYU0n.jpg');
+      background-size: 128px 64px;
+      background-color: #990000;
+    }
+  }
+
+  .gamma {
+    .celestial-body {
+      background-color: green;
+    }
+  }
+
+  .coord {
+    background-size: contain;
+    background-image: url('http://i.imgur.com/M64SS1b.png');
+    opacity: .7;
+    background-repeat: no-repeat;
+    background-position: center center;
+  }
+
+  .gravity {
+    background: radial-gradient(ellipse at center, rgba(150, 200, 255, .5) 0%, rgba(150, 200, 255, 0) 70%, rgba(150, 200, 255, 0) 100%);
+    -webkit-transition: opacity .2 linear;
+  }
 }
-.alpha .celestial-body {
-  background-image: url('http://i.imgur.com/vnK7y4B.jpg');
-  background-size: 80px 40px;
-  background-color: #444444;
-}
-.beta .celestial-body {
-  background-image: url('http://i.imgur.com/KWVYU0n.jpg');
-  background-size: 128px 64px;
-  background-color: #990000;
-}
-.gamma .celestial-body {
-  background-color: green;
-}
-.coord {
-  background-size: contain;
-  background-image: url('http://i.imgur.com/M64SS1b.png');
-  opacity: .7;
-background-repeat: no-repeat;
-background-position: center center;
-}
-.gravity {
-  background: radial-gradient(ellipse at center, rgba(150, 200, 255, .5) 0%, rgba(150, 200, 255, 0) 70%, rgba(150, 200, 255, 0) 100%);
-  -webkit-transition: opacity .2 linear;
-}
+
 @-webkit-keyframes rotateBodyA {
   0% {
   background-position: 0px;
