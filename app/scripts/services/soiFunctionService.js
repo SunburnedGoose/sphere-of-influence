@@ -89,8 +89,8 @@ angular.module('sphereOfInfluenceApp')
       var v = viewport();
 
       return {
-        'horizontal': v.width / 1920,
-        'vertical': v.height / 1200
+        'horizontal': v.width / 1280,
+        'vertical': v.height / 720
       };
     };
 

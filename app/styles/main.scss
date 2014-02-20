@@ -134,7 +134,7 @@ svg {
 
 soi-celestial-sphere {
   display: block;
-  margin: 5%;
+  margin: 3%;
   border: 10px solid #333;
   background-color: black;
   background-image: url('http://i.imgur.com/qh2K0UW.jpg');
@@ -187,7 +187,7 @@ soi-celestial-body {
   .coord {
     background-size: contain;
     background-image: url('http://i.imgur.com/M64SS1b.png');
-    opacity: .7;
+    opacity: .9;
     background-repeat: no-repeat;
     background-position: center center;
   }
