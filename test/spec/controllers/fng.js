@@ -17,6 +17,6 @@ describe('Controller: FngCtrl', function () {
   }));
 
   it('should attach a list of awesomeThings to the scope', function () {
-    expect(scope.tnos.length).toBe(2);
+    expect(scope.celestialBodies.length).toBe(2);
   });
 });

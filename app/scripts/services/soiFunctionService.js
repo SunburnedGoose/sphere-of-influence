@@ -89,6 +89,8 @@ angular.module('sphereOfInfluenceApp')
       var v = viewport();
 
       return {
+        'width': v.width,
+        'height': v.height,
         'horizontal': v.width / 1280,
         'vertical': v.height / 720
       };

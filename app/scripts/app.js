@@ -4,7 +4,8 @@ angular.module('sphereOfInfluenceApp', [
   'ngCookies',
   'ngResource',
   'ngSanitize',
-  'ngRoute'
+  'ngRoute',
+  'ngLocale'
 ])
   .config(function ($routeProvider) {
     $routeProvider

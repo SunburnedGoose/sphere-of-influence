@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('sphereOfInfluenceApp')
-  .service('soiCelestialBodyService', function soiCelestialBodyService() {
+  .service('soiCelestialBodyService', [function soiCelestialBodyService() {
     var celestialBodies = {
       'sun': null,
       'planets': [],
@@ -55,4 +55,4 @@ angular.module('sphereOfInfluenceApp')
     celestialBodies.planets.push(gamma);
 
     return celestialBodies;
-  });
+  }]);

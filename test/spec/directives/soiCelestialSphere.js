@@ -5,6 +5,7 @@ describe('Directive: soiCelestialSphere', function () {
   // load the directive's module
   beforeEach(module('sphereOfInfluenceApp'));
   beforeEach(module('sphereOfInfluenceApp', 'app/templates/soiCelestialSphere.html'));
+  beforeEach(module('sphereOfInfluenceApp', 'app/templates/soiCelestialBody.html'));
 
   var element,
     scope;
@@ -13,6 +14,9 @@ describe('Directive: soiCelestialSphere', function () {
     scope = $rootScope.$new();
     var template = $templateCache.get('app/templates/soiCelestialSphere.html');
     $templateCache.put('templates/soiCelestialSphere.html', template);
+
+    template = $templateCache.get('app/templates/soiCelestialBody.html');
+    $templateCache.put('templates/soiCelestialBody.html', template);
 
   }));
 

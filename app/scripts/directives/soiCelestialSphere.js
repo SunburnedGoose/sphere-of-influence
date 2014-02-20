@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('sphereOfInfluenceApp')
-  .directive('soiCelestialSphere', function () {
+  .directive('soiCelestialSphere', [function () {
     return {
       'templateUrl': 'templates/soiCelestialSphere.html',
       'restrict': 'EA',
@@ -19,4 +19,4 @@ angular.module('sphereOfInfluenceApp')
         }
       }
     };
-  });
+  }]);

@@ -1,14 +1,15 @@
 'use strict';
 
 angular.module('sphereOfInfluenceApp')
-  .directive('soiCelestialBody', ['soiFunctionService', function (funcs) {
+  .directive('soiCelestialBody', ['soiFunctionService', '$window', function (funcs, $window) {
     return {
       'requires': '^soiCelestialSphere',
       'templateUrl': 'templates/soiCelestialBody.html',
       'restrict': 'EA',
-      'controller': function($scope) {
+      'controller': ['$scope', function($scope) {
         $scope.celestialBody.soiRadius = funcs.hillSphereRadius($scope.celestialBody);
-      },
+        $scope.viewportRatio = funcs.viewportRatio;
+      }],
       'link': function postLink(scope, element) {
         function sizeElements(delta) {
           delta = delta || 1;
@@ -38,7 +39,7 @@ angular.module('sphereOfInfluenceApp')
           };
         }
 
-        function resizeElements() {
+        function resizeElements(ratio) {
           var s = sizeElements(ratio);
 
           element.css('left', s.element.left);
@@ -53,15 +54,24 @@ angular.module('sphereOfInfluenceApp')
           body.css('box-shadow', '#000 ' + s.body.boxShadow.one + 'px ' + s.body.boxShadow.two + 'px ' + s.body.boxShadow.three + 'px 0 inset, rgba(255,150,0,0.7) 0 0 ' + s.body.boxShadow.four + 'px ' + s.body.boxShadow.five + 'px');
         }
 
+        $( window ).resize(function() {
+          var viewportRatio = funcs.viewportRatio();
+          var ratio = (viewportRatio.horizontal < viewportRatio.vertical) ? viewportRatio.horizontal : viewportRatio.vertical;
+
+          resizeElements(ratio);
+        });
+
         var viewportRatio = funcs.viewportRatio();
         var ratio = (viewportRatio.horizontal < viewportRatio.vertical) ? viewportRatio.horizontal : viewportRatio.vertical;
 
         resizeElements(ratio);
 
-        scope.$watch('funcs.viewportRatio()', function(viewportRatio) {
-          var ratio = (viewportRatio.horizontal < viewportRatio.vertical) ? viewportRatio.horizontal : viewportRatio.vertical;
-          resizeElements(ratio);
-        });
+        scope.$watch('viewportRatio()', function(viewportRatio) {
+          if (!_.isEmpty(viewportRatio)) {
+            var ratio = (viewportRatio.horizontal < viewportRatio.vertical) ? viewportRatio.horizontal : viewportRatio.vertical;
+            resizeElements(ratio);
+          }
+        }, true);
       }
     };
   }]);

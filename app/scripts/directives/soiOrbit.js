@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('sphereOfInfluenceApp')
-  .directive('soiOrbit', function () {
+  .directive('soiOrbit', [function () {
     return {
       template: '<div></div>',
       restrict: 'E',
@@ -9,4 +9,4 @@ angular.module('sphereOfInfluenceApp')
         element.text('this is the soiOrbit directive');
       }
     };
-  });
+  }]);
