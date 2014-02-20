@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('sphereOfInfluenceApp')
-  .directive('soiCelestialBody', ['soiFunctionService', '$window', function (funcs, $window) {
+  .directive('soiCelestialBody', ['soiFunctionService', function (funcs) {
     return {
       'requires': '^soiCelestialSphere',
       'templateUrl': 'templates/soiCelestialBody.html',

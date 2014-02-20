@@ -21,6 +21,7 @@
   "globals": {
     "angular": false,
     "_": false,
-    "verge": false
+    "verge": false,
+    "$": false
   }
 }
