@@ -5,18 +5,25 @@ angular.module('sphereOfInfluenceApp')
     return {
       'templateUrl': 'templates/soiCelestialSphere.html',
       'restrict': 'EA',
-      'transclude': true,
-      'link': function postLink(scope, element, attrs) {
-        attrs.$observe('barycenterX', function(x) {
-          scope.barycenterX = (x) ? +x : element.width() / 2;
-        });
-        attrs.$observe('barycenterY', function(y) {
-          scope.barycenterY = (y) ? +y : 9800;
+      'link': function postLink(scope, element) {
+        function draw() {
+        }
+
+        function init() {
+          if (!element.hasClass('celestial-sphere')) {
+            element.addClass('celestial-sphere');
+          }
+
+          draw();
+        }
+
+        scope.$watch('scale', function(n,o) {
+          if (n !== o) {
+            draw();
+          }
         });
 
-        if (!element.hasClass('celestial-sphere')) {
-          element.addClass('celestial-sphere');
-        }
+        init();
       }
     };
   }]);

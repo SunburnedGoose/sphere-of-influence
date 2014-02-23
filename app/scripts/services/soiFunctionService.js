@@ -68,7 +68,7 @@ angular.module('sphereOfInfluenceApp')
         minorBody = bodyB;
       }
 
-      if (bodyB.id === 'sun') {
+      if (majorBody.id === 'sun') {
         distance = minorBody.sma;
       } else {
         // TODO
@@ -82,17 +82,18 @@ angular.module('sphereOfInfluenceApp')
     };
 
     var viewport = function() {
-      return verge.viewport();
-    };
-
-    var viewportRatio = function() {
-      var v = viewport();
+      var v = verge.viewport();
+      var width = v.width;
+      var height = v.height;
+      var horizontalRatio = v.width / 1280;
+      var verticalRatio = v.height / 720;
 
       return {
-        'width': v.width,
-        'height': v.height,
-        'horizontal': v.width / 1280,
-        'vertical': v.height / 720
+        'width': width,
+        'height': height,
+        'horizontalRatio': horizontalRatio,
+        'verticalRatio': verticalRatio,
+        'scale': (horizontalRatio < verticalRatio) ? horizontalRatio : verticalRatio
       };
     };
 
@@ -100,7 +101,6 @@ angular.module('sphereOfInfluenceApp')
       'describeArc': describeArc,
       'pythagDistance': pythagDistance,
       'hillSphereRadius': soiRadius,
-      'viewport': viewport,
-      'viewportRatio': viewportRatio
+      'viewport': viewport
     };
   }]);

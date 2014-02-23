@@ -7,71 +7,52 @@ angular.module('sphereOfInfluenceApp')
       'templateUrl': 'templates/soiCelestialBody.html',
       'restrict': 'EA',
       'controller': ['$scope', function($scope) {
-        $scope.celestialBody.soiRadius = funcs.hillSphereRadius($scope.celestialBody);
-        $scope.viewportRatio = funcs.viewportRatio;
+        function init() {
+          $scope.celestialBody.hillSphereRadius = funcs.hillSphereRadius($scope.celestialBody);
+        }
+
+        init();
       }],
       'link': function postLink(scope, element) {
-        function sizeElements(delta) {
-          delta = delta || 1;
+        function draw() {
+          var radius = scope.celestialBody.hillSphereRadius;
+          var cb = scope.celestialBody;
 
-          var radius = scope.celestialBody.soiRadius * delta;
-          var coordinates = [scope.celestialBody.coordinates[0] * delta, scope.celestialBody.coordinates[1] * delta];
+          element.css({
+            'left': scope.scaling(cb.location.x - (radius / 2)),
+            'top': scope.scaling(cb.location.y - (radius / 2)),
+            'width': scope.scaling(radius),
+            'height': scope.scaling(radius)
+          });
 
-          return {
-            'element': {
-              'left': Math.floor(coordinates[0] - (radius / 2)),
-              'top': Math.floor(coordinates[1] - (radius / 2)),
-              'width': Math.floor(radius),
-              'height': Math.floor(radius)
-            },
-            'body': {
-              'width': Math.floor(radius * 0.2),
-              'height': Math.floor(radius * 0.2),
-              'borderRadius': Math.floor(radius * 0.1),
-              'boxShadow': {
-                'one': Math.floor(radius * 0.03),
-                'two': Math.floor(radius * 0.03),
-                'three': Math.floor(radius * 0.12),
-                'four': Math.floor(radius * 0.2),
-                'five': Math.floor(radius * 0.01)
-              }
-            }
-          };
+          element.find('.celestial-body').css({
+            'width': scope.scaling(radius * 0.2),
+            'height': scope.scaling(radius * 0.2),
+            'border-radius': scope.scaling(radius * 0.1),
+            'box-shadow':
+              '#000 ' + scope.scaling(radius * 0.03) + 'px ' + scope.scaling(radius * 0.03) + 'px ' + scope.scaling(radius * 0.12) + 'px 0 inset, ' +
+              'rgba(255,150,0,0.7) 0 0 ' + scope.scaling(radius * 0.2) + 'px ' + scope.scaling(radius * 0.01) + 'px'
+          });
         }
 
-        function resizeElements(ratio) {
-          var s = sizeElements(ratio);
-
-          element.css('left', s.element.left);
-          element.css('top', s.element.top);
-          element.css('width', s.element.width + 'px');
-          element.css('height', s.element.height + 'px');
-
-          var body = element.find('.celestial-body');
-          body.css('width', s.body.width + 'px');
-          body.css('height', s.body.height + 'px');
-          body.css('border-radius', s.body.borderRadius + 'px');
-          body.css('box-shadow', '#000 ' + s.body.boxShadow.one + 'px ' + s.body.boxShadow.two + 'px ' + s.body.boxShadow.three + 'px 0 inset, rgba(255,150,0,0.7) 0 0 ' + s.body.boxShadow.four + 'px ' + s.body.boxShadow.five + 'px');
+        function init() {
+          draw();
         }
 
-        $( window ).resize(function() {
-          var viewportRatio = funcs.viewportRatio();
-          var ratio = (viewportRatio.horizontal < viewportRatio.vertical) ? viewportRatio.horizontal : viewportRatio.vertical;
-
-          resizeElements(ratio);
+        scope.$watch('celestialBody', function(n,o) {
+          if (n.radius !== o.radius) {
+            scope.celestialBody.hillSphereRadius = funcs.hillSphereRadius(n);
+            draw();
+          }
         });
 
-        var viewportRatio = funcs.viewportRatio();
-        var ratio = (viewportRatio.horizontal < viewportRatio.vertical) ? viewportRatio.horizontal : viewportRatio.vertical;
-
-        resizeElements(ratio);
-
-        scope.$watch('viewportRatio()', function(viewportRatio) {
-          if (!_.isEmpty(viewportRatio)) {
-            var ratio = (viewportRatio.horizontal < viewportRatio.vertical) ? viewportRatio.horizontal : viewportRatio.vertical;
-            resizeElements(ratio);
+        scope.$watch('scale', function(n,o) {
+          if (n !== o) {
+            draw();
           }
-        }, true);
+        });
+
+        init();
       }
     };
   }]);

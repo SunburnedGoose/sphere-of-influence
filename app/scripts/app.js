@@ -33,3 +33,7 @@ angular.module('sphereOfInfluenceApp', [
         redirectTo: '/'
       });
   });
+
+$(function() {
+  FastClick.attach(document.body);
+});

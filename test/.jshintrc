@@ -19,6 +19,12 @@
   "trailing": true,
   "smarttabs": true,
   "globals": {
+    "angular": false,
+    "_": false,
+    "verge": false,
+    "$": false,
+    "Modernizr": false,
+    "FastClick": false,
     "after": false,
     "afterEach": false,
     "angular": false,

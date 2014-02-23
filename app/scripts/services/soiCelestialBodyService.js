@@ -30,7 +30,10 @@ angular.module('sphereOfInfluenceApp')
     alpha.mass = 2.14e21;
     alpha.radius = 555;
     alpha.sma = 7.17e9;
-    alpha.coordinates = [150, 200];
+    alpha.location = {
+      'x': 150,
+      'y': 200
+    };
     alpha.axialTilt = 30;
 
     var beta = new CelestialBody('110607 Hayden');
@@ -38,7 +41,10 @@ angular.module('sphereOfInfluenceApp')
     beta.mass = 5.67e21;
     beta.radius = 863;
     beta.sma = 6.5e9;
-    beta.coordinates = [1000, 400];
+    beta.location = {
+      'x': 1000,
+      'y': 400
+    };
     beta.axialTilt = 30;
 
     var gamma = new CelestialBody('1982857 Goos');
@@ -46,7 +52,10 @@ angular.module('sphereOfInfluenceApp')
     gamma.mass = 3.19e21;
     gamma.radius = 715;
     gamma.sma = 6.85e9;
-    gamma.coordinates = ['30%', '0%'];
+    gamma.location = {
+      'x': 350,
+      'y': 0
+    };
     gamma.axialTilt = 30;
 
     celestialBodies.sun = sun;
