@@ -15,6 +15,23 @@ angular.module('sphereOfInfluenceApp')
           });
         };
 
+        $scope.movePlayerTowards = function (e) {
+          // if (!e.clicking) {
+          //   return;
+          // }
+          $scope.$emit('soi.MOVE_TO', {
+            'x': (e.pageX - gameArea.offset().left) / $scope.scale,
+            'y': (e.pageY - gameArea.offset().top) / $scope.scale
+          });
+        };
+
+        // $scope.movePlayerTowards2 = function () {
+        //   // if (!e.clicking) {
+        //   //   return;
+        //   // }
+        //   $('#statsPanel div').text('Hi');
+        // };
+
         $scope.doNothing = function(e) {
           e.preventDefault();
           e.stopPropagation();
@@ -58,11 +75,27 @@ angular.module('sphereOfInfluenceApp')
 
         resizeGame();
 
-        window.addEventListener('resize', resizeGame, false);
-        window.addEventListener('orientationchange', resizeGame, false);
+        window.addEventListener('resize', function() { resizeGame(); scope.$digest(); }, false);
+        window.addEventListener('orientationchange', function() { resizeGame(); scope.$digest(); }, false);
 
-        $(document).bind('touchmove', function(e) {
+
+        // FastClick.attach(element.get(0));
+
+        $(element).bind('touchmove', function(e) {
+          var o = e.originalEvent.changedTouches[0];
+          var ele = element.find('#gameArea');
+          var x = (o.pageX - ele.offset().left) / scope.scale;
+          var y = (o.pageY - ele.offset().top) / scope.scale;
+
+          scope.$emit('soi.MOVE_TO', {
+            'x': x,
+            'y': y
+          });
+
           e.preventDefault();
+          e.stopPropagation();
+
+          scope.$digest();
         });
       }
     };

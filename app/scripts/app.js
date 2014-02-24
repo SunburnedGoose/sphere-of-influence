@@ -5,7 +5,8 @@ angular.module('sphereOfInfluenceApp', [
   'ngResource',
   'ngSanitize',
   'ngRoute',
-  'ngLocale'
+  'ngLocale',
+  'ngTouch'
 ])
   .config(function ($routeProvider) {
     $routeProvider
@@ -33,7 +34,3 @@ angular.module('sphereOfInfluenceApp', [
         redirectTo: '/'
       });
   });
-
-$(function() {
-  FastClick.attach(document.body);
-});
