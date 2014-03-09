@@ -1,0 +1,865 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"resi",
+				"resizeMegaMenu"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "app/templates/soiGameArea.html",
+			"settings":
+			{
+				"buffer_size": 333,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "app/scripts/directives/soiGameArea.js",
+			"settings":
+			{
+				"buffer_size": 3335,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/index.html",
+			"settings":
+			{
+				"buffer_size": 3952,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "app/scripts/controllers/fng.js",
+			"settings":
+			{
+				"buffer_size": 2506,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "app/scripts/app.js",
+			"settings":
+			{
+				"buffer_size": 796,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "bower.json",
+			"settings":
+			{
+				"buffer_size": 546,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "app/bower_components/fastclick/lib/fastclick.js",
+			"settings":
+			{
+				"buffer_size": 0,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "karma.conf.js",
+			"settings":
+			{
+				"buffer_size": 2068,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Gruntfile.js",
+			"settings":
+			{
+				"buffer_size": 9596,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "dist/index.html",
+			"settings":
+			{
+				"buffer_size": 2101,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"contents": "Adorno, Ruy [2:11 PM]: \nso, have you cloned ? https://services.sungard.com/git/projects/H5DT/repos/camino-plateau-demo-app/browse\nCasey, Ricky [2:13 PM]: \nDoing it\nI've pulled your updates.\nAdorno, Ruy [2:13 PM]: \ncool, do you want to share your screen so we can see how ti goes?\nCasey, Ricky [2:13 PM]: \nsuer\nAdorno, Ruy [2:16 PM]: \nalright so do you have the two of them ?\nAdorno, Ruy [2:23 PM]: \n___https://confluence.atlassian.com/display/STASH/Permanently+authenticating+with+Git+repositories\nAdorno, Ruy [2:25 PM]: \ngit clone ___https://services.sungard.com/git/scm/h5dt/html5-yeoman-generator.git\nAdorno, Ruy [3:29 PM]: \nso, any advance?\nCasey, Ricky [3:45 PM]: \nNo.\nIt is making me feel violent.\nAdorno, Ruy [3:46 PM]: \nhaahahah same here\nbootstrap files are loading, I can see it here\nCasey, Ricky [3:47 PM]: \nIf I make my own .box-shadow, it works.\nMaybe it isn't built in anymore?\nAdorno, Ruy [3:48 PM]: \nhmmm it seems that I found something\nthe bootstrap/less/mixins.less file is loaded, but it is empty\non the browser\nnah… it just seems chrome can't open less files...\nCasey, Ricky [3:49 PM]: \nThe mixins, when compiled, will be empty\nis that it?\nAdorno, Ruy [3:49 PM]: \ndoesn't look so\nCasey, Ricky [3:51 PM]: \nhey man\nwe dumb\nreal dumb\nAdorno, Ruy [3:51 PM]: \noh why\nCasey, Ricky [3:52 PM]: \n:)\nAdorno, Ruy [3:52 PM]: \nhehehhehe, I was hoping it's a dumb thing\nCasey, Ricky [3:52 PM]: \nour framework bootstrap <> bower bootstrap\nwe've changed it\nThe mixin.less file has been modified.\nAdorno, Ruy [3:53 PM]: \nhmmmm\nlet me see\nCasey, Ricky [3:53 PM]: \nln 251\ncamino/bootstrap/mixins.less\nAdorno, Ruy [3:53 PM]: \nwhich file?\nCasey, Ricky [3:53 PM]: \nthe stock version only has one argument\nOurs has multiple.\nAdorno, Ruy [3:53 PM]: \noh… wait...\nyou mean… the old bootstrap folder?\nCasey, Ricky [3:54 PM]: \nyea\nthe one from our framework\nAdorno, Ruy [3:54 PM]: \nbecause that is not in the repo anymore...\nok… so maybe it was outdated?\nCasey, Ricky [3:54 PM]: \nno\nI'm pretty sure we changed it\nand when you removed it\nit became stock\nand broke our stuff\nAdorno, Ruy [3:54 PM]: \noh god, hahahah\nCasey, Ricky [3:55 PM]: \nuh huh\nAdorno, Ruy [3:55 PM]: \nbut wait, we'll fix this now, right\nCasey, Ricky [3:55 PM]: \nSo now we get to look at the SVN history for the bootstrap folder and see what changed\nand make our own override file\nAdorno, Ruy [3:55 PM]: \nwe'll override it properly\nin our own files\nCasey, Ricky [3:55 PM]: \nand not be so dumb\nhttps://pbs.twimg.com/media/Behp68qCAAAyHyO.jpg:large\nAdorno, Ruy [3:57 PM]: \noh… it's true\nit works here now\nI just changed it to use one only argument \"none\"\nhahahahahha\ngreat pic\nwe can just drop these multiple parameters, we'll not be using box-shadows anyways\nCasey, Ricky [4:00 PM]: \nYup.  it all gets bundled so the theme switching will also switch the bootstrapped versions.\nbootstrap\nAdorno, Ruy [4:00 PM]: \nyep\ngreat, so can I commit it?\nCasey, Ricky [4:01 PM]: \nDo it\nAdorno, Ruy [4:01 PM]: \ncool\nCasey, Ricky [4:01 PM]: \nShould I make a jira ticket to revert the bootstrap files in Parcours to stick?\nstock?\nAdorno, Ruy [4:02 PM]: \nno… I don't think it's worthing it for now..\nCasey, Ricky [4:02 PM]: \nI'll put it in the product backlog.\nAdorno, Ruy [4:02 PM]: \nif we go ahead and make parcours a separated module, then we take the time to do it\nAdorno, Ruy [4:05 PM]: \nok, throw any changes on camino-plateau away, pull and try running the demo app again\npull on the camino-plateau repo\nCasey, Ricky [4:10 PM]: \nlooks like an app :)\nnice work.\nAdorno, Ruy [4:13 PM]: \nyeaahh\n:D\nso I was just talking with Pierre here and he gave me a good idea on what to do next\nI'll look into updating and also making kendo a dependency, using bower, like we have now for bootstrap\nand also into using its flat theme\nCasey, Ricky [4:15 PM]: \ni'm game.\nAdorno, Ruy [4:16 PM]: \ncool, so I think you're free to start changing the variables and colours around… just stay away from the kendo files for now, ehhehehe\nCasey, Ricky [4:16 PM]: \nI'm doing it right now\nAdorno, Ruy [4:16 PM]: \ngreat\nladies and gentlemen, we have a new theme coming!\nCasey, Ricky [4:17 PM]: \nI just hate to think how much faster this could have gone if we sit side by side... :(\nAdorno, Ruy [4:18 PM]: \nthat's true, even more because I'll be getting stuck every once in a while in learning all these less syntax, if you were around you could show me in a matter of seconds...\nCasey, Ricky [4:18 PM]: \nlikewise for the work with bower and npm\nnice work though btw\nAdorno, Ruy [4:19 PM]: \ntrue, but also, today was friday, not the most productive day of the week anyways, ehhehehe\nthanks :)\nCasey, Ricky [4:19 PM]: \nha, true\nwhich is why I come into the office\nCasey, Ricky [4:22 PM]: \nAny thoughts on how to handle the 'open sans' dependency\ncall out first, then look for local copy\nAdorno, Ruy [4:23 PM]: \nhmmm… I'm not really sure on this one, I used to follow the guidelines from people wiser than me on this matter...\nI think I followed the font-squirrel method of importing fonts\nby the time I used to release a website per month… the good old times\nheheheheh\nCasey, Ricky [4:24 PM]: \nWell...\nthe problem is the font is big\n1mb\n1.2mb\nAdorno, Ruy [4:25 PM]: \nwell… this is a lie, it wasn't good, and it's not been that old… just a month before coming to sungard I was still doing it\noh… wait, it shouldn't be that big\nCasey, Ricky [4:25 PM]: \nIF\nIf\nif\nwe include the styles and extended characters\nso \nwhat we need to consider in internationalization\nAdorno, Ruy [4:25 PM]: \nis there any need for this?\nCasey, Ricky [4:25 PM]: \nand its impact on the font set\nif we need Cyrillic, then we need to swap the font definition \ngreek, different font\netc\nhttps://www.google.com/fonts#UsePlace:use/Collection:Open+Sans\nlook here\nAdorno, Ruy [4:26 PM]: \noh I see what you mean\nCasey, Ricky [4:27 PM]: \nIt's just 150k w/ all the styles and latin\nAdorno, Ruy [4:27 PM]: \ndo we really need all the styles?\nCasey, Ricky [4:27 PM]: \nlight, normal, bold\nit's 90k\nAdorno, Ruy [4:28 PM]: \nhmmm\nCasey, Ricky [4:28 PM]: \nYou will need the italic\nAdorno, Ruy [4:29 PM]: \nyep… and what about all those characters sets? can we detect those on the browser?\nCasey, Ricky [4:29 PM]: \ndunno\ni'm sure we can\nwe pick up on language sets\nAdorno, Ruy [4:29 PM]: \nthat would be cool to say like, okay, if you're on latin, then use Open Sans, otherwise let's stick with an safer native font\nCasey, Ricky [4:30 PM]: \nhttps://github.com/typekit/webfontloader\nAdorno, Ruy [4:32 PM]: \nhmmmm… I would really like to avoid turning to javascript for this… but if it is really a better solution, I think we should consider it\nI'll take some time to check their repo\nand talk with Pierre, see what he thinks about it too\nCasey, Ricky [4:45 PM]: \nHow about this\nWe can't know if a font hasn't loaded\nbut if we use the font loader, we can check for a classname on the html to tell us the font loaded.\nIf we use a timeout to check, we can see if the classname was set\nif not, we try to load from a local url.\nif that fails, we then just use the fallback font (Arial)\nI'm out.  ttyl\nCasey, Ricky [9:24 AM]: \nBack in the saddle.\nAdorno, Ruy [9:24 AM]: \nhey ho\nhell yeah, monday mornings\nhere we had snow to add an evil touch to it\nCasey, Ricky [9:26 AM]: \nLemme change these colors and commit and we can see some changes.\nWe might get ours tomorrow night\nhttp://www.jamesspann.com/wordpress/wp-content/uploads/2014/01/Screen-Shot-2014-01-26-at-2.42.44-PM.png\nbtw, did you think about the font fallback converstation?\nAdorno, Ruy [9:26 AM]: \nheheheh but I imagine it's not that common for you guys\nCasey, Ricky [9:26 AM]: \nYeah, any snow is end of world material.\nAdorno, Ruy [9:27 AM]: \nwow, cool, ehhehehe\nCasey, Ricky [9:27 AM]: \nFor the font, if the system is unable to reach out into the internet to retrieve the font, do we try to load a local copy of the font, or just fall back to a system font?\nIf you want to use a local font, you either change the HTML to only load the local copy, or you have to use javascript to try and determine that there is an html error code when trying to retrieve the font, and then load the local one.\nAdorno, Ruy [9:28 AM]: \nwell… I don't really recall what is the most recommended way of doing this… but I guess that falling back to system font is already ok, we can probably dig on it later\nCasey, Ricky [9:28 AM]: \nSounds good.\nAdorno, Ruy [9:28 AM]: \nlike that library you show me friday night\nCasey, Ricky [9:28 AM]: \nWhat system font :)\nAdorno, Ruy [9:28 AM]: \nthat seems good stuff\nwell… Arial? Trebuchet?\nCasey, Ricky [9:29 AM]: \nHelvetica, Tahoma, Arial?\nish?\nAdorno, Ruy [9:29 AM]: \nI think arial is the safest one\nCasey, Ricky [9:29 AM]: \nYea\nIt is what we use already.\nAdorno, Ruy [9:29 AM]: \nbefore falling back to sans-serif\nwhat don they used?\nopen sans?\nCasey, Ricky [9:29 AM]: \nNo Helvetica before sans-serif?\nI don't want to just default to whatever the browser has mapped to sans-serif for Macs, unless they have an Arial font by default these days.\nAdorno, Ruy [9:31 AM]: \n*font\nCasey, Ricky [9:31 AM]: \nbtw, that Javascript tool I sent will set a css class name on the HTML element when the font has been downloaded.  That is a signal we can use.\nAdorno, Ruy [9:32 AM]: \nyeah… that seems good\nCasey, Ricky [9:32 AM]: \nhttp://www.w3schools.com/cssref/css_websafe_fonts.asp\nAdorno, Ruy [9:33 AM]: \nyeah… Trebuchet is definitively good looking… Lucida renders fine on mac, but the letter-spacing seems awkward \nwhat about windows?\nCasey, Ricky [9:35 AM]: \nscreen cap and email yours to me.\nCasey, Ricky [9:37 AM]: \nhmm\njust realized that I worked through a holiday last week ;)\nThat's what I get for working from how with a bunch of foreigners...\nCasey, Ricky [9:43 AM]: \nI've sent it back with my windows images on the right, mac on left.\nAdorno, Ruy [9:44 AM]: \nhahahahah\nyou know, this will be easier to decide once we have more stuff on the demo page, so we can actually compare the applied fonts, rather than just seeing these small examples\nbut I'm inclined to Trebuchet first, then Arial, then sans-serif\nlet's see\nI'm working on the kendo-ui changes now\nCasey, Ricky [10:35 AM]: \nQuestion...\nWe will need to add Open Sans to the HTML file to download.\nIf we switch themes, this becomes superfluous.  Is this something we toggle by theme or make it always available?\nAdorno, Ruy [10:37 AM]: \nthat's true… it seems better if we can declare it only on css, this should be possible… why do you think we have to add it to the html?\nCasey, Ricky [10:38 AM]: \nWe use the @import method?\nWe can use <link>, @import, or JS\nAdorno, Ruy [10:39 AM]: \nwait, I use to have loads of examples\nCasey, Ricky [10:42 AM]: \nI'm going to go for a walk in a few minutes.  I can use @import until we come to a conclusion\nAdorno, Ruy [10:42 AM]: \nyes sure!\n:D\nI think @import is probably the way to go\nCasey, Ricky [10:44 AM]: \nonly issue...\nIt seems that @import urls are not downloaded until the original document has been downloaded.\nIf we have a 300k css, it has to be retrieved, then the 90k font is downloaded.\nLink tag will grab the font before the CSS.\nAdorno, Ruy [10:46 AM]: \nor we could just have a initial css for the font-loading\nCasey, Ricky [10:47 AM]: \nYeah.\nAdorno, Ruy [10:47 AM]: \nwell… we'll weight what is better...\nI'm not really sure yet, ehhehehe\nCasey, Ricky [10:47 AM]: \nOH that looks good.\nI just swapped out the font\nI like it.\nLet me just commit this.\nAdorno, Ruy [10:48 AM]: \ncool\nCasey, Ricky [10:52 AM]: \nadded.\nAdorno, Ruy [10:53 AM]: \ngreat\nand pushed?\nCasey, Ricky [10:54 AM]: \nyup\nI'll be back in a hour.  Gonna go for a walk and enjoy the last moments of good weather.  Won't be back above freezing until Thursday :)\nAdorno, Ruy [11:04 AM]: \nheheheh cool, I'm out for lunch too\nAdorno, Ruy [12:19 PM]: \nhttp://www.paulirish.com/2009/bulletproof-font-face-implementation-syntax/\nand that links to this: ___http://www.fontsquirrel.com/tools/webfont-generator\nI used to use the smiley variation\nbut it's probably easier to just use the font squirrel generator nowadays… \n",
+			"settings":
+			{
+				"buffer_size": 12023,
+				"line_ending": "Windows",
+				"name": "Adorno, Ruy [2:11 PM]:"
+			}
+		},
+		{
+			"file": "app/scripts/services/soiPlayerService.js",
+			"settings":
+			{
+				"buffer_size": 580,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 374.0,
+		"selected_items":
+		[
+			[
+				"pcr",
+				"Package Control: Remove Package"
+			],
+			[
+				"pci",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 368.0
+	},
+	"console":
+	{
+		"height": 125.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/C/Workspaces/sphere-of-influence/test/spec/directives/soiGameArea.js",
+		"/C/Workspaces/sphere-of-influence/app/scripts/directives/soiTouchmove.js",
+		"/C/Workspaces/sphere-of-influence/app/index.html",
+		"/C/Workspaces/sphere-of-influence/bower.json",
+		"/C/Workspaces/sphere-of-influence/app/styles/soi.scss",
+		"/C/Workspaces/sphere-of-influence/app/scripts/directives/soiCelestialBody.js",
+		"/C/Workspaces/sphere-of-influence/test/spec/directives/soiCelestialBody.js",
+		"/C/Users/ricky.casey/AppData/Local/Temp/fz3temp-1/4f087de5.main.css",
+		"/C/Workspaces/sphere-of-influence/test/spec/directives/soiTouchmove",
+		"/C/Workspaces/sphere-of-influence/app/scripts/directives/soiTouchMove.js",
+		"/C/Workspaces/sphere-of-influence/app/scripts/directives/soiCelestialSphere.js",
+		"/C/Workspaces/sphere-of-influence/app/scripts/directives/soiGameArea.js",
+		"/C/Workspaces/sphere-of-influence/app/scripts/directives/soiPlayer.js",
+		"/C/Workspaces/sphere-of-influence/app/scripts/controllers/fng.js",
+		"/C/Workspaces/sphere-of-influence/app/scripts/services/soiPlayerService.js",
+		"/C/Workspaces/sphere-of-influence/test/spec/services/soiPlayerService.js",
+		"/C/Workspaces/sphere-of-influence/karma.conf.js",
+		"/C/Workspaces/sphere-of-influence/test/spec/directives/soiCelestialSphere.js",
+		"/C/Workspaces/sphere-of-influence/app/scripts/directives/ng-fast-click.js",
+		"/C/Workspaces/sphere-of-influence/.jshintrc",
+		"/C/Workspaces/sphere-of-influence/test/.jshintrc",
+		"/C/Workspaces/sphere-of-influence/app/templates/soiGameArea.html",
+		"/C/Users/ricky.casey/AppData/Local/Temp/fz3temp-1/soiGameArea.html",
+		"/C/Workspaces/sphere-of-influence/app/scripts/app.js",
+		"/C/Users/ricky.casey/AppData/Local/Temp/fz3temp-1/index.html",
+		"/C/Workspaces/sphere-of-influence/app/scripts/services/soiCelestialBodyService.js",
+		"/C/Workspaces/sphere-of-influence/app/soi/index.html",
+		"/C/Workspaces/sphere-of-influence/app/templates/soiPlayer.html",
+		"/C/Workspaces/sphere-of-influence/app/templates/soiCelestialSphere.html",
+		"/C/Workspaces/sphere-of-influence/app/soi/soiCelestialObject.js",
+		"/C/Workspaces/sphere-of-influence/app/scripts/services/soiFunctionService.js",
+		"/C/Workspaces/sphere-of-influence/test/spec/directives/soiPlayer.js",
+		"/C/Users/ricky.casey/Desktop/images.txt",
+		"/C/Workspaces/sphere-of-influence/app/views/fng.html",
+		"/C/Users/ricky.casey/AppData/Local/Temp/fz3temp-1/21e1ea4a.scripts.js",
+		"/C/Users/ricky.casey/AppData/Local/Temp/fz3temp-1/fbdf2158.scripts.js",
+		"/C/Users/ricky.casey/AppData/Local/Temp/fz3temp-1/609aedb7.main.css",
+		"/C/Workspaces/sphere-of-influence/app/styles/main.scss",
+		"/C/Workspaces/sphere-of-influence/app/styles/boilerplate.scss",
+		"/C/Workspaces/sphere-of-influence/app/styles/soi.css",
+		"/C/Workspaces/sphere-of-influence/app/scripts/controllers/cool-hand.js",
+		"/C/Workspaces/sphere-of-influence/app/scripts/controllers/cub.js",
+		"/C/Workspaces/sphere-of-influence/app/scripts/controllers/main.js",
+		"/C/Workspaces/sphere-of-influence/app/scripts/controllers/rookie-cop.js",
+		"/C/Workspaces/sphere-of-influence/app/views/main.html",
+		"/C/Workspaces/sphere-of-influence/dist/scripts/e5064095.scripts.js",
+		"/C/Workspaces/sphere-of-influence/app/templates/soiCelestialBody.html",
+		"/C/Workspaces/sphere-of-influence/test/spec/controllers/fng.js",
+		"/C/Workspaces/sphere-of-influence/Gruntfile.js",
+		"/C/Workspaces/sphere-of-influence/app/scripts/directives/soiOrbit.js",
+		"/C/Workspaces/sphere-of-influence/app/templates/soiOrbit.html",
+		"/C/Workspaces/sphere-of-influence/app/soi/soiSpace.js",
+		"/C/Workspaces/sphere-of-influence/node_modules/time-grunt/time-grunt.js",
+		"/C/Workspaces/sphere-of-influence/karma-e2e.conf.js",
+		"/C/Users/ricky.casey/Documents/GitHub/sphere-of-influence/.gitignore",
+		"/C/Users/ricky.casey/Documents/GitHub/sphere-of-influence/Gruntfile.js",
+		"/C/Users/ricky.casey/Documents/GitHub/sphere-of-influence/test/spec/directives/soiCelestialSphere.js",
+		"/C/Users/ricky.casey/Documents/GitHub/sphere-of-influence/app/views/fng.html",
+		"/C/Users/ricky.casey/Documents/GitHub/sphere-of-influence/app/scripts/controllers/fng.js",
+		"/C/Users/ricky.casey/Documents/GitHub/sphere-of-influence/app/soi/app.js",
+		"/C/Users/ricky.casey/Documents/GitHub/sphere-of-influence/app/scripts/services/soiCelestialBodyService.js",
+		"/C/Users/ricky.casey/Documents/GitHub/sphere-of-influence/app/scripts/services/soiFunctionService.js",
+		"/C/Users/ricky.casey/Documents/GitHub/sphere-of-influence/test/spec/controllers/fng.js",
+		"/C/Users/ricky.casey/Documents/GitHub/sphere-of-influence/app/scripts/directives/soiCelestialSphere.js",
+		"/C/Users/ricky.casey/Documents/GitHub/sphere-of-influence/app/views/soiCelestialSphere.html",
+		"/C/Users/ricky.casey/Documents/GitHub/sphere-of-influence/karma.conf.js",
+		"/C/Users/ricky.casey/Documents/GitHub/sphere-of-influence/app/views/main.html",
+		"/C/Users/ricky.casey/Desktop/ST2/Data/Packages/User/Preferences.sublime-settings",
+		"/C/Users/ricky.casey/Documents/GitHub/sphere-of-influence/app/scripts/directives/soiOrbit.js",
+		"/C/Users/ricky.casey/Documents/GitHub/sphere-of-influence/node_modules/time-grunt/time-grunt.js",
+		"/C/Users/ricky.casey/Documents/GitHub/sphere-of-influence/app/index.html",
+		"/C/Users/ricky.casey/Documents/GitHub/sphere-of-influence/app/scripts/app.js",
+		"/C/Users/ricky.casey/Documents/GitHub/sphere-of-influence/test/spec/services/soiCelestialBodyService.js",
+		"/C/Users/ricky.casey/Documents/GitHub/sphere-of-influence/app/scripts/directives/soiCelestialBody.js",
+		"/C/Users/ricky.casey/Documents/GitHub/sphere-of-influence/app/views/soiCelestialBody.html",
+		"/C/Users/ricky.casey/Documents/GitHub/sphere-of-influence/dist/views/cool-hand.html",
+		"/C/Users/ricky.casey/Documents/GitHub/sphere-of-influence/dist/views/soiCelestialObject.html",
+		"/C/Users/ricky.casey/Documents/GitHub/sphere-of-influence/dist/views/soiOrbit.html",
+		"/C/Users/ricky.casey/Documents/GitHub/sphere-of-influence/dist/views/rookie-cop.html",
+		"/C/Users/ricky.casey/Documents/GitHub/sphere-of-influence/dist/views/main.html",
+		"/C/Users/ricky.casey/Documents/GitHub/sphere-of-influence/dist/views/fng.html",
+		"/C/Users/ricky.casey/Documents/GitHub/sphere-of-influence/dist/views/cub.html",
+		"/C/Users/ricky.casey/Documents/GitHub/sphere-of-influence/app/views/soiCelestialSphere",
+		"/C/Users/ricky.casey/Documents/GitHub/sphere-of-influence/test/spec/services/soiFunctionService.js",
+		"/C/Workspaces/camino-plateau-demo-app/api/navigation.json",
+		"/C/Workspaces/camino-plateau-demo-app/api/cities.json",
+		"/C/Workspaces/camino-plateau-demo-app/api/i18n/en",
+		"/C/Workspaces/camino-plateau-demo-app/api/config.json",
+		"/C/Workspaces/camino-plateau-demo-app/app/scripts/controllers/cpdaAccordion.js",
+		"/C/Workspaces/camino-plateau-demo-app/app/scripts/controllers/cpdaHtmlComponents.js",
+		"/C/Workspaces/camino-plateau-demo-app/app/scripts/controllers/cpdaKendoComponents.js",
+		"/C/Workspaces/camino-plateau-demo-app/app/libs/modernizr.min.js",
+		"/C/Workspaces/camino-plateau-demo-app/.editorconfig",
+		"/C/Workspaces/camino-plateau/.editorconfig",
+		"/C/Users/ricky.casey/Desktop/ST2/Data/Packages/Pretty JSON/Pretty JSON.sublime-settings",
+		"/C/Users/ricky.casey/Desktop/ST2/Data/Packages/HTML-CSS-JS Prettify/HTMLPrettify.sublime-settings",
+		"/C/Users/ricky.casey/Desktop/ST2/Data/Packages/HTML-CSS-JS Prettify/.jsbeautifyrc",
+		"/C/Workspaces/camino-plateau/sungard/sg-top-bar.less",
+		"/C/Workspaces/camino-plateau/sungard/sg-footer-bar.less",
+		"/C/Workspaces/camino-plateau/sungard/sg-common-menu.less",
+		"/C/Workspaces/camino-plateau/sungard/sg-tabs-bar.less",
+		"/C/Workspaces/camino-plateau/sungard/sg-start-menu.less",
+		"/C/Workspaces/camino-plateau/sungard/sg-form-fields.less",
+		"/C/Workspaces/camino-plateau/style.less",
+		"/C/Workspaces/camino-plateau/palette.less",
+		"/C/Workspaces/camino-plateau/variables.less",
+		"/C/Workspaces/camino-plateau-demo-app/app/vendor/html5-framework-source-code/app-shell/app/shell/js/directives/sgShell.js",
+		"/C/Workspaces/camino-plateau/sungard/sg-date-picker.less",
+		"/C/Workspaces/camino-plateau/sungard/sg-bootstrap-override.less",
+		"/C/Workspaces/camino-plateau-demo-app/app/views/welcome.html",
+		"/C/Workspaces/camino-plateau-demo-app/app/index.html",
+		"/C/Workspaces/camino-plateau/bower_components/bootstrap/less/navbar.less",
+		"/C/Workspaces/camino-plateau/bower_components/bootstrap/less/mixins.less",
+		"/C/Workspaces/camino-plateau/sungard/sg-shell.less",
+		"/C/Workspaces/camino-plateau/sungard/sg-utility.less",
+		"/C/Workspaces/camino-plateau/sungard/sg-modal-dialog.less",
+		"/C/Workspaces/camino-plateau/sungard/sg-masthead.less",
+		"/C/Workspaces/camino-plateau/sungard.less",
+		"/C/Workspaces/camino-plateau/sungard/sg-autocomplete.less",
+		"/C/Workspaces/camino-plateau/sungard/.editorconfig",
+		"/C/Workspaces/camino-plateau-demo-app/app/scripts/controllers/cpdaSgCondensed.js",
+		"/C/Workspaces/camino-plateau-demo-app/app/views/dummy.html",
+		"/C/Workspaces/camino-plateau-demo-app/app/scripts/controllers/cpdaSgComponents.js",
+		"/C/Workspaces/offcanvas/framework/sg-components/app/sg-components/js/directives/sgTabsBar.js",
+		"/C/Workspaces/offcanvas/framework/sg-components/test/unit/directives/sgTabsBarDirectiveSpec.js",
+		"/C/Workspaces/camino-plateau-demo-app/README.md",
+		"/C/Workspaces/camino-plateau/README.md",
+		"/C/Workspaces/camino-plateau/sungard/sg-tabbed-component-list.less"
+	],
+	"find":
+	{
+		"height": 33.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+			"C:\\Workspaces\\sphere-of-influence\\app",
+			"C:\\Workspaces\\sphere-of-influence\\app\\scripts",
+			"C:\\Workspaces\\sphere-of-influence\\",
+			"C:\\Workspaces\\sphere-of-influence\\test\\spec",
+			"C:\\Workspaces\\camino-plateau\\sungard",
+			"C:\\Workspaces\\camino-plateau-demo-app",
+			"C:\\Workspaces\\camino-plateau",
+			"C:\\Workspaces\\camino-plateau\\",
+			"C:\\Workspaces\\camino-plateau\\sungard",
+			"C:\\Workspaces\\camino-plateau\\",
+			"C:\\Workspaces\\camino-plateau\\bower_components\\bootstrap",
+			"C:\\Workspaces\\camino-plateau\\sungard",
+			"C:\\Workspaces\\camino-plateau-demo-app",
+			"C:\\Workspaces\\camino-plateau",
+			"C:\\Workspaces\\camino-plateau\\sungard",
+			"C:\\Workspaces\\camino-plateau",
+			"C:\\Workspaces\\camino-plateau,*.less",
+			"C:\\Workspaces\\camino-plateau",
+			"C:\\Workspaces\\camino-plateau\\sungard",
+			"C:\\Workspaces\\camino-plateau",
+			"C:\\Workspaces\\camino-plateau\\bower_components\\bootstrap\\less",
+			"C:\\Workspaces\\camino-plateau-demo-app\\app\\vendor\\bootstrap\\less",
+			"C:\\Workspaces\\tab",
+			"C:\\Workspaces\\tab\\framework\\app-shell\\app\\shell\\themes\\camino",
+			"C:\\Workspaces\\tab",
+			"C:\\Workspaces\\tabs",
+			"C:\\Workspaces\\offcanvas\\demo"
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"link",
+			"linked",
+			"bower",
+			":js",
+			"build:js",
+			"build",
+			".js",
+			"vendor",
+			"element.find('#gameArea')",
+			"e.originalEvent.changedTouches[0]",
+			"soiTouchMove",
+			"MOVE_TO",
+			"$element",
+			"bind",
+			"addClass",
+			"barycenter",
+			"ratio",
+			"Soiplayerservice",
+			"soiPlayerService",
+			"Soiplayerservice",
+			"Math.floor",
+			"scope",
+			"\"",
+			"150, 200, 255",
+			"resizeElements",
+			"horizontal",
+			"h",
+			"horizontal",
+			"$scope",
+			"b,",
+			"b",
+			"[b",
+			"'b'",
+			"bower_components/jquery/",
+			"jquery",
+			"tnos",
+			"sizeElements",
+			"scope.celestialBody.coordinates",
+			"scope.celestialBody.soiRadius",
+			".0",
+			"body.radius",
+			"soiRadius",
+			"refBody",
+			"cbs",
+			"funcs",
+			"views",
+			"npm",
+			"node",
+			"time",
+			"\"",
+			"Soifunctionservice",
+			"underline",
+			"import",
+			"important",
+			"condensed",
+			"color",
+			"UserMenuDrop",
+			"sg-footer-menu",
+			"<footer",
+			"footer",
+			"colorLight",
+			"cmoUserMenuDropdownLnk",
+			":hover",
+			"box-shadow",
+			"cmoUserMenuBdr",
+			"cmoUserMenuItemHovBdr",
+			"cmoUserMenuItemBkg",
+			"-6px",
+			"-10px",
+			"top: -10px",
+			"10px solid #fff",
+			".active",
+			"cmoUserMenuLnk",
+			"cmoAppFooterLnk",
+			"cmoUserMenuContentBkg",
+			"cmoUtilityMenuItemBkg",
+			"cmoBorderRadiusBase",
+			"cmoDividerTxt",
+			"dropdown-menu",
+			"common",
+			"@cmoPriNavHeight * .7",
+			"colorP",
+			"line-height",
+			"height",
+			"cmoAppHeaderHeight",
+			"cmoPriNavHeight",
+			"height",
+			"line-height",
+			"placeholder",
+			"line-height",
+			"height",
+			"label-icon-wrapper",
+			"container",
+			"text",
+			"0 1px 0 ",
+			"{\n",
+			"table",
+			"taable",
+			"  ",
+			"text-shadow",
+			"cpdaSgComponents",
+			"sg-shell",
+			"components",
+			"sg-home",
+			"icon",
+			"cpdaKendoComponents",
+			".15s",
+			"close",
+			"active",
+			"sg-tab",
+			"active",
+			"isactive",
+			"renderClose",
+			"getClass",
+			"sg-tab",
+			"sg-close",
+			".sg-cover",
+			"sg-common-menu",
+			".brand",
+			"header",
+			"mast",
+			"navbar",
+			"brand",
+			"cmoPriNavTabHovBkgGT",
+			"cmoPriNavTabHovBkgGRT",
+			"rgba(38, 38, 38, 0.25)",
+			"8%",
+			"30%"
+		],
+		"highlight": true,
+		"in_selection": true,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"'",
+			"colorMint",
+			"	",
+			"cmoPriNavTabMinWidth",
+			"cmoPriNavTabMaxWidth",
+			".sg-tab-placeholder",
+			" ",
+			"	",
+			"ResizeMegaMenu"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 11,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "app/templates/soiGameArea.html",
+					"settings":
+					{
+						"buffer_size": 333,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								89,
+								48
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "app/scripts/directives/soiGameArea.js",
+					"settings":
+					{
+						"buffer_size": 3335,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3272,
+								3272
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 945.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "app/index.html",
+					"settings":
+					{
+						"buffer_size": 3952,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								781,
+								790
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 630.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "app/scripts/controllers/fng.js",
+					"settings":
+					{
+						"buffer_size": 2506,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								639,
+								639
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "app/scripts/app.js",
+					"settings":
+					{
+						"buffer_size": 796,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								140,
+								140
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "bower.json",
+					"settings":
+					{
+						"buffer_size": 546,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								54,
+								54
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "app/bower_components/fastclick/lib/fastclick.js",
+					"settings":
+					{
+						"buffer_size": 0,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 11400.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "karma.conf.js",
+					"settings":
+					{
+						"buffer_size": 2068,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1057,
+								1057
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 105.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "Gruntfile.js",
+					"settings":
+					{
+						"buffer_size": 9596,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								9297,
+								9302
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 5089.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "dist/index.html",
+					"settings":
+					{
+						"buffer_size": 2101,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2101,
+								2101
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"settings":
+					{
+						"buffer_size": 12023,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								11947
+							]
+						],
+						"settings":
+						{
+							"auto_name": "Adorno, Ruy [2:11 PM]:",
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 4587.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "app/scripts/services/soiPlayerService.js",
+					"settings":
+					{
+						"buffer_size": 580,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								579,
+								579
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 32.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"replace":
+	{
+		"height": 62.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 273.0,
+	"status_bar_visible": true
+}
