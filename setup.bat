@@ -33,7 +33,6 @@ echo **************************************************************************
 echo                           Cloning into %~2
 echo **************************************************************************
 echo.
-cd %BASE_DIR%/%~2
 call git clone -b master %~1 %~2
 if ERRORLEVEL 1 set ERR_CODE=1
 goto end
