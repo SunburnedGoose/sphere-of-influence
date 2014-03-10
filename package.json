@@ -1,13 +1,7 @@
 {
-  "name": "Sphere of Influence",
+  "name": "sphere-of-influence",
   "version": "0.0.1",
-  "engines": {
-    "node": "0.10.5"
-  },
-  "private": true,
   "scripts": {
     "start": "node .\\ige\\server\\ige.js -g .\\soi"
-  },
-  "dependencies": {
   }
 }
