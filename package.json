@@ -1,7 +1,4 @@
 {
   "name": "sphere-of-influence",
-  "version": "0.0.1",
-  "scripts": {
-    "start": "node .\\ige\\server\\ige.js -g .\\soi"
-  }
+  "version": "0.0.1"
 }
