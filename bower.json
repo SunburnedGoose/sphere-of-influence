@@ -1,0 +1,11 @@
+{
+  "name": "sphere-of-influence",
+  "private": true,
+  "dependencies": {
+    "bootstrap-sass-official": "~3.1.0",
+    "modernizr": "~2.6.2",
+    "jquery": "~1.11.0",
+    "phaser-official": "~2.0.2"
+  },
+  "devDependencies": {}
+}
