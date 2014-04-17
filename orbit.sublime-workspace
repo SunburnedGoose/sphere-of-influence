@@ -1,0 +1,562 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"work",
+				"workspaceTab"
+			],
+			[
+				"wor",
+				"workspaceTab"
+			],
+			[
+				"newWork",
+				"newWorkspaceTabIsLast"
+			],
+			[
+				"newW",
+				"newWorkspaceTabVisible"
+			],
+			[
+				"newwork",
+				"newWorkspaceTabIsLast"
+			],
+			[
+				"new",
+				"newWorkspaceTabVisible"
+			],
+			[
+				"remo",
+				"removeFromOverflow"
+			],
+			[
+				"const",
+				"const_visible_tab"
+			],
+			[
+				"resi",
+				"resizeMegaMenu"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"contents": "",
+			"file": "/C/Users/ricky.casey/Desktop/Orbit/src/Orbiter.as",
+			"file_size": -1,
+			"file_write_time": -1,
+			"settings":
+			{
+				"buffer_size": 0,
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 53.0,
+		"selected_items":
+		[
+			[
+				"pci",
+				"Package Control: Install Package"
+			],
+			[
+				"pcr",
+				"Package Control: Remove Package"
+			]
+		],
+		"width": 368.0
+	},
+	"console":
+	{
+		"height": 125.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/C/Workspaces/sphere-of-influence/Gruntfile.js",
+		"/C/Workspaces/sphere-of-influence/app/bower_components/phaser-official/build/phaser.js",
+		"/C/Workspaces/sphere-of-influence/app/index.html",
+		"/C/Workspaces/sphere-of-influence/app/styles/main.scss",
+		"/C/Workspaces/sphere-of-influence/app/scripts/noiseFilter.js",
+		"/C/Workspaces/sphere-of-influence/dist/scripts/32e7921c.plugins.js",
+		"/C/Workspaces/sphere-of-influence/package.json",
+		"/C/Workspaces/sphere-of-influence/bower.json",
+		"/C/Workspaces/sphere-of-influence/.bowerrc",
+		"/C/Workspaces/sphere-of-influence/dist/scripts/036656e4.plugins.js",
+		"/C/Workspaces/html5-framework-build/themes/html5-theme-plateau/sungard/sg-icons.less",
+		"/C/Users/ricky.casey/Documents/camino-visual-specification/bootstrap/css/bootstrap-theme.css",
+		"/C/Workspaces/html5-framework-build/themes/html5-theme-parcours/sungard/sg-tabs-bar.less",
+		"/C/Workspaces/html5-framework-build/framework/sg-components/app/sg-components/js/directives/sgSidebar.js",
+		"/C/Workspaces/html5-framework-build/framework/sg-components/test/unit/directives/sgSidebarDirectiveSpec.js",
+		"/C/Workspaces/html5-framework-build/themes/html5-theme-plateau/mixin/transform.less",
+		"/C/Users/ricky.casey/Desktop/lessbackup.less",
+		"/C/Workspaces/html5-framework-build/themes/html5-theme-plateau/sungard/sg-sidebar.less",
+		"/C/Workspaces/html5-framework-build/themes/html5-theme-plateau/mixin/transition.less",
+		"/C/Users/ricky.casey/AppData/Local/Temp/Temp1_custom.zip/custom.script.js",
+		"/C/Workspaces/html5-framework-build/demo/desktop/desktop-ui/app/desktop-ui/js/controllers/condensedController.js",
+		"/C/Workspaces/html5-framework-build/demo/desktop/desktop-ui/app/desktop-ui/js/controllers/userController.js",
+		"/C/Workspaces/html5-framework-build/demo/desktop/desktop-ui/app/desktop-ui/desktop-index-web-1.html",
+		"/C/Workspaces/html5-framework-build/demo/demo-services/target/classes/api/navigation-en.json",
+		"/C/Workspaces/html5-framework-build/demo/demo-services/src/main/resources/api/navigation-fr.json",
+		"/C/Workspaces/html5-framework-build/demo/demo-services/src/main/resources/api/navigation-de.json",
+		"/C/Workspaces/html5-framework-build/demo/demo-services/src/main/resources/api/navigation-en-big.json",
+		"/C/Workspaces/html5-framework-build/demo/demo-services/src/main/resources/api/navigation-en.json",
+		"/C/Workspaces/html5-framework-build/themes/html5-theme-plateau/sungard/sg-tabs-bar.less",
+		"/C/Workspaces/html5-framework-build/demo/desktop/desktop-ui/app/desktop-ui/js/controllers/sidebarConfigurationController.js",
+		"/C/Workspaces/html5-framework-build/framework/app-shell/node/root/api/navigation.json",
+		"/C/Workspaces/html5-framework-build/framework/app-shell/examples/api/navigation.json",
+		"/C/Workspaces/html5-framework-build/demo/desktop/desktop-ui/app/scripts/app.js",
+		"/C/Workspaces/camino-plateau-demo-app/app/scripts/controllers/cpdaSgCondensed.js",
+		"/C/Workspaces/html5-framework-build/themes/html5-theme-plateau/sungard/sg-shell.less",
+		"/C/Workspaces/html5-framework-build/themes/html5-theme-plateau/sungard/sg-start-menu.less",
+		"/C/Workspaces/html5-framework-build/themes/html5-theme-plateau/sungard/sg-button.less",
+		"/C/Workspaces/html5-framework-build/themes/html5-theme-plateau/bower_components/bootstrap/less/mixins.less",
+		"/C/Workspaces/html5-framework-build/themes/html5-theme-plateau/sungard/sg-subnav-bar.less",
+		"/C/Workspaces/html5-framework-build/demo/desktop/desktop-ui/app/desktop-ui/desktop-index.html",
+		"/C/Workspaces/html5-framework-build/demo/desktop/desktop-ui/app/desktop-ui/desktop-index_dev.html",
+		"/C/Workspaces/html5-framework-build/demo/desktop/desktop-ui/app/desktop-ui/login.html",
+		"/C/Workspaces/camino-plateau-demo-app/api/navigation.json",
+		"/C/Workspaces/html5-framework-build/demo/desktop/desktop-ui/api/navigation.json.orig",
+		"/C/Workspaces/html5-framework-build/demo/desktop/desktop-ui/api/navigation.json",
+		"/C/Workspaces/html5-framework-build/framework/sg-components/app/sg-components/js/directives/sgMegaMenu.js",
+		"/C/Workspaces/html5-framework-build/framework/sg-components/app/sg-components/js/directives/sgStartMenu.js",
+		"/C/Workspaces/html5-framework-build/themes/html5-theme-plateau/sungard/sg-top-bar.less",
+		"/C/Workspaces/html5-framework-build/themes/html5-theme-plateau/sungard/sg-footer-bar.less",
+		"/C/Workspaces/html5-framework-build/themes/html5-theme-plateau/palette.less",
+		"/C/Workspaces/html5-framework-build/framework/sg-components/app/sg-components/js/directives/sgTabsOverflowMenu.js",
+		"/C/Users/ricky.casey/Desktop/socket.io-0.9.14/socket.io-0.9.14/examples/chat/app.js",
+		"/C/Users/ricky.casey/Desktop/web.config",
+		"/C/Users/ricky.casey/Desktop/socket.io-0.9.14/socket.io-0.9.14/index.js",
+		"/C/Users/ricky.casey/Desktop/socket.io-0.9.14/socket.io-0.9.14/package.json",
+		"/C/Users/ricky.casey/Desktop/socket.io-0.9.14/socket.io-0.9.14/examples/chat/index.jade",
+		"/C/Workspaces/html5-framework-build/framework/sg-components/app/sg-components/js/directives/sgTabsBar.js",
+		"/C/Workspaces/html5-framework-build/framework/sg-components/app/sg-components/js/services/sgResponsiveService.js",
+		"/C/Workspaces/html5-framework-build/themes/html5-theme-plateau/bower_components/bootstrap/less/navbar.less",
+		"/C/Workspaces/html5-framework-build/themes/html5-theme-plateau/sungard/sg-well.less",
+		"/C/Workspaces/html5-framework-build/themes/html5-theme-plateau/sungard/sg-bootstrap-override.less",
+		"/C/Workspaces/html5-framework-build/themes/html5-theme-plateau/bower_components/bootstrap/less/responsive-navbar.less",
+		"/C/Workspaces/camino-plateau-demo-app/app/vendor/less.js/dist/less-1.1.3.js",
+		"/C/Workspaces/html5-framework-build/themes/html5-theme-plateau/sungard.less",
+		"/C/Workspaces/html5-framework-build/demo/demo-services/src/main/java/com/sungard/ui/demo/util/services/ThemeService.java",
+		"/C/Workspaces/html5-framework-build/framework/sg-components/app/sg-components/js/services/sgOverflowService.js",
+		"/C/Workspaces/html5-framework-build/framework/sg-components/test/unit/directives/sgTabsBarDirectiveSpec.js",
+		"/C/Workspaces/html5-framework-build/framework/sg-components/test/unit/directives/sgTabsOverflowMenuDirectiveSpec.js",
+		"/C/Workspaces/html5-framework-build/framework/sg-components/Gruntfile.js",
+		"/C/Workspaces/offcanvas/framework/sg-components/app/sg-components/js/directives/sgTabsBar.js",
+		"/C/Workspaces/camino-plateau-demo-app/node_modules/grunt-recess/node_modules/recess/node_modules/.bin/lessc",
+		"/C/Workspaces/html5-framework-build/themes/html5-theme-parcours/node_modules/grunt-contrib-less/tasks/less.js",
+		"/C/Workspaces/html5-framework-build/framework/app-shell/dist/html5-framework-shell.js",
+		"/C/Workspaces/html5-framework-build/framework/app-shell/app/shell/js/directives/sgTabsClosingMenu.js",
+		"/C/Workspaces/html5-framework-build/framework/sg-components/app/sg-components/js/directives/sgTabbedComponentList.js",
+		"/C/Workspaces/html5-framework-build/framework/sg-components/app/sg-components/js/directives/sgTextareaField.js",
+		"/C/Users/ricky.casey/Desktop/vendorparcours-tabars.less",
+		"/C/Users/ricky.casey/Desktop/parcours-sg-tabs-bar.less",
+		"/C/Workspaces/html5-framework-build/framework/sg-components/karma.conf.js",
+		"/C/Users/ricky.casey/AppData/Local/Temp/fz3temp-1/50b923-201403101326.log",
+		"/C/Workspaces/isogenic/examples/24.4-multiplayer-isometric-keyboard/client.js",
+		"/C/Users/ricky.casey/AppData/Local/Temp/fz3temp-1/web.config",
+		"/C/Users/ricky.casey/AppData/Local/Temp/fz3temp-1/client.js",
+		"/C/Users/ricky.casey/AppData/Local/Temp/fz3temp-1/index.html",
+		"/C/Workspaces/isogenic/examples/24.4-multiplayer-isometric-keyboard/index.html",
+		"/C/Users/ricky.casey/AppData/Local/Temp/fz3temp-1/index 2.html",
+		"/C/Users/ricky.casey/AppData/Local/Temp/fz3temp-1/game.js",
+		"/C/Users/ricky.casey/AppData/Local/Temp/fz3temp-1/RD00155D8496C9-4088-stdout-1394462622639.txt",
+		"/C/Users/ricky.casey/AppData/Local/Temp/fz3temp-1/RD00155D849E69-4344-stdout-1394461835045.txt",
+		"/C/Users/ricky.casey/AppData/Local/Temp/fz3temp-1/server 2.js",
+		"/C/Users/ricky.casey/AppData/Local/Temp/fz3temp-1/RD00155D849C5D-4800-stdout-1394461684529.txt",
+		"/C/Workspaces/isogenic/examples/24.3-multiplayer-webgl/server.js",
+		"/C/Workspaces/isogenic/examples/24.4-multiplayer-isometric-keyboard/deploy/game.js",
+		"/C/Users/ricky.casey/AppData/Local/Temp/fz3temp-1/server.js",
+		"/C/Users/ricky.casey/AppData/Local/Temp/fz3temp-1/ErrorPage000017.htm",
+		"/C/Users/ricky.casey/AppData/Local/Temp/fz3temp-1/Ige.js",
+		"/C/Users/ricky.casey/AppData/Local/Temp/fz3temp-1/IgeNode.js",
+		"/C/Users/ricky.casey/AppData/Local/Temp/fz3temp-1/RD00155D849C5D-4908-stdout-1394458784608.txt",
+		"/C/Users/ricky.casey/AppData/Local/Temp/fz3temp-1/RD00155D849C5D-4516-stderr-1394458679652.txt",
+		"/C/Users/ricky.casey/AppData/Local/Temp/fz3temp-1/RD00155D849C5D-4420-stderr-1394458595704.txt",
+		"/C/Users/ricky.casey/AppData/Local/Temp/fz3temp-1/RD00155D849C5D-1580-stdout-1394458969565.txt",
+		"/C/Users/ricky.casey/AppData/Local/Temp/fz3temp-1/logging-errors.txt",
+		"/C/Users/ricky.casey/AppData/Local/Temp/fz3temp-1/RD00155D849C5D-3728-stdout-1394458252940.txt",
+		"/C/Users/ricky.casey/AppData/Local/Temp/fz3temp-1/RD00155D849C5D-3728-stderr-1394458253018.txt",
+		"/C/Users/ricky.casey/AppData/Local/Temp/fz3temp-1/RD00155D849C5D-1796-stderr-1394458150986.txt",
+		"/C/Users/ricky.casey/AppData/Local/Temp/fz3temp-1/RD00155D849C5D-1796-stdout-1394458150906.txt",
+		"/C/Users/ricky.casey/AppData/Local/Temp/fz3temp-1/RD00155D849C5D-1876-stdout-1394458356221.txt",
+		"/C/Users/ricky.casey/AppData/Local/Temp/fz3temp-1/RD00155D849C5D-1876-stderr-1394458356284.txt",
+		"/C/Users/ricky.casey/Desktop/Apps/Sublime Text 2/Data/Packages/Predawn/predawn.sublime-theme",
+		"/C/Users/ricky.casey/Desktop/Apps/Sublime Text 2/Data/Packages/User/Preferences.sublime-settings",
+		"/C/Users/ricky.casey/Desktop/sgOverflowService.js",
+		"/C/Workspaces/html5-framework-build/.editorconfig",
+		"/C/Users/ricky.casey/Desktop/b.js",
+		"/C/Users/ricky.casey/Desktop/a.js",
+		"/C/Users/ricky.casey/Desktop/sgTabsOverflowMenu.js",
+		"/C/Workspaces/html5-framework-build/framework/sg-components/app/sg-components/js/directives/sgButton.js",
+		"/C/Workspaces/html5-framework-build/framework/sg-components/app/sg-components/js/directives/sgCSSDirectives.js",
+		"/C/Workspaces/html5-framework-build/framework/sg-components/app/sg-components/js/directives/sgField.js",
+		"/C/Workspaces/html5-framework-build/framework/sg-components/app/sg-components/js/directives/sgBlurFocus.js",
+		"/C/Users/ricky.casey/Desktop/overflow.js",
+		"/C/Users/ricky.casey/Desktop/sgTabsBar.js",
+		"/C/Workspaces/html5-framework-build/framework/sg-components/app/sg-components/js/directives/sgTabData.js",
+		"/C/Workspaces/camino-plateau-demo-app/api/config.json",
+		"/C/Workspaces/camino-plateau/sungard/sg-tabs-bar.less",
+		"/C/Workspaces/camino-plateau/sungard/sg-top-bar.less",
+		"/C/Workspaces/camino-plateau/sungard/sg-bootstrap-override.less",
+		"/C/Workspaces/camino-plateau/variables.less",
+		"/C/Workspaces/camino-plateau/README.md"
+	],
+	"find":
+	{
+		"height": 55.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+			"C:\\Users\\ricky.casey\\Desktop\\Orbit\\src",
+			"C:\\Workspaces\\html5-framework-build\\themes\\html5-theme-plateau\\sungard",
+			"C:\\Workspaces\\html5-framework-build\\themes\\html5-theme-plateau",
+			"C:\\Workspaces\\html5-framework-build\\themes\\html5-theme-plateau\\sungard",
+			"C:\\Workspaces\\html5-framework-build\\themes\\html5-theme-parcours\\sungard",
+			"C:\\Workspaces\\html5-framework-build\\themes\\html5-theme-plateau",
+			"C:\\Workspaces\\html5-framework-build\\demo\\desktop\\desktop-ui",
+			"C:\\Workspaces\\html5-framework-build\\themes\\html5-theme-plateau\\sungard",
+			"C:\\Workspaces\\html5-framework-build\\themes\\html5-theme-plateau",
+			"C:\\Workspaces\\html5-framework-build\\themes\\html5-theme-plateau\\sungard",
+			"C:\\Workspaces\\html5-framework-build\\themes\\html5-theme-plateau\\bower_components",
+			"C:\\Workspaces\\html5-framework-build\\themes\\html5-theme-plateau\\sungard",
+			"C:\\Workspaces\\html5-framework-build\\themes\\html5-theme-parcours\\sungard",
+			"C:\\Workspaces\\html5-framework-build\\themes\\html5-theme-plateau",
+			"C:\\Workspaces\\html5-framework-build\\framework\\app-shell",
+			"C:\\Workspaces\\html5-framework-build\\framework\\sg-components\\app\\sg-components\\js\\directives",
+			"C:\\Workspaces\\html5-framework-build\\themes\\html5-theme-parcours\\sungard",
+			"C:\\Workspaces\\html5-framework-build",
+			"C:\\Workspaces\\html5-framework-build\\framework\\sg-components\\app\\sg-components\\js",
+			"C:\\Workspaces\\html5-framework-build",
+			"C:\\Workspaces\\html5-framework-build\\framework\\sg-components",
+			"C:\\Workspaces\\html5-framework-build\\framework",
+			"C:\\Workspaces\\html5-framework-build\\framework\\sg-components",
+			"C:\\Workspaces\\html5-framework-build\\framework\\sg-components\\app\\sg-components",
+			"C:\\Workspaces\\html5-framework-build\\framework\\sg-components\\app\\sg-components\\js\\directives",
+			"C:\\Workspaces\\html5-framework-build",
+			"C:\\Workspaces\\html5-framework-build\\demo",
+			"C:\\Workspaces\\html5-framework-build\\framework\\sg-components\\app\\sg-components\\js",
+			"C:\\Workspaces\\html5-framework-build",
+			"C:\\Workspaces\\camino-plateau\\sungard",
+			"C:\\Workspaces\\camino-plateau-demo-app",
+			"C:\\Workspaces\\camino-plateau",
+			"C:\\Workspaces\\camino-plateau\\",
+			"C:\\Workspaces\\camino-plateau\\sungard",
+			"C:\\Workspaces\\camino-plateau\\",
+			"C:\\Workspaces\\camino-plateau\\bower_components\\bootstrap",
+			"C:\\Workspaces\\camino-plateau\\sungard",
+			"C:\\Workspaces\\camino-plateau-demo-app",
+			"C:\\Workspaces\\camino-plateau",
+			"C:\\Workspaces\\camino-plateau\\sungard",
+			"C:\\Workspaces\\camino-plateau",
+			"C:\\Workspaces\\camino-plateau,*.less",
+			"C:\\Workspaces\\camino-plateau",
+			"C:\\Workspaces\\camino-plateau\\sungard",
+			"C:\\Workspaces\\camino-plateau",
+			"C:\\Workspaces\\camino-plateau\\bower_components\\bootstrap\\less",
+			"C:\\Workspaces\\camino-plateau-demo-app\\app\\vendor\\bootstrap\\less",
+			"C:\\Workspaces\\tab",
+			"C:\\Workspaces\\tab\\framework\\app-shell\\app\\shell\\themes\\camino",
+			"C:\\Workspaces\\tab",
+			"C:\\Workspaces\\tabs",
+			"C:\\Workspaces\\offcanvas\\demo"
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"calculateFuturePositions",
+			"draw(",
+			"i",
+			"anchor",
+			"achnor",
+			"sprite",
+			"phaser",
+			"sg-i-home",
+			"halflings",
+			"helvetica",
+			"Helvetica",
+			"font-family",
+			"font-fam",
+			"open sans",
+			"unread",
+			"pm",
+			"sg-tab-label",
+			"brand",
+			".sg-home",
+			"20px",
+			"@media",
+			"overflow-menu-tab-container",
+			" @media",
+			"Should verify setting and validation for ",
+			"home",
+			"sidebarTitle",
+			"toggle",
+			"sidebar-title",
+			"sidebar=title",
+			"sidebar.width'",
+			"30",
+			"sidebar.widt",
+			"setupWidth",
+			"30",
+			"@colorGrey",
+			"margin-top",
+			"padding-top",
+			"sg-sidebar-well-container",
+			"sidebar-well-container",
+			"transform",
+			"@s",
+			"string",
+			"setProp",
+			"buildString",
+			"compact",
+			"setDuration",
+			"@prop",
+			"trans",
+			"37",
+			"sg-condensed",
+			"sg-cond",
+			"37",
+			"setupWidth",
+			".width",
+			"'right'",
+			"right",
+			"toggle",
+			"border",
+			"right",
+			"400",
+			"accordion1Controller",
+			"utility",
+			"add message",
+			"add mess",
+			"sg-subnav-bar",
+			"bold",
+			"condensed",
+			"conde",
+			"box-sizing",
+			".\n.box-sizing",
+			".\n\\.box-sizing",
+			".\n  .box-sizing;",
+			"box-sizing",
+			"sg-start-menu-opened",
+			"sg-navitems",
+			"sg-sitemap",
+			"line-height",
+			"content-area",
+			"select()",
+			"sele",
+			"sg-search",
+			".sg-start-menu-list",
+			"pbm",
+			"distanceFromTop",
+			"pbm",
+			"distanceFromTop",
+			"element",
+			"menuDiv",
+			"content",
+			"height",
+			"new-workspace",
+			"jade",
+			"showDropdown",
+			"margin-right",
+			"overflow",
+			"sgResponsiveService",
+			"sg-overflow-menu-tab-container",
+			"sg-overflow-menu",
+			"masthead",
+			".dropdown-menu",
+			"dropdown-menu",
+			"32px",
+			"sg-close-menu-tab",
+			"condensed",
+			"condense",
+			"22px",
+			"inputheight",
+			"22px",
+			"22",
+			".dropdown-menu",
+			"dropdown-menu",
+			".noLinkSpan",
+			".noLink",
+			".nnoLink",
+			"background-image",
+			"navbarBackground",
+			"cmoAppHeaderBkgGB",
+			"background",
+			"transition",
+			".transition-v2",
+			".sg-transition",
+			"sg-tra",
+			"transition",
+			"tabSidePadding",
+			".sg-tab",
+			"-list",
+			"quick",
+			".sg-subnav-bar"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			".sg-transition",
+			".transition-v2",
+			"overflowViewModel.overflow",
+			"viewModel.overflow",
+			"viewModel.tabs",
+			"overflow",
+			"overflowItems",
+			".overflowViewModel.items",
+			"overflowViewModel.items",
+			"overflowItems",
+			"overflowViewPanels",
+			"colorMint",
+			"	",
+			"cmoPriNavTabMinWidth",
+			"cmoPriNavTabMaxWidth",
+			".sg-tab-placeholder",
+			" ",
+			"	",
+			"ResizeMegaMenu"
+		],
+		"reverse": false,
+		"show_context": false,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "/C/Users/ricky.casey/Desktop/Orbit/src/Orbiter.as",
+					"settings":
+					{
+						"buffer_size": 0,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/ActionScript/ActionScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 32.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"replace":
+	{
+		"height": 106.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"navigation.json",
+				"html5-framework-build/demo/demo-services/target/classes/api/navigation-en.json"
+			],
+			[
+				"less.js",
+				"camino-plateau-demo-app/app/vendor/less.js/dist/less-1.1.3.js"
+			],
+			[
+				"less",
+				"camino-plateau-demo-app/node_modules/grunt-recess/node_modules/recess/node_modules/.bin/lessc"
+			],
+			[
+				"themeservice",
+				"html5-framework-build/demo/demo-services/src/main/java/com/sungard/ui/demo/util/services/ThemeService.java"
+			],
+			[
+				"themeser",
+				"html5-framework-build/demo/demo-services/src/main/java/com/sungard/ui/demo/util/services/ThemeService.java"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 153.0,
+	"status_bar_visible": true
+}
