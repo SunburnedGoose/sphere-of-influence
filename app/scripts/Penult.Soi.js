@@ -92,8 +92,8 @@ Penult.Soi.prototype.create = function () {
 
   this.level.create();
 
-  this.game.scale.setShowAll();
-  this.game.scale.setScreenSize(false);
+  // this.game.scale.setShowAll();
+  // this.game.scale.setScreenSize(false);
 
   var hb = new Penult.Soi.HeavenlyBody(this.game, this);
   hb.create(new Phaser.Point(1900, 1900), 'planetoid', true);
@@ -115,7 +115,7 @@ Penult.Soi.prototype.preload = function () {
   this.game.load.image('planetoid', 'assets/imgs/planetoid.png');
   this.game.load.image('gravityWell', 'assets/imgs/aura.png');
   this.game.load.image('neptune', 'assets/imgs/neptune.png');
-  this.game.load.spritesheet('ship', 'assets/imgs/ship-sprite.png', 75, 85, 13);
+  this.game.load.spritesheet('ship', 'assets/imgs/ship-sprite.png', 25, 53, 11);
 };
 
 Penult.Soi.prototype.render = function () {

@@ -22,9 +22,9 @@ Penult.Soi.Ship.prototype.create = function (position, texture) {
   this.game.physics.p2.enable([this.sprite]);
   //this.sprite.body.kinematic = true;
 
-  this.sprite.scale.setTo(0.25, 0.25);
+  //this.sprite.scale.setTo(0.25, 0.25);
   this.sprite.animations.add('forward',[1,2,3,4,5,6],6,true);
-  this.sprite.animations.add('reverse',[7,8,9,10,11,12],6,true);
+  this.sprite.animations.add('reverse',[7,8,9,10],4,true);
   this.sprite.animations.add('unpowered',[0],0,false);
   this.sprite.animations.play('unpowered');
 
