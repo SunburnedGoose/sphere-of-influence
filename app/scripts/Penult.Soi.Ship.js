@@ -9,6 +9,7 @@ Penult.Soi.Ship = function (game, instance) {
   this.thrusting = false;
   this.center = undefined;
   this.inSoi = false;
+  this.planet = null;
   this.__tweeningCameraToShip = false;
 };
 
@@ -53,6 +54,27 @@ Penult.Soi.Ship.prototype.changeVector = function(a, that) {
   that.instance.update();
 };
 
+Penult.Soi.Ship.prototype.position = function(step) {
+  var point = new Phaser.Point(0,0);
+  var anchor = this.planet;
+
+  //angle =
+
+
+  return point;
+}
+
+Penult.Soi.Ship.prototype.positions = function (timeSpan, timeInterval) {
+  var iterations = Math.floor(timeSpan / timeInterval);
+  var positions = [];
+
+  for (var i = 0; i < iterations; i++) {
+    positions[i] = this.position(timeInterval * i);
+  }
+
+  return positions;
+}
+
 Penult.Soi.Ship.prototype.update = function () {
   var that = this;
 
@@ -92,38 +114,62 @@ Penult.Soi.Ship.prototype.update = function () {
 
   that.center = this.instance.Utilities.getCenterPoint(that.sprite);
 
+
   _.forEach(that.instance.heavenlyBodies, function(body) {
-    // if (well.sprite.inCamera) {
-    //   var distanceFromSurface = that.game.physics.arcade.distanceBetween(that.center, well.center) - well.radius;
-
-    //   if (distanceFromSurface > 0 && distanceFromSurface < well.diameter) {
-    //     that.inSoi = true;
-    //   }
-    // }
-
     var sCenter;
 
     if (that.inSoi) {
-      sCenter = that.instance.Utilities.getCenterPoint(that.sprite);
+      // sCenter = that.instance.Utilities.getCenterPoint(that.sprite);
       var pCenter = that.instance.Utilities.getCenterPoint(body.gravityWell.sprite);
+
+    var cc  = that.game.add.sprite(that.sprite.position.x, that.sprite.position.y, 'ship');
+
+  cc.scale.setTo(0.05, 0.05);
 
       if (that.game.camera.target) {
         that.game.camera.follow(null);
         that.game.add.tween(that.game.camera).to( {x: pCenter.x - (that.game.camera.width / 2), y: pCenter.y - (that.game.camera.height / 2) }, 1250, Phaser.Easing.Quadratic.InOut, true);
       }
 
+      var force = that.instance.Utilities.calculateForce(that, body);
+
       var xQuad = (that.center.x < body.gravityWell.center.x) ? -1 : 1;
-      var yQuad = (that.center.y < body.gravityWell.center.y) ? -1 : 1;
-      var distanceFromSurface = this.game.physics.arcade.distanceBetween(that.instance.Utilities.getCenterPoint(that.sprite), that.instance.Utilities.getCenterPoint(body.gravityWell.sprite));
-      var force = body.gravityWell.accelleration * Math.abs((body.gravityWell.diameter - distanceFromSurface) / body.gravityWell.diameter);
-      //that.sprite.body.data.applyForce([force * xQuad, force * yQuad], new Phaser.Point(1022,1022));
-      that.sprite.body.data.applyForce([force * xQuad, force * yQuad], that.center);
+      var yQuad = (that.center.y < body.gravityWell.center.y) ? 1 : -1;
+
+      var xMod = 1;
+      var yMod = -1;
+      var v = that.sprite.body.velocity;
+
+      // if ((xQuad == 1) && (yQuad == 1)) { // Top Left f:-,-
+      //   xMod = 1;
+      //   yMod = 1;
+      // } else if ((xQuad == -1) && (yQuad == 1)) { // Top Right f:-,+
+      //   xMod = 1;
+      //   yMod = -1;
+      // } else if ((xQuad == 1) && (yQuad == -1)) { // Bottom Left f:+,-
+      //   xMod = -1;
+      //   yMod = -1;
+      // } else if ((xQuad == -1) && (yQuad == -1)) { // Bottom Right f:+,+
+      //   xMod = 1;
+      //   yMod = 1;
+      // }
+
+      // var distanceFromSurface = that.instance.Utilities.getCenterPoint(that.sprite), that.instance.Utilities.getCenterPoint(body.gravityWell.sprite));
+      // var force = body.gravityWell.accelleration * Math.abs((body.gravityWell.diameter - distanceFromSurface) / body.gravityWell.diameter);
+
+      that.sprite.body.applyForce([force.x * xMod, force.y * yMod], that.center.x, that.center.y);
       that.sprite.body.angularForce = 0;
     } else {
       if (!that.__tweeningCameraToShip && !that.game.camera.target) {
         that.__tweeningCameraToShip = true;
         sCenter = that.instance.Utilities.getCenterPoint(that.sprite);
-        var tween = that.game.add.tween(that.game.camera).to( {x: sCenter.x - (that.game.camera.width / 2) + (that.game.physics.p2.mpxi(that.sprite.body.velocity.x) * 0.75), y: sCenter.y - (that.game.camera.height / 2) + (that.game.physics.p2.mpxi(that.sprite.body.velocity.y) * 0.75) }, 750, Phaser.Easing.Quadratic.InOut, true);
+        var tween = that.game.add.tween(that.game.camera).to( {x: sCenter.x - (that.game.camera.width / 2) + (that.game.physics.p2.mpxi(that.sprite.body.velocity.x) * 0.75), y: sCenter.y - (that.game.camera.height / 2) + (that.game.physics.p2.mpxi(that.sprite.body.velocity.y) * 0.75) }, 750, Phaser.Easing.Sinusoidal.In, true);
+
+        // tween.onUpdateCallback(function(a,b,c,d) {
+        //   a._valuesEnd.x = that.sprite.position.x - (that.game.camera.width / 2);
+        //   a._valuesEnd.y = that.sprite.position.y - (that.game.camera.width / 2);
+        // });
+
         tween._lastChild.onComplete.add(function() {
           that.game.camera.follow(that.sprite);
           that.__tweeningCameraToShip = false;

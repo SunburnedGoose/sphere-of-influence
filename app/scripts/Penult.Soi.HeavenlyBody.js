@@ -9,6 +9,8 @@ Penult.Soi.HeavenlyBody = function (game, instance) {
   this.center = undefined;
   this.hasGravityWell = false;
   this.gravityWell = undefined;
+  this.gravity = 10;
+  this.mass = 1000;
 };
 
 Penult.Soi.HeavenlyBody.prototype = {};

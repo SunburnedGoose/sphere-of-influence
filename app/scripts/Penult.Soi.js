@@ -27,6 +27,7 @@ Penult.Soi = function (game) {
       var distanceFromSurface = game.physics.arcade.distanceBetween(soi.Utilities.getCenterPoint(ship.sprite), soi.Utilities.getCenterPoint(well.sprite));
 
       soi.ships[0].inSoi = distanceFromSurface <= (well.sprite.width / 2);
+      soi.ships[0].planet = (soi.ships[0].inSoi) ? soi.heavenlyBodies[0] : null;
     },
     'checkOverlap': function (b1, b2) {
       var name = (b1.sprite && b2.sprite) ? b1.sprite.name + '|' + b2.sprite.name : '';
@@ -42,6 +43,23 @@ Penult.Soi = function (game) {
         default:
           return true;
       }
+    },
+    'calculateForce': function (ship, body) {
+      var sCenter = this.getCenterPoint(ship.sprite);
+      var bCenter = this.getCenterPoint(body.sprite);
+      var distance = Phaser.Math.distance(sCenter.x, sCenter.y, bCenter.x, bCenter.y);
+      var g = body.gravity;
+
+      distance = (distance > 10) ? distance : 10;
+
+      var f = g * body.mass / (distance * distance);
+      var a = Phaser.Math.angleBetweenPoints(sCenter, bCenter) + Math.PI / 2;
+      var forceVector = {
+        'x': f * Math.cos(a),
+        'y': f * Math.sin(a)
+      };
+
+      return forceVector;
     }
   };
 
@@ -57,7 +75,7 @@ Penult.Soi.prototype.create = function () {
   this.game.physics.startSystem(Phaser.Physics.P2JS);
   this.game.physics.p2.applyDamping = false;
   this.game.physics.p2.applyGravity = false;
-  this.game.physics.p2.setPostBroadphaseCallback(this.instance.Utilities.checkOverlap, this);
+  this.game.physics.p2.setPostBroadphaseCallback(this.Utilities.checkOverlap, this);
 
   this.cursors = this.game.input.keyboard.createCursorKeys();
 
@@ -76,8 +94,6 @@ Penult.Soi.prototype.create = function () {
 
   this.game.scale.setShowAll();
   this.game.scale.setScreenSize(false);
-
-
 
   var hb = new Penult.Soi.HeavenlyBody(this.game, this);
   hb.create(new Phaser.Point(1900, 1900), 'planetoid', true);
