@@ -22,7 +22,7 @@ Penult.Soi.Ship.prototype.create = function (position, texture) {
   this.game.physics.p2.enable([this.sprite]);
   //this.sprite.body.kinematic = true;
 
-  this.sprite.scale.setTo(0.15, 0.15);
+  this.sprite.scale.setTo(0.25, 0.25);
   this.sprite.animations.add('forward',[1,2,3,4,5,6],6,true);
   this.sprite.animations.add('reverse',[7,8,9,10,11,12],6,true);
   this.sprite.animations.add('unpowered',[0],0,false);
@@ -54,15 +54,12 @@ Penult.Soi.Ship.prototype.changeVector = function(a, that) {
   that.instance.update();
 };
 
-Penult.Soi.Ship.prototype.position = function(step) {
+Penult.Soi.Ship.prototype.position = function() {
   var point = new Phaser.Point(0,0);
-  var anchor = this.planet;
-
-  //angle =
-
+  //var anchor = this.planet;
 
   return point;
-}
+};
 
 Penult.Soi.Ship.prototype.positions = function (timeSpan, timeInterval) {
   var iterations = Math.floor(timeSpan / timeInterval);
@@ -73,7 +70,7 @@ Penult.Soi.Ship.prototype.positions = function (timeSpan, timeInterval) {
   }
 
   return positions;
-}
+};
 
 Penult.Soi.Ship.prototype.update = function () {
   var that = this;
@@ -122,9 +119,9 @@ Penult.Soi.Ship.prototype.update = function () {
       // sCenter = that.instance.Utilities.getCenterPoint(that.sprite);
       var pCenter = that.instance.Utilities.getCenterPoint(body.gravityWell.sprite);
 
-    var cc  = that.game.add.sprite(that.sprite.position.x, that.sprite.position.y, 'ship');
+      var cc  = that.game.add.sprite(that.sprite.position.x, that.sprite.position.y, 'ship');
 
-  cc.scale.setTo(0.05, 0.05);
+      cc.scale.setTo(0.05, 0.05);
 
       if (that.game.camera.target) {
         that.game.camera.follow(null);
@@ -132,32 +129,7 @@ Penult.Soi.Ship.prototype.update = function () {
       }
 
       var force = that.instance.Utilities.calculateForce(that, body);
-
-      var xQuad = (that.center.x < body.gravityWell.center.x) ? -1 : 1;
-      var yQuad = (that.center.y < body.gravityWell.center.y) ? 1 : -1;
-
-      var xMod = 1;
-      var yMod = -1;
-      var v = that.sprite.body.velocity;
-
-      // if ((xQuad == 1) && (yQuad == 1)) { // Top Left f:-,-
-      //   xMod = 1;
-      //   yMod = 1;
-      // } else if ((xQuad == -1) && (yQuad == 1)) { // Top Right f:-,+
-      //   xMod = 1;
-      //   yMod = -1;
-      // } else if ((xQuad == 1) && (yQuad == -1)) { // Bottom Left f:+,-
-      //   xMod = -1;
-      //   yMod = -1;
-      // } else if ((xQuad == -1) && (yQuad == -1)) { // Bottom Right f:+,+
-      //   xMod = 1;
-      //   yMod = 1;
-      // }
-
-      // var distanceFromSurface = that.instance.Utilities.getCenterPoint(that.sprite), that.instance.Utilities.getCenterPoint(body.gravityWell.sprite));
-      // var force = body.gravityWell.accelleration * Math.abs((body.gravityWell.diameter - distanceFromSurface) / body.gravityWell.diameter);
-
-      that.sprite.body.applyForce([force.x * xMod, force.y * yMod], that.center.x, that.center.y);
+      that.sprite.body.applyForce([force.x, force.y * -1], that.center.x, that.center.y);
       that.sprite.body.angularForce = 0;
     } else {
       if (!that.__tweeningCameraToShip && !that.game.camera.target) {

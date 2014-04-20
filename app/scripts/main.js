@@ -2,6 +2,7 @@
 'use strict';
 
 var soi;
+var game;
 
 function create() {
   soi.create();
@@ -49,7 +50,7 @@ function render() {
   // game.debug.text( "Distance - " + parseInt(game.physics.arcade.distanceBetween(getCenterPoint(ship),getCenterPoint(soi.heavenlyBodies[0].sprite))), 32, 480 );
 }
 
-var game = new Phaser.Game(800, 600, Phaser.AUTO, 'phaser-example', {
+game = new Phaser.Game(800, 600, Phaser.AUTO, 'phaser-example', {
   'create': create,
   'preload': preload,
   'update': update,
