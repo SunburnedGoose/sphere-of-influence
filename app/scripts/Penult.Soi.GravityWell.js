@@ -1,11 +1,13 @@
+'use strict';
+
 Penult.Soi.GravityWell = function (game, instance) {
   this.game = game;
   this.instance = instance;
-  this.scale;
-  this.sprite;
-  this.radius;
-  this.diameter;
-  this.center;
+  this.scale = undefined;
+  this.sprite = undefined;
+  this.radius = undefined;
+  this.diameter = undefined;
+  this.center = undefined;
   this.accelleration = 4;
 };
 
@@ -28,6 +30,6 @@ Penult.Soi.GravityWell.prototype.update = function () {
   this.sprite.scale.setTo(this.scale, this.scale);
 
   if (!that.center) {
-    that.center = getCenterPoint(that.sprite);
+    that.center = this.instance.Utilities.getCenterPoint(that.sprite);
   }
 };
