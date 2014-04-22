@@ -19,7 +19,19 @@ Penult.Soi.Level.prototype.create = function () {
   layer = this.map.createLayer('Tile Layer 2');
 
   layer.resizeWorld();
+  
+  /* Build our text layers */
+  
+  var score = 	this.game.add.sprite(0,0);
+  var health = 	lang.en.health+": 100%";
+  var style = 	{ font: "15px Arial", fill: "#FFF", align: "center" };
+  
+  score.fixedToCamera = true;
+  health = this.game.add.text(0,0,health,style);
+  score.addChild(health);  
+  score.cameraOffset.x = 10;
+  score.cameraOffset.y = 10;
 
-  this.game.physics.p2.convertTilemap(this.map, layer);
+
 
 };

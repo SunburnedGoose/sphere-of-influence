@@ -122,6 +122,7 @@ Penult.Soi.prototype.create = function () {
 	  this.asteroids.push(as);
   }
 
+
   this.game.camera.follow(player.sprite);
 };
 

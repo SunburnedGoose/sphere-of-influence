@@ -6,6 +6,7 @@ Penult.Soi.Ship = function (game, instance) {
   this.instance = instance;
   this.sprite = undefined;
   this.rotationSpeed = 10;
+  this.shield = 100;
   this.thrusting = false;
   this.center = undefined;
   this.inSoi = false;
@@ -71,6 +72,17 @@ Penult.Soi.Ship.prototype.positions = function (timeSpan, timeInterval) {
 
   return positions;
 };
+
+Penult.Soi.Ship.prototype.damage = function(that){
+
+	that.sprite.alpha = 1;
+    for (var i = 0; i < 6; i++)  {    	
+    	//TODO: Not particularlly happy with this blinking animation
+    	that.game.add.tween(that.sprite).to( { alpha: 0 }, 250, Phaser.Easing.Linear.None, true, 0, 4, false).to( { alpha: 1 }, 100, Phaser.Easing.Linear.None, true);
+    }
+    that.sprite.alpha = 1;
+
+}
 
 Penult.Soi.Ship.prototype.update = function () {
   var that = this;
@@ -163,7 +175,7 @@ Penult.Soi.Ship.prototype.update = function () {
     /* Overlap Detection */
     _.forEach(that.instance.asteroids, function(asteroid) {
     	if(that.instance.Utilities.checkCollision(that, asteroid)){
-    		console.log('hit!');
+    		Penult.Soi.Ship.prototype.damage(that);
     	}
     });
   
