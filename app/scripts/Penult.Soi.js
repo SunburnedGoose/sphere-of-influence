@@ -46,6 +46,13 @@ Penult.Soi = function (game) {
           return true;
       }
     },
+    'checkCollision': function(obj1, obj2){
+    	var boundsA = obj1.sprite.getBounds();
+        var boundsB = obj2.sprite.getBounds();
+
+        return Phaser.Rectangle.intersects(boundsA, boundsB);
+
+    },
     'calculateForce': function (ship, body) {
       var sCenter = this.getCenterPoint(ship.sprite);
       var bCenter = this.getCenterPoint(body.sprite);
