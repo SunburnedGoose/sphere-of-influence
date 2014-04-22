@@ -44,6 +44,16 @@ Penult.Soi.Ship.prototype.changeVector = function(a) {
   this.instance.update();
 }
 
+Penult.Soi.Ship.prototype.overlap = function(sprite1, sprite2){
+	var boundsA = sprite1.getBounds();
+    var boundsB = sprite2.getBounds();
+
+    if(Phaser.Rectangle.intersects(boundsA, boundsB)){
+    	console.log('overlap');
+    }
+
+}
+
 Penult.Soi.Ship.prototype.update = function () {
   var that = this;
 
@@ -129,4 +139,11 @@ Penult.Soi.Ship.prototype.update = function () {
       }
     }
   });
+  
+  
+    /* Overlap Detection */
+    _.forEach(that.instance.asteroids, function(asteroid) {
+    	Penult.Soi.Ship.prototype.overlap(that.sprite, asteroid.sprite, Penult.Soi.Ship.prototype.overlap);
+    });
+  
 };
