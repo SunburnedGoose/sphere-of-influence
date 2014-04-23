@@ -8,10 +8,13 @@ Penult.Soi = function (game) {
   this.game = game;
   this.cursors = undefined;
   this.level = undefined;
+  this.shield = undefined;
   this.ships = [];
   this.heavenlyBodies = [];
   this.asteroidCount = 500;
+  this.lang = "en";
   this.asteroids = [];
+  this.asteroidsGroup;
   this.state = {
     thrusting: false
   };
@@ -94,12 +97,13 @@ Penult.Soi.prototype.create = function () {
   this.rightKey = this.game.input.keyboard.addKey(Phaser.Keyboard.D);
 
   this.game.input.addPointer();
-
   this.game.stage.backgroundColor = '#000000';
 
   this.level = new Penult.Soi.Level(this.game, this);
-
   this.level.create();
+  
+  this.shield = new Penult.Soi.Shield(this.game, this);
+  this.shield.create(100);
 
   // this.game.scale.setShowAll();
   // this.game.scale.setScreenSize(false);
@@ -115,10 +119,13 @@ Penult.Soi.prototype.create = function () {
   player.sprite.name = 'ship';
   this.ships.push(player);
   
+  this.asteroidsGroup = this.game.add.group();
+
   for (var i=0; i<this.asteroidCount; i++) {
 	  var as = new Penult.Soi.Asteroid(this.game, this);
 	  as.create(new Phaser.Point(game.world.randomX, game.world.randomY), 'asteroid');
-	  as.sprite.name = 'asteroid';
+	  as.sprite.name = 'asteroid'+i;
+	  this.asteroidsGroup.add(as.sprite);
 	  this.asteroids.push(as);
   }
 

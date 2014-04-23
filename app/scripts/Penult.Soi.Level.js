@@ -3,7 +3,7 @@
 Penult.Soi.Level = function (game, instance) {
   this.game = game;
   this.instance = instance;
-
+  this.lang = instance.lang;
   this.map = undefined;
 };
 
@@ -23,7 +23,7 @@ Penult.Soi.Level.prototype.create = function () {
   /* Build our text layers */
   
   var score = 	this.game.add.sprite(0,0);
-  var health = 	lang.en.health+": 100%";
+  var health = 	lang[this.lang].health+":";
   var style = 	{ font: "15px Arial", fill: "#FFF", align: "center" };
   
   score.fixedToCamera = true;
