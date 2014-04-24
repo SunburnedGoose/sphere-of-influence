@@ -103,7 +103,7 @@ Penult.Soi.prototype.create = function () {
   this.level.create();
   
   this.shield = new Penult.Soi.Shield(this.game, this);
-  this.shield.create(100);
+  this.shield.create(this.game, 100);
 
   // this.game.scale.setShowAll();
   // this.game.scale.setScreenSize(false);

@@ -176,7 +176,7 @@ Penult.Soi.Ship.prototype.update = function () {
     _.forEach(that.instance.asteroids, function(asteroid) {
     	if(that.instance.Utilities.checkCollision(that, asteroid)){
     		Penult.Soi.Ship.prototype.damage(that);
-    		Penult.Soi.Shield.prototype.update(that, -10, false);
+    		Penult.Soi.Shield.prototype.update(that, -.5, false);
     	}
     });
   
