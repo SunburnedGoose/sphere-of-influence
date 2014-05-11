@@ -3,7 +3,8 @@
   "private": true,
   "dependencies": {
     "phaser-state-transition": "https://github.com/cristianbote/phaser-state-transition.git",
-    "store.js": "~1.3.16"
+    "store.js": "~1.3.16",
+    "modernizr": "~2.8.1"
   },
   "devDependencies": {}
 }
