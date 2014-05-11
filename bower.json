@@ -2,11 +2,8 @@
   "name": "sphere-of-influence",
   "private": true,
   "dependencies": {
-    "bootstrap-sass-official": "~3.1.0",
-    "modernizr": "~2.6.2",
-    "jquery": "~1.11.0",
-    "underscore": "~1.6.0",
-    "phaser-official": "~2.0.2"
+    "phaser-state-transition": "https://github.com/cristianbote/phaser-state-transition.git",
+    "store.js": "~1.3.16"
   },
   "devDependencies": {}
 }

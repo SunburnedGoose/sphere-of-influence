@@ -21,6 +21,14 @@
     "globals": {
         "Penult": false,
         "Phaser": false,
-        "_": false
+        "_": false,
+        "namespace": false,
+        "Soi": false,
+        "DEBUG": true,
+        "TimelineMax": false,
+        "Power0": false,
+        "Power1": false,
+        "Circ": false,
+        "store": false
     }
 }
