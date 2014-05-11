@@ -27,6 +27,10 @@ Soi.GameStates.GameplayGameState = function() {
   };
 
   this.asteroidCount = 500;
+  this.pointer = {
+    'x': 0,
+    'y': 0
+  };
 };
 
 Soi.GameStates.GameplayGameState.prototype = Object.create(Soi.GameStates.GameState.prototype);
@@ -85,16 +89,16 @@ Soi.GameStates.GameplayGameState.prototype.create = function() {
 
   this.asteroidsGroup = this.game.add.group();
 
-  for (var i = 0; i < this.asteroidCount; i++) {
-    var as = new Soi.Entities.Asteroid(this.game, this.game.world.randomX, this.game.world.randomY);
-    as.name = 'asteroid' + i;
-    this.asteroidsGroup.add(as);
-    this.dangers.asteroids.push(as);
-    as.body.setCollisionGroup(this.collisionGroups.asteroids);
+  // for (var i = 0; i < this.asteroidCount; i++) {
+  //   var as = new Soi.Entities.Asteroid(this.game, this.game.world.randomX, this.game.world.randomY);
+  //   as.name = 'asteroid' + i;
+  //   this.asteroidsGroup.add(as);
+  //   this.dangers.asteroids.push(as);
+  //   as.body.setCollisionGroup(this.collisionGroups.asteroids);
 
-    this.player.body.collides(this.collisionGroups.asteroids);
-    as.body.collides(this.collisionGroups.players);
-  }
+  //   this.player.body.collides(this.collisionGroups.asteroids);
+  //   as.body.collides(this.collisionGroups.players);
+  // }
 
   this.player.bringToTop();
 };
@@ -102,7 +106,8 @@ Soi.GameStates.GameplayGameState.prototype.create = function() {
 Soi.GameStates.GameplayGameState.prototype.update = function() {};
 
 Soi.GameStates.GameplayGameState.prototype.render = function() {
-  // this.game.debug.text(parseInt(this.player.x) + " " + parseInt(this.player.y), 32, 48);
+  this.game.debug.text(parseInt(this.pointer.x) + ' ' + parseInt(this.pointer.y) + ' ' + parseInt(this.pointer.degrees), 32, 48);
+  // this.game.debug.text(parseInt(this.player.x) + ' ' + parseInt(this.player.y), 32, 48);
   // this.game.debug.text("inGravityWell: " + ((!_.isEmpty(this.player.gravityWell)) ? 'true' : 'false'), 32, 68);
   // this.game.debug.text("withinAsteroid: " + ((!_.isEmpty(this.player.withinAsteroid)) ? 'true' : 'false'), 32, 88);
 };

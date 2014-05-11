@@ -193,15 +193,27 @@ Soi.Entities.Ship.prototype.damage = function(){
 };
 
 Soi.Entities.Ship.prototype.changeVector = function(a, that) {
-  var x1 = 400;
+  var x1 = 450;
   var y1 = 300;
   var x2 = a.position.x;
   var y2 = a.position.y;
+
+  if (this.soi) {
+    x1 += this.x - this.soi.well.x;
+    y1 += this.y - this.soi.well.y;
+  }
 
   var deltaX = x2 - x1;
   var deltaY = y2 - y1;
 
   var degrees = Math.atan2(deltaY, deltaX) * 180 / Math.PI + 90;
+
+  var state = that.game.state.states[that.game.state.current];
+  state.pointer = {
+    'x': x2,
+    'y': y2,
+    'degrees': degrees
+  };
 
   var rotation = Phaser.Math.degToRad(degrees);
 
