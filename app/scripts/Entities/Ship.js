@@ -10,6 +10,8 @@ Soi.Entities.Ship = function(game, x, y, texture) {
   this.game.world.add(this);
   this.game.physics.p2.enable([this], true);
 
+  this.beenThere = [];
+
   this.body.clearShapes();
   this.body.addPhaserPolygon('ship-physics', 'ship');
 
@@ -54,6 +56,8 @@ Soi.Entities.Ship = function(game, x, y, texture) {
   });
 
   this.animations.play(textureMeta.initial);
+
+  this.game.time.events.loop(Phaser.Timer.SECOND * .5, this.captureBeenThere, this);
 };
 
 Soi.Entities.Ship.prototype = Object.create(Phaser.Sprite.prototype);
@@ -127,17 +131,19 @@ Soi.Entities.Ship.prototype.update = function() {
       this.game.add.tween(this.game.camera).to( {x: centerW.x - (this.game.camera.width / 2), y: centerW.y - (this.game.camera.height / 2) }, 1250, Phaser.Easing.Quadratic.InOut, true);
     }
 
-    var trueDistance = Phaser.Math.distance(centerS.x, centerS.y, centerW.x, centerW.y);
-    var distance = (trueDistance > 10) ? trueDistance : 10;
-    var g = this.soi.gravity;
-    var mass = this.soi.mass;
-    var f = g * mass / (distance * distance);
-    var a = Phaser.Math.angleBetweenPoints(centerS, centerW) + Math.PI / 2;
+    // var trueDistance = Phaser.Math.distance(centerS.x, centerS.y, centerW.x, centerW.y);
+    // var distance = (trueDistance > 10) ? trueDistance : 10;
+    // var g = this.soi.gravity;
+    // var mass = this.soi.mass;
+    // var f = g * mass / (distance * distance);
+    // var a = Phaser.Math.angleBetweenPoints(centerS, centerW) + Math.PI / 2;
 
-    var forceVector = {
-      'x': f * Math.cos(a),
-      'y': f * Math.sin(a)
-    };
+    // var forceVector = {
+    //   'x': f * Math.cos(a),
+    //   'y': f * Math.sin(a)
+    // };
+
+    var forceVector = this.calculateForce();
 
     this.body.applyForce([forceVector.x, forceVector.y * -1], this.center.x, this.center.y);
     this.body.angularForce = 0;
@@ -172,6 +178,14 @@ Soi.Entities.Ship.prototype.update = function() {
     this.damage();
     // Penult.Soi.Ship.prototype.damage(that);
     // Penult.Soi.Shield.prototype.update(that, -.5, false);
+  }
+};
+
+Soi.Entities.Ship.prototype.captureBeenThere = function() {
+  this.beenThere.unshift(this.center);
+
+  if (_.size(this.beenThere) > 30) {
+    this.beenThere.pop();
   }
 };
 
@@ -278,3 +292,58 @@ Object.defineProperty(Soi.Entities.Ship.prototype, 'center', {
 
 //   return positions;
 // };
+
+
+Soi.Entities.Ship.prototype.calculatePosition = function(totalTime) {
+
+};
+
+Soi.Entities.Ship.prototype.calculatePositions = function(totalTime, timeStep) {
+  var positions = [];
+  var currentPosition = this.center;
+  var currentVelocity = new Phaser.Point(this.body.velocity.x, this.body.velocity.y);
+  var intervals = Math.floor(totalTime / timeStep);
+
+  for(var i = 0; i < intervals; i++) {
+    var currentForce = this.calculateForce(currentPosition);
+
+    var fx = this.body.world.pxmi(currentForce.x * -1 * timeStep * 30);
+    var fy = this.body.world.pxmi(currentForce.y * timeStep * 30);
+
+    currentVelocity.x += fx;
+    currentVelocity.y += fy;
+
+    currentPosition.x += currentVelocity.x * -1 * timeStep * 30
+    currentPosition.y += currentVelocity.y * -1 * timeStep * 30;
+
+    positions[i] = new Phaser.Point(currentPosition.x, currentPosition.y);
+  }
+
+  return positions;
+};
+
+Soi.Entities.Ship.prototype.calculateFuturePositions = function(totalTime) {
+
+};
+
+Soi.Entities.Ship.prototype.calculateForce = function (pointA, pointB) {
+  if (this.soi) {
+    if (_.isEmpty(pointA)) {
+      pointA = this.center;
+    }
+
+    if (_.isEmpty(pointB)) {
+      pointB = this.soi.center;
+    }
+
+    var d = Phaser.Math.distance(pointA.x, pointA.y, pointB.x, pointB.y);
+    var g = this.soi.gravity;
+    var mass = this.soi.mass;
+    var f = g * mass / Math.max(d * d, 10);
+    var a = Phaser.Math.angleBetweenPoints(pointA, pointB) + Math.PI / 2;
+
+    return new Phaser.Point(f * Math.cos(a), f * Math.sin(a));
+  } else {
+    return new Phaser.Point(0,0);
+  }
+}
