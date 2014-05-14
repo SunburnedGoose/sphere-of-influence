@@ -57,6 +57,8 @@ Soi.GameStates.PreloaderGameState.prototype.preload = function() {
   this.load.image('dot', 'assets/imgs/dot.jpg?' + a);
   this.load.image('saturn-shadow', 'assets/imgs/saturn-shadow.png?' + a);
   this.load.physics('ship-physics', 'assets/physics/ship.json?' + a);
+  this.load.spritesheet('asteroid-sprite', 'assets/imgs/asteroid-sprite.png', 60, 75);
+
 
   this.game.__meta = {
     'spritesheet': {
