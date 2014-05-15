@@ -38,7 +38,6 @@ Soi.GameStates.GameplayGameState.prototype.constructor = Soi.GameStates.Gameplay
 
 Soi.GameStates.GameplayGameState.prototype.create = function() {
   this.game.physics.startSystem(Phaser.Physics.P2JS);
-  this.game.advancedTiming = true;
 
   this.game.physics.p2.applyDamping = false;
   this.game.physics.p2.applyGravity = false;
@@ -87,7 +86,7 @@ Soi.GameStates.GameplayGameState.prototype.create = function() {
 
   this.player.body.collides(this.collisionGroups.celestialBodyWells);
   this.system.well.body.collides(this.collisionGroups.players);
-  
+
   this.asteroid = this.game.add.sprite(1450, 1450, 'asteroid-sprite');
   this.asteroid.animations.add('rotate');
   this.asteroid.animations.play('rotate', 10, true);
@@ -109,15 +108,18 @@ Soi.GameStates.GameplayGameState.prototype.create = function() {
   // }
 
   this.player.bringToTop();
+  this.game.time.advancedTiming = true;
 };
 
-Soi.GameStates.GameplayGameState.prototype.update = function() {};
+Soi.GameStates.GameplayGameState.prototype.update = function() {
+
+};
 
 Soi.GameStates.GameplayGameState.prototype.render = function() {
   this.game.debug.text(parseInt(this.pointer.x) + ' ' + parseInt(this.pointer.y) + ' ' + parseInt(this.pointer.degrees), 32, 48);
   this.game.debug.text(parseInt(this.player.x) + ' ' + parseInt(this.player.y), 32, 68);
 
-  var positions = this.player.calculatePositions(2, 0.1);
+  var positions = this.player.calculatePositions(16, 4);
   var that = this;
 
   this.game.debug.text(parseInt(positions[0].x) + ' ' + parseInt(positions[0].y), 32, 88);
@@ -126,8 +128,9 @@ Soi.GameStates.GameplayGameState.prototype.render = function() {
     that.game.debug.geom(position, 'rgba(255,0,0,1)');
   });
 
-  _.each(this.player.beenThere, function(position) {
-    that.game.debug.geom(position, 'rgba(0,255,0,1)');
+  _.each(this.player.beenThere, function(position, index, list) {
+    var alpha = (_.size(list) - index) / _.size(list)
+    that.game.debug.geom(position, 'rgba(0,255,0,' + alpha + ')');
   });
   // this.game.debug.text(parseInt(this.player.x) + ' ' + parseInt(this.player.y), 32, 48);
   // this.game.debug.text("inGravityWell: " + ((!_.isEmpty(this.player.gravityWell)) ? 'true' : 'false'), 32, 68);

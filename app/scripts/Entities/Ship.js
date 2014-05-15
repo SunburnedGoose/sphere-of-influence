@@ -57,7 +57,7 @@ Soi.Entities.Ship = function(game, x, y, texture) {
 
   this.animations.play(textureMeta.initial);
 
-  this.game.time.events.loop(Phaser.Timer.SECOND * .5, this.captureBeenThere, this);
+  this.game.time.events.loop(Phaser.Timer.SECOND * 0.2, this.captureBeenThere, this);
 };
 
 Soi.Entities.Ship.prototype = Object.create(Phaser.Sprite.prototype);
@@ -304,19 +304,24 @@ Soi.Entities.Ship.prototype.calculatePositions = function(totalTime, timeStep) {
   var currentVelocity = new Phaser.Point(this.body.velocity.x, this.body.velocity.y);
   var intervals = Math.floor(totalTime / timeStep);
 
-  for(var i = 0; i < intervals; i++) {
+  var step = 10;
+
+  for(var i = 0; i < 3000; i = i + step) {
+
     var currentForce = this.calculateForce(currentPosition);
 
-    var fx = this.body.world.pxmi(currentForce.x * -1 * timeStep * 30);
-    var fy = this.body.world.pxmi(currentForce.y * timeStep * 30);
+    var fx = this.body.world.pxmi(currentForce.x * -1 * this.body.world.frameRate * step);
+    var fy = this.body.world.pxmi(currentForce.y * 1 * this.body.world.frameRate * step);
 
     currentVelocity.x += fx;
     currentVelocity.y += fy;
 
-    currentPosition.x += currentVelocity.x * -1 * timeStep * 30
-    currentPosition.y += currentVelocity.y * -1 * timeStep * 30;
+    currentPosition.x += currentVelocity.x * -1 * this.body.world.frameRate * step;
+    currentPosition.y += currentVelocity.y * -1 * this.body.world.frameRate * step;
 
-    positions[i] = new Phaser.Point(currentPosition.x, currentPosition.y);
+    if (i % 600 > 599 - step) {
+      positions.push(new Phaser.Point(currentPosition.x, currentPosition.y));
+    }
   }
 
   return positions;
