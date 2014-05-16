@@ -26,7 +26,6 @@ Soi.GameStates.GameplayGameState = function() {
     'asteroids': []
   };
 
-  this.asteroidCount = 500;
   this.pointer = {
     'x': 0,
     'y': 0
@@ -86,26 +85,8 @@ Soi.GameStates.GameplayGameState.prototype.create = function() {
 
   this.player.body.collides(this.collisionGroups.celestialBodyWells);
   this.system.well.body.collides(this.collisionGroups.players);
-
-  this.asteroid = this.game.add.sprite(1450, 1450, 'asteroid-sprite');
-  this.asteroid.animations.add('rotate');
-  this.asteroid.animations.play('rotate', 10, true);
-
-
-
-
-  //this.asteroidsGroup = this.game.add.group();
-
-  // for (var i = 0; i < this.asteroidCount; i++) {
-  //   var as = new Soi.Entities.Asteroid(this.game, this.game.world.randomX, this.game.world.randomY);
-  //   as.name = 'asteroid' + i;
-  //   this.asteroidsGroup.add(as);
-  //   this.dangers.asteroids.push(as);
-  //   as.body.setCollisionGroup(this.collisionGroups.asteroids);
-
-  //   this.player.body.collides(this.collisionGroups.asteroids);
-  //   as.body.collides(this.collisionGroups.players);
-  // }
+  
+  this.field = new Soi.Entities.AsteroidField(this.game, 1450, 1450);
 
   this.player.bringToTop();
   this.game.time.advancedTiming = true;

@@ -164,7 +164,6 @@ Soi.GameStates.MenuGameState.prototype.preload = function() {
   this.game.load.tilemap('map', 'assets/tilemaps/map.json', null, Phaser.Tilemap.TILED_JSON);
   this.game.load.image('stars', 'assets/imgs/playspace.png');
   this.game.load.image('planetoid', 'assets/imgs/planetoid.png');
-  this.game.load.image('asteroid', 'assets/imgs/asteroid.png');
   this.game.load.image('gravityWell', 'assets/imgs/aura.png');
   this.game.load.image('neptune', 'assets/imgs/neptune.png');
 };
