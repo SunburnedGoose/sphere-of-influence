@@ -2,21 +2,29 @@
 
 namespace('Soi.Entities');
 
-Soi.Entities.AsteroidField = function(game, x, y) {
+Soi.Entities.AsteroidField = function(game, group, x, y) {
 	Phaser.Group.call(this, game);
-	this.asteroid = new Soi.Entities.Asteroid(game, 1450, 1450, 10);
+	this.name = group;
+	var count = 2;
+	var props = new Array();
 	
-
-  // for (var i = 0; i < this.asteroidCount; i++) {
-  //   var as = new Soi.Entities.Asteroid(this.game, this.game.world.randomX, this.game.world.randomY);
-  //   as.name = 'asteroid' + i;
-  //   this.asteroidsGroup.add(as);
-  //   this.dangers.asteroids.push(as);
-  //   as.body.setCollisionGroup(this.collisionGroups.asteroids);
-
-  //   this.player.body.collides(this.collisionGroups.asteroids);
-  //   as.body.collides(this.collisionGroups.players);
-  // }
+	props[0] = {
+		count:  1,
+		fps:	(Math.floor(Math.random() * 20) + 1),
+		size: 	1,
+		x: 		x+5,
+		y: 		y+5,
+	},
+	props[1] = {
+		count:  1,
+		fps:	(Math.floor(Math.random() * 20) + 1),
+		size: 	.5,
+		x: 		x+100,
+		y: 		y+5,
+	}
+	for (var i = 0; i < count; i++) {
+		this.asteroid = 		new Soi.Entities.Asteroid(game,  props[i]);
+	}
 };
 
 Soi.Entities.AsteroidField.prototype = Object.create(Phaser.Group.prototype);

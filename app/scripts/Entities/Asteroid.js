@@ -2,24 +2,30 @@
 
 namespace('Soi.Entities');
 
-Soi.Entities.Asteroid = function(game, x, y, fps) {
-  Phaser.Sprite.call(this, game, x, y, 'asteroid');
+Soi.Entities.Asteroid = function(game, props) {
+  Phaser.Sprite.call(this, game, props.x, props.y, 'asteroid');      
   
-  this.asteroid = this.game.add.sprite(1450, 1450, 'asteroid');
-
+  this.asteroid = 			this.game.add.sprite(props.x, props.y, 'asteroid');
+  this.asteroid.name = 		this.name+"_asteroid_"+props.count;
+  this.scale.x = 			props.size;
+  this.scale.y = 			props.size;
+  this.asteroid.scale.x = 	props.size;
+  this.asteroid.scale.y = 	props.size;
+  
   this.asteroid.animations.add('rotate');
-  this.asteroid.animations.play('rotate', fps, true);
+  this.asteroid.animations.play('rotate', props.fps, true);
   
   this.anchor.setTo(0.5, 0.5);
   this.game.physics.p2.enable(this, true);
 
   this.body.clearShapes();
 
-  var c = this.body.addCircle(this.width / 2, 30, 40);
-  c.sensor = true;
+  var c = 		this.body.addCircle(this.width / 2, 30*props.size, 40*props.size);
+  c.sensor = 	true;
 
   this.checkWorldBounds = true;
   this.events.onOutOfBounds.add(this.out, this);
+
 
 
   this.body.onBeginContact.add(this.onEnterAsteroid, this);

@@ -86,7 +86,7 @@ Soi.GameStates.GameplayGameState.prototype.create = function() {
   this.player.body.collides(this.collisionGroups.celestialBodyWells);
   this.system.well.body.collides(this.collisionGroups.players);
   
-  this.field = new Soi.Entities.AsteroidField(this.game, 1450, 1450);
+  this.field = new Soi.Entities.AsteroidField(this.game, 'field1', 1200, 1200);
 
   this.player.bringToTop();
   this.game.time.advancedTiming = true;
