@@ -85,7 +85,7 @@ Soi.GameStates.GameplayGameState.prototype.create = function() {
 
   this.player.body.collides(this.collisionGroups.celestialBodyWells);
   this.system.well.body.collides(this.collisionGroups.players);
-  
+
   this.field = new Soi.Entities.AsteroidField(this.game, 'field1', 1200, 1200);
 
   this.player.bringToTop();
@@ -105,20 +105,30 @@ Soi.GameStates.GameplayGameState.prototype.render = function() {
 
   this.game.debug.text(parseInt(positions[0].x) + ' ' + parseInt(positions[0].y), 32, 88);
 
-  _.each(positions, function(position) {
-    that.game.debug.geom(position, 'rgba(255,0,0,1)');
-  });
+  if (this.player.exists) {
+    _.each(positions, function(position) {
+      that.game.debug.geom(position, 'rgba(255,0,0,1)');
+    });
 
-  _.each(this.player.beenThere, function(position, index, list) {
-    var alpha = (_.size(list) - index) / _.size(list)
-    that.game.debug.geom(position, 'rgba(0,255,0,' + alpha + ')');
-  });
+    _.each(this.player.beenThere, function(position, index, list) {
+      var alpha = (_.size(list) - index) / _.size(list)
+      that.game.debug.geom(position, 'rgba(0,255,0,' + alpha + ')');
+    });
+  }
+
+
   // this.game.debug.text(parseInt(this.player.x) + ' ' + parseInt(this.player.y), 32, 48);
   // this.game.debug.text("inGravityWell: " + ((!_.isEmpty(this.player.gravityWell)) ? 'true' : 'false'), 32, 68);
   // this.game.debug.text("withinAsteroid: " + ((!_.isEmpty(this.player.withinAsteroid)) ? 'true' : 'false'), 32, 88);
 };
 
 Soi.GameStates.GameplayGameState.prototype.collidesWithSurface = function() {
+  var that = this;
+
   this.player.kill();
   this.player.destroy();
+
+  window.setTimeout(function() {
+    that.game.state.start(Soi.GameStates.GameStateTypes.Menu.name);
+  }, 2000);
 };
