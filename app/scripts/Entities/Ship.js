@@ -15,15 +15,12 @@ Soi.Entities.Ship = function(game, x, y, texture) {
   this.body.clearShapes();
   this.body.addPhaserPolygon('ship-physics', 'ship');
 
-  this.game.input.onDown.add(function(a) {
-    that.changeVector(a, that);
-  });
-
-  this.game.input.onHold.add(function(a) {
-    that.changeVector(a, that);
-  });
+  // this.game.input.onHold.add(function(a) {
+  //   that.changeVector(a, that);
+  // });
 
   this.state = {
+    'rotatingTo': null,
     'thrusters': {
       'thrusting': false,
       'forward': {
@@ -57,7 +54,7 @@ Soi.Entities.Ship = function(game, x, y, texture) {
 
   this.animations.play(textureMeta.initial);
 
-  this.game.time.events.loop(Phaser.Timer.SECOND * 0.2, this.captureBeenThere, this);
+  this.game.time.events.loop(Phaser.Timer.SECOND * 0.5, this.captureBeenThere, this);
 };
 
 Soi.Entities.Ship.prototype = Object.create(Phaser.Sprite.prototype);
@@ -75,8 +72,51 @@ Soi.Entities.Ship.prototype.update = function() {
   /* Thrusting */
   sT.left.thrusting = (cursors.left.isDown || keys.left.isDown);
   sT.right.thrusting = (cursors.right.isDown || keys.right.isDown);
-  sT.forward.thrusting = (cursors.up.isDown || keys.up.isDown || this.game.input.pointer1.isDown || this.game.input.mousePointer.isDown);
-  sT.reverse.thrusting = (cursors.down.isDown || keys.down.isDown);
+
+  if (this.game.input.activePointer.isDown) {
+    var pX = this.game.input.activePointer.worldX;
+    var pY = this.game.input.activePointer.worldY;
+    var sX = this.x;
+    var sY = this.y;
+
+    var deltaX = pX - sX;
+    var deltaY = pY - sY;
+
+    var degrees = Math.atan2(deltaY, deltaX) * 180 / Math.PI + 90;
+
+    state.rotatingTo = Phaser.Math.normalizeAngle(Phaser.Math.degToRad(degrees));
+    var normalizedAngle = Phaser.Math.normalizeAngle(this.body.rotation);
+    var positive = (normalizedAngle > state.rotatingTo);
+
+    if (Math.abs(normalizedAngle - state.rotatingTo) > (Math.PI)) {
+      if (positive) {
+        sT.right.thrusting = true;
+      } else {
+        sT.left.thrusting = true;
+      }
+    } else {
+      if (positive) {
+        sT.left.thrusting = true;
+      } else {
+        sT.right.thrusting = true;
+      }
+    }
+
+    var upperBound = normalizedAngle + .05;
+    var lowerBound = normalizedAngle - .05;
+
+    if ((state.rotatingTo >= lowerBound) && (state.rotatingTo <= upperBound)) {
+      this.body.rotation = state.rotatingTo;
+      state.rotatingTo = null;
+      sT.right.thrusting = false;
+      sT.left.thrusting = false;
+    }
+  } else {
+    state.rotatingTo = null;
+  }
+
+  sT.forward.thrusting = (cursors.up.isDown || keys.up.isDown || (this.game.input.activePointer.isDown && this.game.input.activePointer.button === 0)) && (state.rotatingTo == null);
+  sT.reverse.thrusting = (cursors.down.isDown || keys.down.isDown || (this.game.input.activePointer.isDown && this.game.input.activePointer.button === 2)) && (state.rotatingTo == null);
 
   sT.thrusting = (sT.left.thrusting || sT.right.thrusting || sT.forward.thrusting || sT.reverse.thrusting);
 
@@ -84,9 +124,9 @@ Soi.Entities.Ship.prototype.update = function() {
   if (sT.left.thrusting && sT.right.thrusting) {
     this.body.setZeroRotation();
   } else if (sT.right.thrusting) {
-    this.body.rotateRight(sT.right.baseVelocity * sT.right.multiplier);
+    this.body.rotateRight(sT.right.baseVelocity * 2.0 * sT.right.multiplier);
   } else if (sT.left.thrusting) {
-    this.body.rotateLeft(sT.left.baseVelocity * sT.left.multiplier);
+    this.body.rotateLeft(sT.left.baseVelocity * 2.0 * sT.left.multiplier);
   } else {
     this.body.setZeroRotation();
   }
@@ -130,18 +170,6 @@ Soi.Entities.Ship.prototype.update = function() {
       this.game.camera.follow(null);
       this.game.add.tween(this.game.camera).to( {x: centerW.x - (this.game.camera.width / 2), y: centerW.y - (this.game.camera.height / 2) }, 1250, Phaser.Easing.Quadratic.InOut, true);
     }
-
-    // var trueDistance = Phaser.Math.distance(centerS.x, centerS.y, centerW.x, centerW.y);
-    // var distance = (trueDistance > 10) ? trueDistance : 10;
-    // var g = this.soi.gravity;
-    // var mass = this.soi.mass;
-    // var f = g * mass / (distance * distance);
-    // var a = Phaser.Math.angleBetweenPoints(centerS, centerW) + Math.PI / 2;
-
-    // var forceVector = {
-    //   'x': f * Math.cos(a),
-    //   'y': f * Math.sin(a)
-    // };
 
     var forceVector = this.calculateForce();
 
@@ -204,34 +232,6 @@ Soi.Entities.Ship.prototype.damage = function(){
   }
 
   this.alpha = 1;
-};
-
-Soi.Entities.Ship.prototype.changeVector = function(a, that) {
-  var x1 = 450;
-  var y1 = 300;
-  var x2 = a.position.x;
-  var y2 = a.position.y;
-
-  if (this.soi) {
-    x1 += this.x - this.soi.well.x;
-    y1 += this.y - this.soi.well.y;
-  }
-
-  var deltaX = x2 - x1;
-  var deltaY = y2 - y1;
-
-  var degrees = Math.atan2(deltaY, deltaX) * 180 / Math.PI + 90;
-
-  var state = that.game.state.states[that.game.state.current];
-  state.pointer = {
-    'x': x2,
-    'y': y2,
-    'degrees': degrees
-  };
-
-  var rotation = Phaser.Math.degToRad(degrees);
-
-  that.body.rotation = rotation;
 };
 
 Object.defineProperty(Soi.Entities.Ship.prototype, 'center', {

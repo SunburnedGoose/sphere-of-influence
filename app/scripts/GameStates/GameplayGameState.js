@@ -97,13 +97,14 @@ Soi.GameStates.GameplayGameState.prototype.update = function() {
 };
 
 Soi.GameStates.GameplayGameState.prototype.render = function() {
-  this.game.debug.text(parseInt(this.pointer.x) + ' ' + parseInt(this.pointer.y) + ' ' + parseInt(this.pointer.degrees), 32, 48);
-  this.game.debug.text(parseInt(this.player.x) + ' ' + parseInt(this.player.y), 32, 68);
+  //this.game.debug.text(this.player.body.rotation.toFixed(2) + ' ' + Phaser.Math.normalizeAngle(this.player.body.rotation).toFixed(2) + ' ' + (!_.isNull(this.player.state.rotatingTo) ? this.player.state.rotatingTo.toFixed(2) : null) , 32, 48);
+  // this.game.debug.text(parseInt(this.pointer.x) + ' ' + parseInt(this.pointer.y) + ' ' + parseInt(this.pointer.degrees), 32, 48);
+  // this.game.debug.text(parseInt(this.player.x) + ' ' + parseInt(this.player.y), 32, 68);
 
-  var positions = this.player.calculatePositions(16, 4);
+  var positions = this.player.calculatePositions(12, 4);
   var that = this;
 
-  this.game.debug.text(parseInt(positions[0].x) + ' ' + parseInt(positions[0].y), 32, 88);
+  // this.game.debug.text(parseInt(positions[0].x) + ' ' + parseInt(positions[0].y), 32, 88);
 
   if (this.player.exists) {
     _.each(positions, function(position) {
@@ -116,7 +117,9 @@ Soi.GameStates.GameplayGameState.prototype.render = function() {
     });
   }
 
-
+  //if (this.player.a) {
+  //this.game.debug.text(parseInt(this.player.a.position.x) + ' ' + parseInt(this.player.a.positionDown.x) + ' ' + parseInt(this.player.a.screenX), 32, 48);
+  //}
   // this.game.debug.text(parseInt(this.player.x) + ' ' + parseInt(this.player.y), 32, 48);
   // this.game.debug.text("inGravityWell: " + ((!_.isEmpty(this.player.gravityWell)) ? 'true' : 'false'), 32, 68);
   // this.game.debug.text("withinAsteroid: " + ((!_.isEmpty(this.player.withinAsteroid)) ? 'true' : 'false'), 32, 88);
