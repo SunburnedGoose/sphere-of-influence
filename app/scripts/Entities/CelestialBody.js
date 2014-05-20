@@ -73,6 +73,6 @@ Object.defineProperty(Soi.Entities.CelestialBody.prototype, 'center', {
       return new Phaser.Point(this.surface.x, this.surface.y);
     }
   },
-  set: function(value) {
+  set: function() {
   }
 });

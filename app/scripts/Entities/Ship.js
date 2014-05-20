@@ -102,8 +102,8 @@ Soi.Entities.Ship.prototype.update = function() {
       }
     }
 
-    var upperBound = normalizedAngle + .05;
-    var lowerBound = normalizedAngle - .05;
+    var upperBound = normalizedAngle + 0.05;
+    var lowerBound = normalizedAngle - 0.05;
 
     if ((state.rotatingTo >= lowerBound) && (state.rotatingTo <= upperBound)) {
       this.body.rotation = state.rotatingTo;
@@ -115,8 +115,8 @@ Soi.Entities.Ship.prototype.update = function() {
     state.rotatingTo = null;
   }
 
-  sT.forward.thrusting = (cursors.up.isDown || keys.up.isDown || (this.game.input.activePointer.isDown && this.game.input.activePointer.button === 0)) && (state.rotatingTo == null);
-  sT.reverse.thrusting = (cursors.down.isDown || keys.down.isDown || (this.game.input.activePointer.isDown && this.game.input.activePointer.button === 2)) && (state.rotatingTo == null);
+  sT.forward.thrusting = (cursors.up.isDown || keys.up.isDown || (this.game.input.activePointer.isDown && this.game.input.activePointer.button === 0)) && (_.isNull(state.rotatingTo));
+  sT.reverse.thrusting = (cursors.down.isDown || keys.down.isDown || (this.game.input.activePointer.isDown && this.game.input.activePointer.button === 2)) && (_.isNull(state.rotatingTo));
 
   sT.thrusting = (sT.left.thrusting || sT.right.thrusting || sT.forward.thrusting || sT.reverse.thrusting);
 
@@ -164,7 +164,6 @@ Soi.Entities.Ship.prototype.update = function() {
 
   if (this.soi) {
     var centerW = this.soi.well.center;
-    var centerS = this.center;
 
     if (this.game.camera.target) {
       this.game.camera.follow(null);
@@ -294,15 +293,15 @@ Object.defineProperty(Soi.Entities.Ship.prototype, 'center', {
 // };
 
 
-Soi.Entities.Ship.prototype.calculatePosition = function(totalTime) {
+Soi.Entities.Ship.prototype.calculatePosition = function() {
 
 };
 
-Soi.Entities.Ship.prototype.calculatePositions = function(totalTime, timeStep) {
+Soi.Entities.Ship.prototype.calculatePositions = function() {
   var positions = [];
   var currentPosition = this.center;
   var currentVelocity = new Phaser.Point(this.body.velocity.x, this.body.velocity.y);
-  var intervals = Math.floor(totalTime / timeStep);
+  //var intervals = Math.floor(totalTime / timeStep);
 
   var step = 10;
 
@@ -327,7 +326,7 @@ Soi.Entities.Ship.prototype.calculatePositions = function(totalTime, timeStep) {
   return positions;
 };
 
-Soi.Entities.Ship.prototype.calculateFuturePositions = function(totalTime) {
+Soi.Entities.Ship.prototype.calculateFuturePositions = function() {
 
 };
 
@@ -351,4 +350,4 @@ Soi.Entities.Ship.prototype.calculateForce = function (pointA, pointB) {
   } else {
     return new Phaser.Point(0,0);
   }
-}
+};

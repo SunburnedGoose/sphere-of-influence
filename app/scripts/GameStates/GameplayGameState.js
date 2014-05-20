@@ -112,7 +112,7 @@ Soi.GameStates.GameplayGameState.prototype.render = function() {
     });
 
     _.each(this.player.beenThere, function(position, index, list) {
-      var alpha = (_.size(list) - index) / _.size(list)
+      var alpha = (_.size(list) - index) / _.size(list);
       that.game.debug.geom(position, 'rgba(0,255,0,' + alpha + ')');
     });
   }
