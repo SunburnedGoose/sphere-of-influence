@@ -24,7 +24,7 @@ Soi.Entities.CelestialBody = function(game, x, y) {
 
   well.scale.setTo(ratio, ratio);
 
-  this.game.physics.p2.enable([moon, well], true);
+  this.game.physics.p2.enable([moon, well], false);
 
   this.add(well);
   this.add(moon);

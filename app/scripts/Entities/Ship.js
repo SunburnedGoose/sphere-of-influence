@@ -115,8 +115,11 @@ Soi.Entities.Ship.prototype.update = function() {
     state.rotatingTo = null;
   }
 
-  sT.forward.thrusting = (cursors.up.isDown || keys.up.isDown || (this.game.input.activePointer.isDown && this.game.input.activePointer.button === 0)) && (_.isNull(state.rotatingTo));
-  sT.reverse.thrusting = (cursors.down.isDown || keys.down.isDown || (this.game.input.activePointer.isDown && this.game.input.activePointer.button === 2)) && (_.isNull(state.rotatingTo));
+  sT.forward.thrusting = (cursors.up.isDown || keys.up.isDown ||
+    (this.game.input.activePointer.isDown && ((this.game.input.activePointer.button === 0) || _.isEmpty(this.game.input.activePointer.button)))) &&
+      (_.isNull(state.rotatingTo));
+  sT.reverse.thrusting = (cursors.down.isDown || keys.down.isDown ||
+    (this.game.input.activePointer.isDown && this.game.input.activePointer.button === 2)) && (_.isNull(state.rotatingTo));
 
   sT.thrusting = (sT.left.thrusting || sT.right.thrusting || sT.forward.thrusting || sT.reverse.thrusting);
 

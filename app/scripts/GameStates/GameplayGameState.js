@@ -97,6 +97,7 @@ Soi.GameStates.GameplayGameState.prototype.update = function() {
 };
 
 Soi.GameStates.GameplayGameState.prototype.render = function() {
+  //this.game.debug.text(this.game.input.activePointer.button, 32, 48);
   //this.game.debug.text(this.player.body.rotation.toFixed(2) + ' ' + Phaser.Math.normalizeAngle(this.player.body.rotation).toFixed(2) + ' ' + (!_.isNull(this.player.state.rotatingTo) ? this.player.state.rotatingTo.toFixed(2) : null) , 32, 48);
   // this.game.debug.text(parseInt(this.pointer.x) + ' ' + parseInt(this.pointer.y) + ' ' + parseInt(this.pointer.degrees), 32, 48);
   // this.game.debug.text(parseInt(this.player.x) + ' ' + parseInt(this.player.y), 32, 68);
@@ -111,10 +112,10 @@ Soi.GameStates.GameplayGameState.prototype.render = function() {
       that.game.debug.geom(position, 'rgba(255,0,0,1)');
     });
 
-    _.each(this.player.beenThere, function(position, index, list) {
-      var alpha = (_.size(list) - index) / _.size(list);
-      that.game.debug.geom(position, 'rgba(0,255,0,' + alpha + ')');
-    });
+    // _.each(this.player.beenThere, function(position, index, list) {
+    //   var alpha = (_.size(list) - index) / _.size(list);
+    //   that.game.debug.geom(position, 'rgba(0,255,0,' + alpha + ')');
+    // });
   }
 
   //if (this.player.a) {
