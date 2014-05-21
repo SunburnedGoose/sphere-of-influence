@@ -4,12 +4,13 @@ namespace('Soi.Entities');
 
 Soi.Entities.AsteroidField = function(game, field) {
 	Phaser.Group.call(this, game);
-	console.log(field);
-	this.name = field.base.name;
 	
+	this.name = 	field.base.name;
+	this.asteroid = [];
 	for (var i = 0; i < field.asteroids.length; i++) {
-		this.asteroid = 		new Soi.Entities.Asteroid(game, field, i);
+		this.asteroid[i] = 		new Soi.Entities.Asteroid(game, this, field, i);
 	}
+
 };
 
 Soi.Entities.AsteroidField.prototype = Object.create(Phaser.Group.prototype);
