@@ -2,28 +2,13 @@
 
 namespace('Soi.Entities');
 
-Soi.Entities.AsteroidField = function(game, group, x, y) {
+Soi.Entities.AsteroidField = function(game, field) {
 	Phaser.Group.call(this, game);
-	this.name = group;
-	var count = 2;
-	var props = new Array();
+	console.log(field);
+	this.name = field.base.name;
 	
-	props[0] = {
-		count:  1,
-		fps:	(Math.floor(Math.random() * 20) + 1),
-		size: 	1,
-		x: 		x+5,
-		y: 		y+5,
-	},
-	props[1] = {
-		count:  1,
-		fps:	(Math.floor(Math.random() * 20) + 1),
-		size: 	.5,
-		x: 		x+100,
-		y: 		y+5,
-	}
-	for (var i = 0; i < count; i++) {
-		this.asteroid = 		new Soi.Entities.Asteroid(game,  props[i]);
+	for (var i = 0; i < field.asteroids.length; i++) {
+		this.asteroid = 		new Soi.Entities.Asteroid(game, field, i);
 	}
 };
 
