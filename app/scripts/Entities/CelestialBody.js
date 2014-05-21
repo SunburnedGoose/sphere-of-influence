@@ -16,7 +16,7 @@ Soi.Entities.CelestialBody = function(game, x, y) {
   var moon = this.game.add.sprite(x, y, 'planetoid');
   moon.scale.setTo(0.3, 0.3);
 
-  var well = new Soi.Entities.GravityWell(this.game, 1700, 1700);
+  var well = new Soi.Entities.GravityWell(this.game, x, y);
 
   var maxRatio = 600 / well.width;
   var trueRatio = moon.width * 5 / well.width;

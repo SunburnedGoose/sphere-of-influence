@@ -73,18 +73,23 @@ Soi.GameStates.GameplayGameState.prototype.create = function() {
 
   this.player = new Soi.Entities.Ship(this.game, 1400, 1400, 'ship');
   this.system = new Soi.Entities.CelestialBody(this.game, 1700, 1700);
+  this.targetSystem = new Soi.Entities.CelestialBody(this.game, 9000, 9000);
 
   this.game.camera.follow(this.player);
 
   this.player.body.setCollisionGroup(this.collisionGroups.players);
   this.system.surface.body.setCollisionGroup(this.collisionGroups.celestialBodySurfaces);
   this.system.well.body.setCollisionGroup(this.collisionGroups.celestialBodyWells);
+  this.targetSystem.surface.body.setCollisionGroup(this.collisionGroups.celestialBodySurfaces);
+  this.targetSystem.well.body.setCollisionGroup(this.collisionGroups.celestialBodyWells);
 
   this.player.body.collides(this.collisionGroups.celestialBodySurfaces, this.collidesWithSurface, this);
   this.system.surface.body.collides(this.collisionGroups.players);
+  this.targetSystem.surface.body.collides(this.collisionGroups.players);
 
   this.player.body.collides(this.collisionGroups.celestialBodyWells);
   this.system.well.body.collides(this.collisionGroups.players);
+  this.targetSystem.well.body.collides(this.collisionGroups.players);
 
   this.field = new Soi.Entities.AsteroidField(this.game, 'field1', 1200, 1200);
 
@@ -100,7 +105,7 @@ Soi.GameStates.GameplayGameState.prototype.render = function() {
   //this.game.debug.text(this.game.input.activePointer.button, 32, 48);
   //this.game.debug.text(this.player.body.rotation.toFixed(2) + ' ' + Phaser.Math.normalizeAngle(this.player.body.rotation).toFixed(2) + ' ' + (!_.isNull(this.player.state.rotatingTo) ? this.player.state.rotatingTo.toFixed(2) : null) , 32, 48);
   // this.game.debug.text(parseInt(this.pointer.x) + ' ' + parseInt(this.pointer.y) + ' ' + parseInt(this.pointer.degrees), 32, 48);
-  // this.game.debug.text(parseInt(this.player.x) + ' ' + parseInt(this.player.y), 32, 68);
+  this.game.debug.text(parseInt(this.player.x) + ' ' + parseInt(this.player.y), 32, 68);
 
   var positions = this.player.calculatePositions(12, 4);
   var that = this;
