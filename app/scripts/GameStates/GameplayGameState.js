@@ -106,6 +106,12 @@ Soi.GameStates.GameplayGameState.prototype.render = function() {
   //this.game.debug.text(this.player.body.rotation.toFixed(2) + ' ' + Phaser.Math.normalizeAngle(this.player.body.rotation).toFixed(2) + ' ' + (!_.isNull(this.player.state.rotatingTo) ? this.player.state.rotatingTo.toFixed(2) : null) , 32, 48);
   // this.game.debug.text(parseInt(this.pointer.x) + ' ' + parseInt(this.pointer.y) + ' ' + parseInt(this.pointer.degrees), 32, 48);
   this.game.debug.text(parseInt(this.player.x) + ' ' + parseInt(this.player.y), 32, 68);
+  var angleA = Phaser.Math.normalizeAngle(Phaser.Math.angleBetweenPoints(this.player.center, this.targetSystem.center) - Math.PI / 2);
+  var pointA = new Phaser.Point(this.targetSystem.center.x + ((this.targetSystem.well.width / 2) * Math.cos(angleA)), this.targetSystem.center.x + ((this.targetSystem.well.width / 2) * Math.sin(angleA)));
+  var angleB = Phaser.Math.normalizeAngle(angleA + Math.PI);
+  var pointB = new Phaser.Point(this.targetSystem.center.x + ((this.targetSystem.well.width / 2) * Math.cos(angleB)), this.targetSystem.center.x + ((this.targetSystem.well.width / 2) * Math.sin(angleB)));
+
+  this.game.debug.text(angleA.toFixed(2) + ' - ' + parseInt(pointA.x, 10) + ' ' + parseInt(pointA.y, 10) + ', ' + angleB.toFixed(2) + ' - ' + parseInt(pointB.x, 10) + ' ' + parseInt(pointB.y, 10), 32, 48);
 
   var positions = this.player.calculatePositions(12, 4);
   var that = this;

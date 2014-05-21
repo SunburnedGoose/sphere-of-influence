@@ -31,3 +31,11 @@ Object.defineProperty(Soi.Entities.GravityWell.prototype, 'center', {
     }
   }
 });
+
+Object.defineProperty(Soi.Entities.GravityWell.prototype, 'radius', {
+  get: function() {
+    return this.width / 2;
+  },
+  set: function() {
+  }
+});

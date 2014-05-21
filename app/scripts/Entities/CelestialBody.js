@@ -76,3 +76,11 @@ Object.defineProperty(Soi.Entities.CelestialBody.prototype, 'center', {
   set: function() {
   }
 });
+
+Object.defineProperty(Soi.Entities.CelestialBody.prototype, 'radius', {
+  get: function() {
+    return this.width / 2;
+  },
+  set: function() {
+  }
+});
