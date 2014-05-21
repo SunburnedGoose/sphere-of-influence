@@ -22,11 +22,11 @@ Soi.Entities.Asteroid = function(game, field, num) {
 
   this.body.clearShapes();
 
-  var c = 		this.body.addCircle(this.width / 2, 30*this.props.size, 40*this.props.size);
-  c.sensor = 	true;
+  //var c = 		this.body.addCircle(this.width / 2, 30*this.props.size, 40*this.props.size);
+  //c.sensor = 	true;
 
-  this.checkWorldBounds = true;
-  this.events.onOutOfBounds.add(this.out, this);
+  //this.checkWorldBounds = true;
+  //this.events.onOutOfBounds.add(this.out, this);
 
 
 
@@ -49,9 +49,6 @@ Soi.Entities.Asteroid.prototype.onExitAsteroid = function(targetBody) {
   }
 };
 
-Soi.Entities.Asteroid.prototype.out = function(){
-
-};
 
 Soi.Entities.Asteroid.prototype.update = function () {
 
