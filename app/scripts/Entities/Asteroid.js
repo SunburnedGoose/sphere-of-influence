@@ -7,15 +7,9 @@ Soi.Entities.Asteroid = function(game, field, num) {
 
   Phaser.Sprite.call(this, game, props.x, props.y, 'asteroid');
 
-<<<<<<< HEAD
   this.name =		field.base.name+'_asteroid_'+num;
   this.scale.x =	props.size;
   this.scale.y =	props.size;
-=======
-  this.name = 		field.base.name+"_asteroid_"+num;
-  this.scale.x = 	props.size;
-  this.scale.y = 	props.size;
->>>>>>> d6e8ca84e061fc17e3be4a01938ce357c94fa931
 
   this.animations.add('rotate');
   this.animations.play('rotate', props.fps, true);
@@ -26,19 +20,11 @@ Soi.Entities.Asteroid = function(game, field, num) {
   this.body.static = true;
   this.body.clearShapes();
 
-<<<<<<< HEAD
   var c =		this.body.addCircle(this.width / 2, props.size, props.size);
   c.sensor =	true;
 
   var gameState = this.game.state.states[this.game.state.current];
 
-=======
-  var c = 		this.body.addCircle(this.width / 2, props.size, props.size);
-  c.sensor = 	true;
-
-  var gameState = this.game.state.states[this.game.state.current];
-
->>>>>>> d6e8ca84e061fc17e3be4a01938ce357c94fa931
   this.body.setCollisionGroup(gameState.collisionGroups.asteroids);
   this.body.collides(gameState.collisionGroups.players);
 
