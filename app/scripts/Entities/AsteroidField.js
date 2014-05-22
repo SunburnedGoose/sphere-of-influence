@@ -5,12 +5,12 @@ namespace('Soi.Entities');
 Soi.Entities.AsteroidField = function(game, field) {
 	Phaser.Group.call(this, game);
 	
-	this.name = 			field.base.name;
-  	this.enableBody = 		true;
- 	this.physicsBodyType = 	Phaser.Physics.P2JS;
+	this.name =				field.base.name;
+	this.enableBody =		true;
+	this.physicsBodyType =	Phaser.Physics.P2JS;
 	this.asteroid = [];
 	for (var i = 0; i < field.asteroids.length; i++) {
-		this.asteroid[i] = 		new Soi.Entities.Asteroid(game, field, i);
+		this.asteroid[i] =		new Soi.Entities.Asteroid(game, field, i);
 		this.add(this.asteroid[i]);
 	}
 };

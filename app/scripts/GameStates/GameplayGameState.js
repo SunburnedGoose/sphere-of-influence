@@ -84,15 +84,17 @@ Soi.GameStates.GameplayGameState.prototype.create = function() {
   this.targetSystem.well.body.setCollisionGroup(this.collisionGroups.celestialBodyWells);
 
   this.player.body.collides(this.collisionGroups.celestialBodySurfaces, this.collidesWithSurface, this);
-  this.system.surface.body.collides(this.collisionGroups.players);
-  this.targetSystem.surface.body.collides(this.collisionGroups.players);
-
   this.player.body.collides(this.collisionGroups.celestialBodyWells);
+  this.player.body.collides(this.collisionGroups.asteroids);
+
+  this.system.surface.body.collides(this.collisionGroups.players);
   this.system.well.body.collides(this.collisionGroups.players);
+
+  this.targetSystem.surface.body.collides(this.collisionGroups.players);
   this.targetSystem.well.body.collides(this.collisionGroups.players);
 
   for (var i = 0; i < Soi.Entities.fields.length; i++) {
- 	this.field = new Soi.Entities.AsteroidField(this.game, Soi.Entities.fields[i]);
+    this.field = new Soi.Entities.AsteroidField(this.game, Soi.Entities.fields[i]);
   }
 
   this.player.bringToTop();
