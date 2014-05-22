@@ -2,20 +2,17 @@
 
 namespace('Soi.Entities');
 
-Soi.Entities.Asteroid = function(game, group, field, num) {
-  this.props =				field.asteroids[num];
+Soi.Entities.Asteroid = function(game, field, num) {
+  var props =		field.asteroids[num];
   
-  Phaser.Sprite.call(this, game, this.props.x, this.props.y, 'asteroid');
+  Phaser.Sprite.call(this, game, props.x, props.y, 'asteroid');
   
-  this.asteroid = 			this.game.add.sprite(this.props.x, this.props.y, 'asteroid');
-  this.asteroid.name = 		field.base.name+"_asteroid_"+num;
-  this.scale.x = 			this.props.size;
-  this.scale.y = 			this.props.size;
-  this.asteroid.scale.x = 	this.props.size;
-  this.asteroid.scale.y = 	this.props.size;
+  this.name = 		field.base.name+"_asteroid_"+num;
+  this.scale.x = 	props.size;
+  this.scale.y = 	props.size;
   
-  this.asteroid.animations.add('rotate');
-  this.asteroid.animations.play('rotate', this.props.fps, true);
+  this.animations.add('rotate');
+  this.animations.play('rotate', props.fps, true);
   
   this.anchor.setTo(0.5, 0.5);
   this.game.physics.p2.enable(this, false);
@@ -23,7 +20,7 @@ Soi.Entities.Asteroid = function(game, group, field, num) {
   this.body.static = true;
   this.body.clearShapes();
 
-  var c = 		this.body.addCircle(this.width / 2, 30*this.props.size, 40*this.props.size);
+  var c = 		this.body.addCircle(this.width / 2, props.size, props.size);
   c.sensor = 	true;
 
 
