@@ -97,10 +97,30 @@ Soi.GameStates.GameplayGameState.prototype.create = function() {
 
   this.player.bringToTop();
   this.game.time.advancedTiming = true;
+
+  this.lineA = new Phaser.Line(this.player.center.x, this.player.center.y, this.system.center.x, this.system.center.y);
+  this.lineB = new Phaser.Line(this.player.center.x, this.player.center.y, this.system.center.x, this.system.center.y);
+
+  this.lineC = new Phaser.Line(this.player.center.x, this.player.center.y, this.targetSystem.center.x, this.targetSystem.center.y);
+  this.lineD = new Phaser.Line(this.player.center.x, this.player.center.y, this.targetSystem.center.x, this.targetSystem.center.y);
 };
 
 Soi.GameStates.GameplayGameState.prototype.update = function() {
+  this.lineA.start.set(this.player.center.x, this.player.center.y);
+  this.lineB.start.set(this.player.center.x, this.player.center.y);
 
+  var angleA = Phaser.Math.normalizeAngle(Phaser.Math.angleBetweenPoints(this.system.center, this.player.center) - Math.PI);
+  var angleB = angleA + Math.PI;
+  this.lineA.end.set(this.system.center.x + (Math.cos(angleA) * this.system.well.radius), this.system.center.y + (Math.sin(angleA) * this.system.well.radius * -1));
+  this.lineB.end.set(this.system.center.x + (Math.cos(angleB) * this.system.well.radius), this.system.center.y + (Math.sin(angleB) * this.system.well.radius * -1));
+
+  this.lineC.start.set(this.player.center.x, this.player.center.y);
+  this.lineD.start.set(this.player.center.x, this.player.center.y);
+
+  var angleC = Phaser.Math.normalizeAngle(Phaser.Math.angleBetweenPoints(this.targetSystem.center, this.player.center) - Math.PI);
+  var angleD = angleC + Math.PI;
+  this.lineC.end.set(this.targetSystem.center.x + (Math.cos(angleC) * this.targetSystem.well.radius), this.targetSystem.center.y + (Math.sin(angleC) * this.targetSystem.well.radius * -1));
+  this.lineD.end.set(this.targetSystem.center.x + (Math.cos(angleD) * this.targetSystem.well.radius), this.targetSystem.center.y + (Math.sin(angleD) * this.targetSystem.well.radius * -1));
 };
 
 Soi.GameStates.GameplayGameState.prototype.render = function() {
@@ -108,15 +128,22 @@ Soi.GameStates.GameplayGameState.prototype.render = function() {
   //this.game.debug.text(this.player.body.rotation.toFixed(2) + ' ' + Phaser.Math.normalizeAngle(this.player.body.rotation).toFixed(2) + ' ' + (!_.isNull(this.player.state.rotatingTo) ? this.player.state.rotatingTo.toFixed(2) : null) , 32, 48);
   // this.game.debug.text(parseInt(this.pointer.x) + ' ' + parseInt(this.pointer.y) + ' ' + parseInt(this.pointer.degrees), 32, 48);
   this.game.debug.text(parseInt(this.player.x) + ' ' + parseInt(this.player.y), 32, 68);
-  var angleA = Phaser.Math.normalizeAngle(Phaser.Math.angleBetweenPoints(this.player.center, this.targetSystem.center) - Math.PI / 2);
-  var pointA = new Phaser.Point(this.targetSystem.center.x + ((this.targetSystem.well.width / 2) * Math.cos(angleA)), this.targetSystem.center.x + ((this.targetSystem.well.width / 2) * Math.sin(angleA)));
-  var angleB = Phaser.Math.normalizeAngle(angleA + Math.PI);
-  var pointB = new Phaser.Point(this.targetSystem.center.x + ((this.targetSystem.well.width / 2) * Math.cos(angleB)), this.targetSystem.center.x + ((this.targetSystem.well.width / 2) * Math.sin(angleB)));
+  // var angleA = Phaser.Math.normalizeAngle(Phaser.Math.angleBetweenPoints(this.player.center, this.targetSystem.center) - Math.PI / 2);
+  // var pointA = new Phaser.Point(this.targetSystem.center.x + ((this.targetSystem.well.width / 2) * Math.cos(angleA)), this.targetSystem.center.x + ((this.targetSystem.well.width / 2) * Math.sin(angleA)));
+  // var angleB = Phaser.Math.normalizeAngle(angleA + Math.PI);
+  // var pointB = new Phaser.Point(this.targetSystem.center.x + ((this.targetSystem.well.width / 2) * Math.cos(angleB)), this.targetSystem.center.x + ((this.targetSystem.well.width / 2) * Math.sin(angleB)));
 
-  this.game.debug.text(angleA.toFixed(2) + ' - ' + parseInt(pointA.x, 10) + ' ' + parseInt(pointA.y, 10) + ', ' + angleB.toFixed(2) + ' - ' + parseInt(pointB.x, 10) + ' ' + parseInt(pointB.y, 10), 32, 48);
+  var shipSystemAngle = Phaser.Math.normalizeAngle(Phaser.Math.angleBetweenPoints( this.system.center, this.player.center) - Math.PI / 2);
+  this.game.debug.text(shipSystemAngle.toFixed(2) + ' ' + Math.cos(shipSystemAngle).toFixed(2) + ' ' + (Math.sin(shipSystemAngle).toFixed(2) * -1), 32, 48);
 
   var positions = this.player.calculatePositions(12, 4);
   var that = this;
+
+  this.game.debug.geom(this.lineA, 'rgba(255,0,0,1)');
+  this.game.debug.geom(this.lineB, 'rgba(255,0,0,1)');
+  this.game.debug.geom(this.lineC, 'rgba(255,255,0,1)');
+  this.game.debug.geom(this.lineD, 'rgba(255,255,0,1)');
+  // this.game.debug.geom(this.lineB);
 
   // this.game.debug.text(parseInt(positions[0].x) + ' ' + parseInt(positions[0].y), 32, 88);
 
