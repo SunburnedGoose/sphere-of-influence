@@ -84,7 +84,7 @@ Soi.GameStates.GameplayGameState.prototype.create = function() {
   this.player.body.velocity.x = 100 * Math.sin(orbitAngle);
   this.player.body.velocity.y = 100 * -1 * Math.cos(orbitAngle);
 
-  this.game.camera.follow(this.player);
+  this.game.camera.follow(this.system.surface);
 
   this.player.body.setCollisionGroup(this.collisionGroups.players);
   this.system.surface.body.setCollisionGroup(this.collisionGroups.celestialBodySurfaces);
