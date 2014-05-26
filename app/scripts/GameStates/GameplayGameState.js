@@ -75,6 +75,15 @@ Soi.GameStates.GameplayGameState.prototype.create = function() {
   this.system = new Soi.Entities.CelestialBody(this.game, 1700, 1700);
   this.targetSystem = new Soi.Entities.CelestialBody(this.game, 9000, 9000);
 
+  var orbitAngle = Math.random() * Math.PI;
+
+  this.player.body.x = this.system.surface.x + (170 * Math.cos(orbitAngle));
+  this.player.body.y = this.system.surface.y + (170 * Math.sin(orbitAngle));
+
+  this.player.body.rotation = orbitAngle;
+  this.player.body.velocity.x = 100 * Math.sin(orbitAngle);
+  this.player.body.velocity.y = 100 * -1 * Math.cos(orbitAngle);
+
   this.game.camera.follow(this.player);
 
   this.player.body.setCollisionGroup(this.collisionGroups.players);
@@ -108,20 +117,21 @@ Soi.GameStates.GameplayGameState.prototype.create = function() {
 };
 
 Soi.GameStates.GameplayGameState.prototype.update = function() {
-  this.lineA.start.set(this.player.center.x, this.player.center.y);
-  this.lineB.start.set(this.player.center.x, this.player.center.y);
-
   var angleA = Phaser.Math.normalizeAngle(Phaser.Math.angleBetweenPoints(this.system.center, this.player.center) - Math.PI);
   var angleB = angleA + Math.PI;
+  var angleC = Phaser.Math.normalizeAngle(Phaser.Math.angleBetweenPoints(this.targetSystem.center, this.player.center) - Math.PI);
+  var angleD = angleC + Math.PI;
+
+  this.lineA.start.set(this.player.center.x, this.player.center.y);
   this.lineA.end.set(this.system.center.x + (Math.cos(angleA) * this.system.well.radius), this.system.center.y + (Math.sin(angleA) * this.system.well.radius * -1));
+
+  this.lineB.start.set(this.player.center.x, this.player.center.y);
   this.lineB.end.set(this.system.center.x + (Math.cos(angleB) * this.system.well.radius), this.system.center.y + (Math.sin(angleB) * this.system.well.radius * -1));
 
   this.lineC.start.set(this.player.center.x, this.player.center.y);
-  this.lineD.start.set(this.player.center.x, this.player.center.y);
-
-  var angleC = Phaser.Math.normalizeAngle(Phaser.Math.angleBetweenPoints(this.targetSystem.center, this.player.center) - Math.PI);
-  var angleD = angleC + Math.PI;
   this.lineC.end.set(this.targetSystem.center.x + (Math.cos(angleC) * this.targetSystem.well.radius), this.targetSystem.center.y + (Math.sin(angleC) * this.targetSystem.well.radius * -1));
+
+  this.lineD.start.set(this.player.center.x, this.player.center.y);
   this.lineD.end.set(this.targetSystem.center.x + (Math.cos(angleD) * this.targetSystem.well.radius), this.targetSystem.center.y + (Math.sin(angleD) * this.targetSystem.well.radius * -1));
 };
 
