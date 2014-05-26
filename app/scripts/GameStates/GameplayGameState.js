@@ -75,7 +75,7 @@ Soi.GameStates.GameplayGameState.prototype.create = function() {
   this.system = new Soi.Entities.CelestialBody(this.game, 1700, 1700);
   this.targetSystem = new Soi.Entities.CelestialBody(this.game, 9000, 9000);
 
-  var orbitAngle = Math.random() * Math.PI;
+  var orbitAngle = Math.random() * Math.PI * 2;
 
   this.player.body.x = this.system.surface.x + (170 * Math.cos(orbitAngle));
   this.player.body.y = this.system.surface.y + (170 * Math.sin(orbitAngle));
