@@ -149,6 +149,7 @@ Soi.GameStates.GameplayGameState.prototype.render = function() {
   this.game.debug.text(shipSystemAngle.toFixed(2) + ' ' + Math.cos(shipSystemAngle).toFixed(2) + ' ' + (Math.sin(shipSystemAngle).toFixed(2) * -1), 32, 48);
 
   var positions = this.player.calculatePositions(12, 4);
+  // var positions = this.player.calculateFuturePositions();
   var that = this;
 
   this.game.debug.geom(this.lineA, 'rgba(255,0,0,1)');
@@ -164,10 +165,10 @@ Soi.GameStates.GameplayGameState.prototype.render = function() {
       that.game.debug.geom(position, 'rgba(255,0,0,1)');
     });
 
-    // _.each(this.player.beenThere, function(position, index, list) {
-    //   var alpha = (_.size(list) - index) / _.size(list);
-    //   that.game.debug.geom(position, 'rgba(0,255,0,' + alpha + ')');
-    // });
+    _.each(this.player.beenThere, function(position, index, list) {
+      var alpha = (_.size(list) - index) / _.size(list);
+      that.game.debug.geom(position, 'rgba(0,255,0,' + alpha + ')');
+    });
   }
 
   //if (this.player.a) {

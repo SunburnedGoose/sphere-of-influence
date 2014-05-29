@@ -306,22 +306,19 @@ Soi.Entities.Ship.prototype.calculatePositions = function() {
   var currentVelocity = new Phaser.Point(this.body.velocity.x, this.body.velocity.y);
   //var intervals = Math.floor(totalTime / timeStep);
 
-  var step = 10;
-
-  for(var i = 0; i < 3000; i = i + step) {
-
+  for(var i = 0; i < 60; i++) {
     var currentForce = this.calculateForce(currentPosition);
 
-    var fx = this.body.world.pxmi(currentForce.x * -1 * this.body.world.frameRate * step);
-    var fy = this.body.world.pxmi(currentForce.y * 1 * this.body.world.frameRate * step);
+    var fx = this.body.world.pxmi(currentForce.x * -1 * 0.85);
+    var fy = this.body.world.pxmi(currentForce.y * 1 * 0.85);
 
-    currentVelocity.x += fx;
-    currentVelocity.y += fy;
+    currentVelocity.x = currentVelocity.x + fx;
+    currentVelocity.y = currentVelocity.y + fy;
 
-    currentPosition.x += currentVelocity.x * -1 * this.body.world.frameRate * step;
-    currentPosition.y += currentVelocity.y * -1 * this.body.world.frameRate * step;
+    currentPosition.x += currentVelocity.x * -1 * 0.85;
+    currentPosition.y += currentVelocity.y * -1 * 0.85;
 
-    if (i % 600 > 599 - step) {
+    if (i % 12 == 11) {
       positions.push(new Phaser.Point(currentPosition.x, currentPosition.y));
     }
   }
@@ -330,7 +327,33 @@ Soi.Entities.Ship.prototype.calculatePositions = function() {
 };
 
 Soi.Entities.Ship.prototype.calculateFuturePositions = function() {
+  var positions = [];
 
+  var s = new State();
+
+  s.aPoint = new Phaser.Point(this.center.x, this.center.y);
+  s.bPoint =  new Phaser.Point(this.soi.center.x, this.soi.center.y)
+  s.bGravity = this.soi.gravity;
+  s.bMass = this.soi.mass;
+  s.aVelocity = new Phaser.Point(this.body.velocity.x, this.body.velocity.y);
+  s.world = this.body.world;
+
+  var t = 0;
+  var dt = 2;
+
+  var a = integrate(s, t, dt);
+  var b = integrate(s, t + dt, dt);
+  var c = integrate(s, t + (2 * dt), dt);
+  var d = integrate(s, t + (3 * dt), dt);
+  var e = integrate(s, t + (4 * dt), dt);
+
+  positions.push(a);
+  positions.push(b);
+  positions.push(c);
+  positions.push(d);
+  positions.push(e);
+
+  return positions;
 };
 
 Soi.Entities.Ship.prototype.calculateForce = function (pointA, pointB) {
@@ -354,3 +377,64 @@ Soi.Entities.Ship.prototype.calculateForce = function (pointA, pointB) {
     return new Phaser.Point(0,0);
   }
 };
+
+function State () {
+  this.aPoint = new Phaser.Point(0,0);
+  this.bPoint = new Phaser.Point(0,0);
+  this.aVelocity = new Phaser.Point(0,0);
+  this.bGravity = 0;
+  this.bMass = 0;
+  this.world = null;
+}
+
+function Derivative () {
+  this.dp = new Phaser.Point(0,0);
+  this.dv = new Phaser.Point(0,0);
+}
+
+function evaluate(initial, t, dt, d) {
+  var state = new State();
+  state.aPoint = new Phaser.Point(initial.aPoint.x + d.dp.x * dt, initial.aPoint.y + d.dp.y * dt);
+  state.aVelocity = new Phaser.Point(initial.aVelocity.x + d.dv.x * dt, initial.aVelocity.y + d.dv.y * dt);
+  state.bPoint = initial.bPoint;
+  state.bGravity = initial.bGravity;
+  state.bMass = initial.bMass;
+  state.world = initial.world;
+
+  var output = new Derivative();
+  output.dp = state.aVelocity;
+  output.dv = acceleration(state, t + dt);
+  return output;
+}
+
+function acceleration(state, t) {
+  var d = Phaser.Math.distance(state.aPoint.x, state.aPoint.y, state.bPoint.x, state.bPoint.y);
+  var g = state.bGravity;
+  var mass = state.bMass;
+  var f = g * mass / Math.max(d * d, 10);
+  var a = Phaser.Math.angleBetweenPoints(state.aPoint, state.bPoint) + Math.PI / 2;
+
+  return new Phaser.Point(state.world.pxmi(f * Math.cos(a)), state.world.pxmi(f * Math.sin(a)));
+}
+
+function integrate(state, t, dt) {
+  var a,b,c,d;
+
+  a = evaluate(state, t, 0.0, new Derivative());
+  b = evaluate(state, t, dt * 0.5, a);
+  c = evaluate(state, t, dt * 0.5, b);
+  d = evaluate(state, t, dt, c);
+
+  var dxdt = 1.0 / 6.0 * (a.dp.x + (2.0 * (b.dp.x + c.dp.x)) + d.dp.x);
+  var dydt = -1.0 / 6.0 * (a.dp.y + (2.0 * (b.dp.y + c.dp.y)) + d.dp.y);
+
+  var dvxdt = 1.0 / 6.0 * (a.dv.x + (2.0 * (b.dv.x + c.dv.x)) + d.dv.x);
+  var dvydt = 1.0 / 6.0 * (a.dv.y + (2.0 * (b.dv.y + c.dv.y)) + d.dv.y);
+
+  state.aPoint.x = state.aPoint.x + dxdt * dt;
+  state.aPoint.y = state.aPoint.y + dydt * dt;
+  state.aVelocity.x = state.aVelocity.x + (dvxdt * dt);
+  state.aVelocity.y = state.aVelocity.y + (dvydt * dt);
+
+  return state;
+}
