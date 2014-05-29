@@ -55,6 +55,14 @@ Soi.Entities.Ship = function(game, x, y, texture) {
   this.animations.play(textureMeta.initial);
 
   this.game.time.events.loop(Phaser.Timer.SECOND * 0.5, this.captureBeenThere, this);
+
+  this.futurePosition = [];
+
+  this.futurePosition.push(new Phaser.Point(this.x, this.y));
+  this.futurePosition.push(new Phaser.Point(this.x, this.y));
+  this.futurePosition.push(new Phaser.Point(this.x, this.y));
+  this.futurePosition.push(new Phaser.Point(this.x, this.y));
+  this.futurePosition.push(new Phaser.Point(this.x, this.y));
 };
 
 Soi.Entities.Ship.prototype = Object.create(Phaser.Sprite.prototype);
@@ -68,6 +76,7 @@ Soi.Entities.Ship.prototype.update = function() {
   var prevState = _.cloneDeep(state);
   var pT = prevState.thrusters;
   var sT = state.thrusters;
+  var that = this;
 
   /* Thrusting */
   sT.left.thrusting = (cursors.left.isDown || keys.left.isDown);
@@ -209,6 +218,17 @@ Soi.Entities.Ship.prototype.update = function() {
     // Penult.Soi.Ship.prototype.damage(that);
     // Penult.Soi.Shield.prototype.update(that, -.5, false);
   }
+
+
+  var positions = this.calculatePositions();
+
+  if (this.exists) {
+    _.each(positions, function(position, index) {
+      var point = that.futurePosition[index];
+      point.x = position.x;
+      point.y = position.y;
+    });
+  }
 };
 
 Soi.Entities.Ship.prototype.captureBeenThere = function() {
@@ -259,55 +279,13 @@ Object.defineProperty(Soi.Entities.Ship.prototype, 'center', {
   }
 });
 
-// SoiIntermediate.Ship.prototype.changeVector = function(a, that) {
-//   //ship.body.velocity.x = ship.body.velocity.y = 0;
-//   var x1 = 400;
-//   var y1 = 300;
-//   var x2 = a.position.x;
-//   var y2 = a.position.y;
-
-//   var deltaX = x2 - x1;
-//   var deltaY = y2 - y1;
-
-//   var degrees = Math.atan2(deltaY, deltaX) * 180 / Math.PI + 90;
-
-//   var rotation = Phaser.Math.degToRad(degrees);
-
-//   that.body.rotation = rotation;
-//   that.instance.update();
-// };
-
-// SoiIntermediate.Ship.prototype.position = function() {
-//   var point = new Phaser.Point(0,0);
-//   //var anchor = this.planet;
-
-//   return point;
-// };
-
-// SoiIntermediate.Ship.prototype.positions = function (timeSpan, timeInterval) {
-//   var iterations = Math.floor(timeSpan / timeInterval);
-//   var positions = [];
-
-//   for (var i = 0; i < iterations; i++) {
-//     positions[i] = this.position(timeInterval * i);
-//   }
-
-//   return positions;
-// };
-
-
-Soi.Entities.Ship.prototype.calculatePosition = function() {
-
-};
-
 Soi.Entities.Ship.prototype.calculatePositions = function() {
   var positions = [];
   var currentPosition = this.center;
   var currentVelocity = new Phaser.Point(this.body.velocity.x, this.body.velocity.y);
-  //var intervals = Math.floor(totalTime / timeStep);
 
   for(var i = 0; i < 60; i++) {
-    var currentForce = this.calculateForce(currentPosition);
+    var currentForce = this.calculateForce({ 'center': currentPosition, 'x': currentPosition.x, 'y': currentPosition.y });
 
     var fx = this.body.world.pxmi(currentForce.x * -1 * 0.85);
     var fy = this.body.world.pxmi(currentForce.y * 1 * 0.85);
@@ -318,123 +296,53 @@ Soi.Entities.Ship.prototype.calculatePositions = function() {
     currentPosition.x += currentVelocity.x * -1 * 0.85;
     currentPosition.y += currentVelocity.y * -1 * 0.85;
 
-    if (i % 12 == 11) {
-      positions.push(new Phaser.Point(currentPosition.x, currentPosition.y));
+    if (i % 12 === 11) {
+      positions.push({ 'x': currentPosition.x, 'y': currentPosition.y});
     }
   }
 
   return positions;
 };
 
-Soi.Entities.Ship.prototype.calculateFuturePositions = function() {
-  var positions = [];
+Soi.Entities.Ship.prototype.calculateForce = function (aBody, bBody) {
+  var d, g, mass, f, a;
 
-  var s = new State();
+  if (_.isEmpty(aBody)) {
+    aBody = this;
+  }
 
-  s.aPoint = new Phaser.Point(this.center.x, this.center.y);
-  s.bPoint =  new Phaser.Point(this.soi.center.x, this.soi.center.y)
-  s.bGravity = this.soi.gravity;
-  s.bMass = this.soi.mass;
-  s.aVelocity = new Phaser.Point(this.body.velocity.x, this.body.velocity.y);
-  s.world = this.body.world;
+  bBody = this.getNearestBody(aBody.center);
 
-  var t = 0;
-  var dt = 2;
-
-  var a = integrate(s, t, dt);
-  var b = integrate(s, t + dt, dt);
-  var c = integrate(s, t + (2 * dt), dt);
-  var d = integrate(s, t + (3 * dt), dt);
-  var e = integrate(s, t + (4 * dt), dt);
-
-  positions.push(a);
-  positions.push(b);
-  positions.push(c);
-  positions.push(d);
-  positions.push(e);
-
-  return positions;
-};
-
-Soi.Entities.Ship.prototype.calculateForce = function (pointA, pointB) {
-  if (this.soi) {
-    if (_.isEmpty(pointA)) {
-      pointA = this.center;
-    }
-
-    if (_.isEmpty(pointB)) {
-      pointB = this.soi.center;
-    }
-
-    var d = Phaser.Math.distance(pointA.x, pointA.y, pointB.x, pointB.y);
-    var g = this.soi.gravity;
-    var mass = this.soi.mass;
-    var f = g * mass / Math.max(d * d, 10);
-    var a = Phaser.Math.angleBetweenPoints(pointA, pointB) + Math.PI / 2;
+  if (_.isEmpty(bBody)) {
+    return new Phaser.Point(0,0);
+  } else {
+    d = Soi.Math.distanceBetween(aBody.center, bBody.center);
+    g = bBody.gravity;
+    mass = bBody.mass;
+    f = g * mass / Math.max(d * d, 10);
+    a = Phaser.Math.angleBetweenPoints(aBody, bBody.well) + Math.PI / 2;
 
     return new Phaser.Point(f * Math.cos(a), f * Math.sin(a));
-  } else {
-    return new Phaser.Point(0,0);
   }
 };
 
-function State () {
-  this.aPoint = new Phaser.Point(0,0);
-  this.bPoint = new Phaser.Point(0,0);
-  this.aVelocity = new Phaser.Point(0,0);
-  this.bGravity = 0;
-  this.bMass = 0;
-  this.world = null;
-}
+Soi.Entities.Ship.prototype.getNearestBody = function (point) {
+  if (this.exists) {
+    var gameState = this.game.state.states[this.game.state.current];
+    var d;
 
-function Derivative () {
-  this.dp = new Phaser.Point(0,0);
-  this.dv = new Phaser.Point(0,0);
-}
+    d = Soi.Math.distanceBetween(point, gameState.targetSystem.center);
 
-function evaluate(initial, t, dt, d) {
-  var state = new State();
-  state.aPoint = new Phaser.Point(initial.aPoint.x + d.dp.x * dt, initial.aPoint.y + d.dp.y * dt);
-  state.aVelocity = new Phaser.Point(initial.aVelocity.x + d.dv.x * dt, initial.aVelocity.y + d.dv.y * dt);
-  state.bPoint = initial.bPoint;
-  state.bGravity = initial.bGravity;
-  state.bMass = initial.bMass;
-  state.world = initial.world;
+    if (d <= gameState.targetSystem.well.radius) {
+      return gameState.targetSystem;
+    }
 
-  var output = new Derivative();
-  output.dp = state.aVelocity;
-  output.dv = acceleration(state, t + dt);
-  return output;
-}
+    d = Soi.Math.distanceBetween(point, gameState.system.center);
 
-function acceleration(state, t) {
-  var d = Phaser.Math.distance(state.aPoint.x, state.aPoint.y, state.bPoint.x, state.bPoint.y);
-  var g = state.bGravity;
-  var mass = state.bMass;
-  var f = g * mass / Math.max(d * d, 10);
-  var a = Phaser.Math.angleBetweenPoints(state.aPoint, state.bPoint) + Math.PI / 2;
+    if (d <= gameState.system.well.radius) {
+      return gameState.system;
+    }
+  }
 
-  return new Phaser.Point(state.world.pxmi(f * Math.cos(a)), state.world.pxmi(f * Math.sin(a)));
-}
-
-function integrate(state, t, dt) {
-  var a,b,c,d;
-
-  a = evaluate(state, t, 0.0, new Derivative());
-  b = evaluate(state, t, dt * 0.5, a);
-  c = evaluate(state, t, dt * 0.5, b);
-  d = evaluate(state, t, dt, c);
-
-  var dxdt = 1.0 / 6.0 * (a.dp.x + (2.0 * (b.dp.x + c.dp.x)) + d.dp.x);
-  var dydt = -1.0 / 6.0 * (a.dp.y + (2.0 * (b.dp.y + c.dp.y)) + d.dp.y);
-
-  var dvxdt = 1.0 / 6.0 * (a.dv.x + (2.0 * (b.dv.x + c.dv.x)) + d.dv.x);
-  var dvydt = 1.0 / 6.0 * (a.dv.y + (2.0 * (b.dv.y + c.dv.y)) + d.dv.y);
-
-  state.aPoint.x = state.aPoint.x + dxdt * dt;
-  state.aPoint.y = state.aPoint.y + dydt * dt;
-  state.aVelocity.x = state.aVelocity.x + (dvxdt * dt);
-  state.aVelocity.y = state.aVelocity.y + (dvydt * dt);
-
-  return state;
-}
+  return undefined;
+};

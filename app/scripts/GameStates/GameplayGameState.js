@@ -139,29 +139,29 @@ Soi.GameStates.GameplayGameState.prototype.render = function() {
   //this.game.debug.text(this.game.input.activePointer.button, 32, 48);
   //this.game.debug.text(this.player.body.rotation.toFixed(2) + ' ' + Phaser.Math.normalizeAngle(this.player.body.rotation).toFixed(2) + ' ' + (!_.isNull(this.player.state.rotatingTo) ? this.player.state.rotatingTo.toFixed(2) : null) , 32, 48);
   // this.game.debug.text(parseInt(this.pointer.x) + ' ' + parseInt(this.pointer.y) + ' ' + parseInt(this.pointer.degrees), 32, 48);
-  this.game.debug.text(parseInt(this.player.x) + ' ' + parseInt(this.player.y), 32, 68);
+  // this.game.debug.text(parseInt(this.player.x) + ' ' + parseInt(this.player.y), 32, 68);
   // var angleA = Phaser.Math.normalizeAngle(Phaser.Math.angleBetweenPoints(this.player.center, this.targetSystem.center) - Math.PI / 2);
   // var pointA = new Phaser.Point(this.targetSystem.center.x + ((this.targetSystem.well.width / 2) * Math.cos(angleA)), this.targetSystem.center.x + ((this.targetSystem.well.width / 2) * Math.sin(angleA)));
   // var angleB = Phaser.Math.normalizeAngle(angleA + Math.PI);
   // var pointB = new Phaser.Point(this.targetSystem.center.x + ((this.targetSystem.well.width / 2) * Math.cos(angleB)), this.targetSystem.center.x + ((this.targetSystem.well.width / 2) * Math.sin(angleB)));
 
-  var shipSystemAngle = Phaser.Math.normalizeAngle(Phaser.Math.angleBetweenPoints( this.system.center, this.player.center) - Math.PI / 2);
-  this.game.debug.text(shipSystemAngle.toFixed(2) + ' ' + Math.cos(shipSystemAngle).toFixed(2) + ' ' + (Math.sin(shipSystemAngle).toFixed(2) * -1), 32, 48);
+  // var shipSystemAngle = Phaser.Math.normalizeAngle(Phaser.Math.angleBetweenPoints( this.system.center, this.player.center) - Math.PI / 2);
+  // this.game.debug.text(shipSystemAngle.toFixed(2) + ' ' + Math.cos(shipSystemAngle).toFixed(2) + ' ' + (Math.sin(shipSystemAngle).toFixed(2) * -1), 32, 48);
 
-  var positions = this.player.calculatePositions(12, 4);
+  //var positions = this.player.calculatePositions();
   // var positions = this.player.calculateFuturePositions();
   var that = this;
 
-  this.game.debug.geom(this.lineA, 'rgba(255,0,0,1)');
-  this.game.debug.geom(this.lineB, 'rgba(255,0,0,1)');
-  this.game.debug.geom(this.lineC, 'rgba(255,255,0,1)');
-  this.game.debug.geom(this.lineD, 'rgba(255,255,0,1)');
-  // this.game.debug.geom(this.lineB);
+  // this.game.debug.geom(this.lineA, 'rgba(255,0,0,1)');
+  // this.game.debug.geom(this.lineB, 'rgba(255,0,0,1)');
+  // this.game.debug.geom(this.lineC, 'rgba(255,255,0,1)');
+  // this.game.debug.geom(this.lineD, 'rgba(255,255,0,1)');
+  // // this.game.debug.geom(this.lineB);
 
   // this.game.debug.text(parseInt(positions[0].x) + ' ' + parseInt(positions[0].y), 32, 88);
 
   if (this.player.exists) {
-    _.each(positions, function(position) {
+    _.each(this.player.futurePosition, function(position) {
       that.game.debug.geom(position, 'rgba(255,0,0,1)');
     });
 
