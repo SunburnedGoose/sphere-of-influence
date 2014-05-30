@@ -11,15 +11,19 @@ Soi.Entities.GravityWell.prototype.constructor = Soi.Entities.GravityWell;
 
 Object.defineProperty(Soi.Entities.GravityWell.prototype, 'center', {
   get: function() {
+    var center;
+
     if (this) {
       if (this.body) {
-        return new Phaser.Point(this.x, this.y);
+        center = new Phaser.Point(this.x, this.y);
       } else {
-        return new Phaser.Point(this.x + (this.width / 2), this.y + (this.height / 2));
+        center = new Phaser.Point(this.x + (this.width / 2), this.y + (this.height / 2));
       }
     } else {
-      return new Phaser.Point(this.x, this.y);
+      center = new Phaser.Point(this.x, this.y);
     }
+
+    return center;
   },
   set: function(value) {
     if (this.body) {

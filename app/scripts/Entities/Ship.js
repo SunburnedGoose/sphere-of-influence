@@ -258,15 +258,7 @@ Soi.Entities.Ship.prototype.damage = function(){
 
 Object.defineProperty(Soi.Entities.Ship.prototype, 'center', {
   get: function() {
-    if (this) {
-      if (this.body) {
-        return new Phaser.Point(this.x, this.y);
-      } else {
-        return new Phaser.Point(this.x + (this.width / 2), this.y + (this.height / 2));
-      }
-    } else {
-      return new Phaser.Point(this.x, this.y);
-    }
+    return new Phaser.Point(this.x, this.y);
   },
   set: function(value) {
     if (this.body) {
@@ -283,20 +275,38 @@ Soi.Entities.Ship.prototype.calculatePositions = function() {
   var positions = [];
   var currentPosition = this.center;
   var currentVelocity = new Phaser.Point(this.body.velocity.x, this.body.velocity.y);
+  this._currentPosition = {
+    'x': 0,
+    'y': 0,
+    'center': {
+      'x': 0,
+      'y': 0
+    },
+    'exists': true
+  };
 
-  for(var i = 0; i < 60; i++) {
-    var currentForce = this.calculateForce({ 'center': currentPosition, 'x': currentPosition.x, 'y': currentPosition.y });
+  var span = 60;
+  var step = -0.85;
+  var spanSteps = span / 5;
+  var spanMod = spanSteps - 1;
 
-    var fx = this.body.world.pxmi(currentForce.x * -1 * 0.85);
-    var fy = this.body.world.pxmi(currentForce.y * 1 * 0.85);
+  for(var i = 0; i < span; i++) {
+    this._currentPosition.x = this._currentPosition.center.x = currentPosition.x;
+    this._currentPosition.y = this._currentPosition.center.y = currentPosition.y;
+    this._currentPosition.exists = this.exists;
+
+    var currentForce = this.calculateForce(this._currentPosition);
+
+    var fx = this.body.world.pxmi(currentForce.x * step);
+    var fy = this.body.world.pxmi(currentForce.y * -1 * step);
 
     currentVelocity.x = currentVelocity.x + fx;
     currentVelocity.y = currentVelocity.y + fy;
 
-    currentPosition.x += currentVelocity.x * -1 * 0.85;
-    currentPosition.y += currentVelocity.y * -1 * 0.85;
+    currentPosition.x += currentVelocity.x * step;
+    currentPosition.y += currentVelocity.y * step;
 
-    if (i % 12 === 11) {
+    if (i % spanSteps === spanMod) {
       positions.push({ 'x': currentPosition.x, 'y': currentPosition.y});
     }
   }
@@ -306,43 +316,55 @@ Soi.Entities.Ship.prototype.calculatePositions = function() {
 
 Soi.Entities.Ship.prototype.calculateForce = function (aBody, bBody) {
   var d, g, mass, f, a;
+  var force;
 
-  if (_.isEmpty(aBody)) {
+  if (!aBody) {
     aBody = this;
   }
 
-  bBody = this.getNearestBody(aBody.center);
+  bBody = this.getNearestBody(aBody);
 
-  if (_.isEmpty(bBody)) {
-    return new Phaser.Point(0,0);
+  if (!bBody) {
+    force = new Phaser.Point(0,0);
   } else {
-    d = Soi.Math.distanceBetween(aBody.center, bBody.center);
+    var bC = bBody.center;
+    d = Soi.Math.distanceBetween(aBody.center, bC);
     g = bBody.gravity;
     mass = bBody.mass;
     f = g * mass / Math.max(d * d, 10);
-    a = Phaser.Math.angleBetweenPoints(aBody, bBody.well) + Math.PI / 2;
+    a = Phaser.Math.angleBetween(aBody.x, aBody.y, bC.x, bC.y) + Math.PI / 2;
 
-    return new Phaser.Point(f * Math.cos(a), f * Math.sin(a));
+    force = new Phaser.Point(f * Math.cos(a), f * Math.sin(a));
   }
+
+  return force;
 };
 
-Soi.Entities.Ship.prototype.getNearestBody = function (point) {
-  if (this.exists) {
+Soi.Entities.Ship.prototype.getNearestBody = function (aBody) {
+  var body;
+
+  if (aBody.soi) {
+    body = aBody.soi;
+  }
+
+  if (aBody.exists) {
     var gameState = this.game.state.states[this.game.state.current];
     var d;
 
-    d = Soi.Math.distanceBetween(point, gameState.targetSystem.center);
+    d = Soi.Math.distanceBetween(aBody.center, gameState.targetSystem.center);
 
     if (d <= gameState.targetSystem.well.radius) {
-      return gameState.targetSystem;
+      body = gameState.targetSystem;
     }
 
-    d = Soi.Math.distanceBetween(point, gameState.system.center);
+    if (!body) {
+      d = Soi.Math.distanceBetween(aBody.center, gameState.system.center);
 
-    if (d <= gameState.system.well.radius) {
-      return gameState.system;
+      if (d <= gameState.system.well.radius) {
+        body = gameState.system;
+      }
     }
   }
 
-  return undefined;
+  return body;
 };

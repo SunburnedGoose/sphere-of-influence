@@ -150,7 +150,7 @@ Soi.GameStates.GameplayGameState.prototype.render = function() {
 
   //var positions = this.player.calculatePositions();
   // var positions = this.player.calculateFuturePositions();
-  var that = this;
+  // var that = this;
 
   // this.game.debug.geom(this.lineA, 'rgba(255,0,0,1)');
   // this.game.debug.geom(this.lineB, 'rgba(255,0,0,1)');
@@ -160,16 +160,16 @@ Soi.GameStates.GameplayGameState.prototype.render = function() {
 
   // this.game.debug.text(parseInt(positions[0].x) + ' ' + parseInt(positions[0].y), 32, 88);
 
-  if (this.player.exists) {
-    _.each(this.player.futurePosition, function(position) {
-      that.game.debug.geom(position, 'rgba(255,0,0,1)');
-    });
+  // if (this.player.exists) {
+  //   _.each(this.player.futurePosition, function(position) {
+  //     that.game.debug.geom(position, 'rgba(255,0,0,1)');
+  //   });
 
-    _.each(this.player.beenThere, function(position, index, list) {
-      var alpha = (_.size(list) - index) / _.size(list);
-      that.game.debug.geom(position, 'rgba(0,255,0,' + alpha + ')');
-    });
-  }
+  //   _.each(this.player.beenThere, function(position, index, list) {
+  //     var alpha = (_.size(list) - index) / _.size(list);
+  //     that.game.debug.geom(position, 'rgba(0,255,0,' + alpha + ')');
+  //   });
+  // }
 
   //if (this.player.a) {
   //this.game.debug.text(parseInt(this.player.a.position.x) + ' ' + parseInt(this.player.a.positionDown.x) + ' ' + parseInt(this.player.a.screenX), 32, 48);

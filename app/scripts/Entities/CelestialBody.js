@@ -63,15 +63,7 @@ Soi.Entities.CelestialBody.prototype.onExitGravityWell = function(targetBody) {
 
 Object.defineProperty(Soi.Entities.CelestialBody.prototype, 'center', {
   get: function() {
-    if (this) {
-      if (this.surface.body) {
-        return new Phaser.Point(this.surface.x, this.surface.y);
-      } else {
-        return new Phaser.Point(this.surface.x + (this.surface.width / 2), this.surface.y + (this.surface.height / 2));
-      }
-    } else {
-      return new Phaser.Point(this.surface.x, this.surface.y);
-    }
+    return new Phaser.Point(this.surface.x, this.surface.y);
   },
   set: function() {
   }
