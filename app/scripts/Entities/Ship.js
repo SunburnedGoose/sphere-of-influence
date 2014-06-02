@@ -15,6 +15,8 @@ Soi.Entities.Ship = function(game, x, y, texture) {
   this.body.clearShapes();
   this.body.addPhaserPolygon('ship-physics', 'ship');
 
+  this.beenThereGroup = this.game.add.group();
+
   // this.game.input.onHold.add(function(a) {
   //   that.changeVector(a, that);
   // });
@@ -212,12 +214,8 @@ Soi.Entities.Ship.prototype.update = function() {
     }
   }
 
-  /* Overlap Detection */
-  if (this.withinAsteroid) {
-    this.damage();
-    // Penult.Soi.Ship.prototype.damage(that);
-    // Penult.Soi.Shield.prototype.update(that, -.5, false);
-  }
+  if (this.withinAsteroid)
+    this.damage('asteroid');
 
 
   var positions = this.calculatePositions();
@@ -232,28 +230,27 @@ Soi.Entities.Ship.prototype.update = function() {
 };
 
 Soi.Entities.Ship.prototype.captureBeenThere = function() {
+  var s = this.beenThereGroup.create(this.center.x, this.center.y, 'beenThere');
+  s.anchor.setTo(0.5,0.5);
+  s.increaseAlpha = function() {
+    s.alpha = s.alpha * 0.95;
+  };
   this.beenThere.unshift(this.center);
 
   if (_.size(this.beenThere) > 30) {
     this.beenThere.pop();
+    var bottom = this.beenThereGroup.getBottom();
+    bottom.kill();
+    bottom.destroy();
   }
+
+  this.beenThereGroup.callAll('increaseAlpha');
 };
 
-Soi.Entities.Ship.prototype.damage = function(){
-  this.alpha = 1;
-
-  for (var i = 0; i < 6; i++)  {
-    //TODO: Not particularlly happy with this blinking animation
-    this.game.add.tween(this).to(
-      {
-        'alpha': 0
-      }, 250, Phaser.Easing.Linear.None, true, 0, 4, false).to(
-      {
-        'alpha': 1
-      }, 100, Phaser.Easing.Linear.None, true);
+Soi.Entities.Ship.prototype.damage = function(type){
+  if(type == 'asteroid'){
+	  
   }
-
-  this.alpha = 1;
 };
 
 Object.defineProperty(Soi.Entities.Ship.prototype, 'center', {
@@ -285,8 +282,8 @@ Soi.Entities.Ship.prototype.calculatePositions = function() {
     'exists': true
   };
 
-  var span = 60;
-  var step = -0.85;
+  var span = 300;
+  var step = -0.36;
   var spanSteps = span / 5;
   var spanMod = spanSteps - 1;
 

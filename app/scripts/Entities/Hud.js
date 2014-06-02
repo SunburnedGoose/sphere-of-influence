@@ -2,13 +2,16 @@
 
 namespace('Soi.Entities');
 
-Soi.Entities.Hud = function (game) {
+Soi.Entities.HUD = function (game) {
   Phaser.Group.call(this, game);
-
+  
+  this.shield =			new Soi.Entities.Shield(this.game);
+  this.attachments =	new Soi.Entities.Attachments(this.game);
+  this.buffs =			new Soi.Entities.Buffs(this.game);
 };
 
-Soi.Entities.Hud.prototype = Object.create(Phaser.Group.prototype);
-Soi.Entities.Hud.prototype.constructor = Soi.Entities.Hud;
+Soi.Entities.HUD.prototype = Object.create(Phaser.Group.prototype);
+Soi.Entities.HUD.prototype.constructor = Soi.Entities.HUD;
 
-Soi.Entities.Hud.prototype.update = function () {
+Soi.Entities.HUD.prototype.update = function () {
 };

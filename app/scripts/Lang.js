@@ -4,6 +4,9 @@ namespace('Soi');
 
 Soi.Lang = {
   'en': {
-    'health': 'Health'
+    'health': 			'Health',
+    'shields':			'Shields',
+    'attachments':		'Attachments',
+    'buffs':			'Buffs'
   }
 };

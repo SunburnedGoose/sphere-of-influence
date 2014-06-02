@@ -18,11 +18,6 @@ Soi.Entities.AsteroidField = function(game, field) {
 Soi.Entities.AsteroidField.prototype = Object.create(Phaser.Group.prototype);
 Soi.Entities.AsteroidField.prototype.constructor = Soi.Entities.AsteroidField;
 
-
-Soi.Entities.AsteroidField.prototype.out = function(){
-
-};
-
 Soi.Entities.AsteroidField.prototype.update = function () {
 
 };
