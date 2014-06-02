@@ -124,9 +124,19 @@ Soi.GameStates.GameplayGameState.prototype.create = function() {
   this.goingToGroup.callAll('anchor.setTo', null, 0.5, 0.5);
 
   this.lineE = new Phaser.Line(0,0,0,0);
+
+  this.game.time.advancedTiming = true;
+  this.fpsText = this.game.add.text(
+      20, 20, '', { font: '16px Arial', fill: '#ffffff' }
+  );
+  this.fpsText.fixedToCamera = true;
 };
 
 Soi.GameStates.GameplayGameState.prototype.update = function() {
+  if (this.game.time.fps !== 0) {
+      this.fpsText.setText(this.game.time.fps + ' FPS');
+  }
+
   var tCenter = this.targetSystem.center;
   var tRadius = this.targetSystem.well.radius;
   var pCenter = this.player.center;
