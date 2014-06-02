@@ -109,74 +109,87 @@ Soi.GameStates.GameplayGameState.prototype.create = function() {
   this.player.bringToTop();
   this.game.time.advancedTiming = true;
 
-  this.lineA = new Phaser.Line(this.player.center.x, this.player.center.y, this.system.center.x, this.system.center.y);
-  this.lineB = new Phaser.Line(this.player.center.x, this.player.center.y, this.system.center.x, this.system.center.y);
+  this.sTopLine = new Phaser.Line(this.player.center.x, this.player.center.y, this.system.center.x, this.system.center.y);
+  this.sBottomLine = new Phaser.Line(this.player.center.x, this.player.center.y, this.system.center.x, this.system.center.y);
 
-  this.lineC = new Phaser.Line(this.player.center.x, this.player.center.y, this.targetSystem.center.x, this.targetSystem.center.y);
-  this.lineD = new Phaser.Line(this.player.center.x, this.player.center.y, this.targetSystem.center.x, this.targetSystem.center.y);
+  this.tTopLine = new Phaser.Line(this.player.center.x, this.player.center.y, this.targetSystem.center.x, this.targetSystem.center.y);
+  this.tBottomLine = new Phaser.Line(this.player.center.x, this.player.center.y, this.targetSystem.center.x, this.targetSystem.center.y);
+
+  this.goingToGroup = this.game.add.group();
+  this.goingToGroup.create(-1,-1,'goingTo');
+  this.goingToGroup.create(-1,-1,'goingTo');
+  this.goingToGroup.create(-1,-1,'goingTo');
+  this.goingToGroup.create(-1,-1,'goingTo');
+  this.goingToGroup.create(-1,-1,'goingTo');
+  this.goingToGroup.callAll('anchor.setTo', null, 0.5, 0.5);
+
+  this.lineE = new Phaser.Line(0,0,0,0);
 };
 
 Soi.GameStates.GameplayGameState.prototype.update = function() {
-  var angleA = Phaser.Math.normalizeAngle(Phaser.Math.angleBetweenPoints(this.system.center, this.player.center) - Math.PI);
-  var angleB = angleA + Math.PI;
-  var angleC = Phaser.Math.normalizeAngle(Phaser.Math.angleBetweenPoints(this.targetSystem.center, this.player.center) - Math.PI);
-  var angleD = angleC + Math.PI;
+  var tCenter = this.targetSystem.center;
+  var tRadius = this.targetSystem.well.radius;
+  var pCenter = this.player.center;
+  var sCenter = this.system.center;
+  var sRadius = this.system.well.radius;
+  var sTopAngle = Phaser.Math.normalizeAngle(Phaser.Math.angleBetweenPoints(sCenter, pCenter) - Math.PI);
+  var sBottomAngle = sTopAngle + Math.PI;
+  var tTopAngle = Phaser.Math.normalizeAngle(Phaser.Math.angleBetweenPoints(tCenter, pCenter) - Math.PI);
+  var tBottomAngle = tTopAngle + Math.PI;
 
-  this.lineA.start.set(this.player.center.x, this.player.center.y);
-  this.lineA.end.set(this.system.center.x + (Math.cos(angleA) * this.system.well.radius), this.system.center.y + (Math.sin(angleA) * this.system.well.radius * -1));
+  this.sTopLine.start.set(pCenter.x, pCenter.y);
+  this.sTopLine.end.set(sCenter.x + (Math.cos(sTopAngle) * sRadius), sCenter.y + (Math.sin(sTopAngle) * sRadius * -1));
 
-  this.lineB.start.set(this.player.center.x, this.player.center.y);
-  this.lineB.end.set(this.system.center.x + (Math.cos(angleB) * this.system.well.radius), this.system.center.y + (Math.sin(angleB) * this.system.well.radius * -1));
+  this.sBottomLine.start.set(pCenter.x, pCenter.y);
+  this.sBottomLine.end.set(sCenter.x + (Math.cos(sBottomAngle) * sRadius), sCenter.y + (Math.sin(sBottomAngle) * sRadius * -1));
 
-  this.lineC.start.set(this.player.center.x, this.player.center.y);
-  this.lineC.end.set(this.targetSystem.center.x + (Math.cos(angleC) * this.targetSystem.well.radius), this.targetSystem.center.y + (Math.sin(angleC) * this.targetSystem.well.radius * -1));
+  var tTop = new Phaser.Point(tCenter.x + (Math.cos(tTopAngle) * tRadius), tCenter.y + (Math.sin(tTopAngle) * tRadius * -1));
+  var tBottom = new Phaser.Point(tCenter.x + (Math.cos(tBottomAngle) * tRadius), tCenter.y + (Math.sin(tBottomAngle) * tRadius * -1));
 
-  this.lineD.start.set(this.player.center.x, this.player.center.y);
-  this.lineD.end.set(this.targetSystem.center.x + (Math.cos(angleD) * this.targetSystem.well.radius), this.targetSystem.center.y + (Math.sin(angleD) * this.targetSystem.well.radius * -1));
+  this.tTopLine.start.set(pCenter.x, pCenter.y);
+  this.tTopLine.end.set(tTop.x, tTop.y);
+
+  this.tBottomLine.start.set(pCenter.x, pCenter.y);
+  this.tBottomLine.end.set(tBottom.x, tBottom.y);
+
+  var that = this;
+
+  if (this.player.exists) {
+    _.each(this.player.futurePosition, function(position, index) {
+      var c = that.goingToGroup.getAt(index);
+      c.x = position.x;
+      c.y = position.y;
+    });
+  }
+
+  var playerBounds = this.player.getBounds();
+
+
+
+  // var angleE = Phaser.Math.normalizeAngle(Phaser.Math.angleBetweenPoints({ 'x': tCenter.x, 'y': tCenter.y - this.targetSystem.well.radius }, pCenter));
+  // var angleF = Phaser.Math.normalizeAngle(Phaser.Math.angleBetweenPoints({ 'x': tCenter.x, 'y': tCenter.y + this.targetSystem.well.radius }, pCenter));
+
+  // var shortLength = Math.sin(angleE) * (this.stage.bounds.width - playerBounds.x);
+  // var longLength = Math.sin(angleF) * (this.stage.bounds.width - playerBounds.x);
+
+  // this.lineE.start.set(pCenter.x, pCenter.y);
+  // this.lineE.end.set(pCenter.x + 100, Math.abs(longLength));
 };
 
 Soi.GameStates.GameplayGameState.prototype.render = function() {
-  //this.game.debug.text(this.game.input.activePointer.button, 32, 48);
-  //this.game.debug.text(this.player.body.rotation.toFixed(2) + ' ' + Phaser.Math.normalizeAngle(this.player.body.rotation).toFixed(2) + ' ' + (!_.isNull(this.player.state.rotatingTo) ? this.player.state.rotatingTo.toFixed(2) : null) , 32, 48);
-  // this.game.debug.text(parseInt(this.pointer.x) + ' ' + parseInt(this.pointer.y) + ' ' + parseInt(this.pointer.degrees), 32, 48);
-  // this.game.debug.text(parseInt(this.player.x) + ' ' + parseInt(this.player.y), 32, 68);
-  // var angleA = Phaser.Math.normalizeAngle(Phaser.Math.angleBetweenPoints(this.player.center, this.targetSystem.center) - Math.PI / 2);
-  // var pointA = new Phaser.Point(this.targetSystem.center.x + ((this.targetSystem.well.width / 2) * Math.cos(angleA)), this.targetSystem.center.x + ((this.targetSystem.well.width / 2) * Math.sin(angleA)));
-  // var angleB = Phaser.Math.normalizeAngle(angleA + Math.PI);
-  // var pointB = new Phaser.Point(this.targetSystem.center.x + ((this.targetSystem.well.width / 2) * Math.cos(angleB)), this.targetSystem.center.x + ((this.targetSystem.well.width / 2) * Math.sin(angleB)));
+  //this.game.debug.text('', 32, 48);
 
-  // var shipSystemAngle = Phaser.Math.normalizeAngle(Phaser.Math.angleBetweenPoints( this.system.center, this.player.center) - Math.PI / 2);
-  // this.game.debug.text(shipSystemAngle.toFixed(2) + ' ' + Math.cos(shipSystemAngle).toFixed(2) + ' ' + (Math.sin(shipSystemAngle).toFixed(2) * -1), 32, 48);
-
-  //var positions = this.player.calculatePositions();
-  // var positions = this.player.calculateFuturePositions();
-  // var that = this;
-
-  // this.game.debug.geom(this.lineA, 'rgba(255,0,0,1)');
-  // this.game.debug.geom(this.lineB, 'rgba(255,0,0,1)');
-  // this.game.debug.geom(this.lineC, 'rgba(255,255,0,1)');
-  // this.game.debug.geom(this.lineD, 'rgba(255,255,0,1)');
-  // // this.game.debug.geom(this.lineB);
-
-  // this.game.debug.text(parseInt(positions[0].x) + ' ' + parseInt(positions[0].y), 32, 88);
-
-  // if (this.player.exists) {
-  //   _.each(this.player.futurePosition, function(position) {
-  //     that.game.debug.geom(position, 'rgba(255,0,0,1)');
-  //   });
-
-  //   _.each(this.player.beenThere, function(position, index, list) {
-  //     var alpha = (_.size(list) - index) / _.size(list);
-  //     that.game.debug.geom(position, 'rgba(0,255,0,' + alpha + ')');
-  //   });
-  // }
-
-  //if (this.player.a) {
-  //this.game.debug.text(parseInt(this.player.a.position.x) + ' ' + parseInt(this.player.a.positionDown.x) + ' ' + parseInt(this.player.a.screenX), 32, 48);
-  //}
-  // this.game.debug.text(parseInt(this.player.x) + ' ' + parseInt(this.player.y), 32, 48);
-  // this.game.debug.text("inGravityWell: " + ((!_.isEmpty(this.player.gravityWell)) ? 'true' : 'false'), 32, 68);
-  // this.game.debug.text("withinAsteroid: " + ((!_.isEmpty(this.player.withinAsteroid)) ? 'true' : 'false'), 32, 88);
+  // this.game.debug.geom(this.lineE, 'rgba(255,0,0,1)');
+  // this.game.debug.geom(this.lineE, 'rgba(255,0,0,1)');
+  this.game.debug.geom(new Phaser.Line(this.player.center.x, this.player.center.y, this.player.center.x + 100, this.player.center.y), 'rgba(255,0,0,1)');
+  this.game.debug.geom(this.sTopLine, 'rgba(255,255,0,1)');
+  this.game.debug.geom(this.sBottomLine, 'rgba(255,0,255,1)');
+  this.game.debug.geom(this.tTopLine, 'rgba(255,255,0,1)');
+  this.game.debug.geom(this.tBottomLine, 'rgba(255,0,255,1)');
+  var t = this.targetSystem.center;
+  var p = this.player.center;
+  this.game.debug.text(Phaser.Math.angleBetweenPoints(t,p).toFixed(2), 32, 42);
+  this.game.debug.text(Phaser.Math.angleBetweenPoints(p, t).toFixed(2), 32, 62);
 };
 
 Soi.GameStates.GameplayGameState.prototype.collidesWithSurface = function() {
