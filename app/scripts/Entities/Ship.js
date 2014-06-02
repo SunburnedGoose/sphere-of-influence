@@ -9,7 +9,7 @@ Soi.Entities.Ship = function(game, x, y, texture) {
 
   this.game.world.add(this);
   this.game.physics.p2.enable([this], true);
-
+  
   this.beenThere = [];
 
   this.body.clearShapes();
@@ -250,7 +250,7 @@ Soi.Entities.Ship.prototype.captureBeenThere = function() {
 
 Soi.Entities.Ship.prototype.damage = function(damangeType){
   if(damangeType === 'asteroid'){
-	  
+    this.game.shield.health -= 0.5;
   }
 };
 

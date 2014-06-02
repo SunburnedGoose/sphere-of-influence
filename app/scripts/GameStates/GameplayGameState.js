@@ -125,7 +125,7 @@ Soi.GameStates.GameplayGameState.prototype.create = function() {
 
   this.game.time.advancedTiming = true;
   this.fpsText = this.game.add.text(
-      20, 20, '', { font: '16px Arial', fill: '#ffffff' }
+      10, 510, '', { font: '16px Arial', fill: '#ffffff' }
   );
   this.fpsText.fixedToCamera = true;
 };
@@ -196,8 +196,8 @@ Soi.GameStates.GameplayGameState.prototype.render = function() {
   this.game.debug.geom(this.tBottomLine, 'rgba(255,0,255,1)');
   var t = this.targetSystem.center;
   var p = this.player.center;
-  this.game.debug.text(Phaser.Math.angleBetweenPoints(t,p).toFixed(2), 32, 42);
-  this.game.debug.text(Phaser.Math.angleBetweenPoints(p, t).toFixed(2), 32, 62);
+  this.game.debug.text(Phaser.Math.angleBetweenPoints(t,p).toFixed(2), 10, 542);
+  this.game.debug.text(Phaser.Math.angleBetweenPoints(p, t).toFixed(2), 10, 562);
 };
 
 Soi.GameStates.GameplayGameState.prototype.collidesWithSurface = function() {
