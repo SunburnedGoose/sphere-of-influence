@@ -132,7 +132,7 @@ Soi.GameStates.GameplayGameState.prototype.create = function() {
 
 Soi.GameStates.GameplayGameState.prototype.update = function() {
   if (this.game.time.fps !== 0) {
-      this.fpsText.setText(this.game.time.fps + ' FPS');
+    this.fpsText.setText(this.game.time.fps + ' FPS');
   }
 
   var tCenter = this.targetSystem.center;
@@ -170,7 +170,7 @@ Soi.GameStates.GameplayGameState.prototype.update = function() {
     });
   }
 
-  var playerBounds = this.player.getBounds();
+ // var playerBounds = this.player.getBounds();
 
 
 

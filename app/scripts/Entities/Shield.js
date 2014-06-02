@@ -16,10 +16,10 @@ Soi.Entities.Shield.prototype.constructor = Soi.Entities.Shield;
 Soi.Entities.Shield.prototype.update = function () {
 	var label = this.game.instance.currentLang.shields+': ' + Math.floor(this.strength) + '%';
 	var style = {
-    	'font': '15px Arial',
-    	'fill': '#FFF',
-    	'align': 'center'
-  	};
+		'font': '15px Arial',
+		'fill': '#FFF',
+		'align': 'center'
+	};
 
 	this.fixedToCamera = true;
 	this.cameraOffset.x = 10;

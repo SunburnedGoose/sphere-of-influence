@@ -13,10 +13,10 @@ Soi.Entities.Buffs.prototype.constructor = Soi.Entities.Buffs;
 Soi.Entities.Buffs.prototype.update = function () {
 	var label = this.game.instance.currentLang.buffs+': ';
 	var style = {
-    	'font': '15px Arial',
-    	'fill': '#FFF',
-    	'align': 'center'
-  	};
+		'font': '15px Arial',
+		'fill': '#FFF',
+		'align': 'center'
+	};
 
 	this.fixedToCamera = true;
 	this.cameraOffset.x = 10;

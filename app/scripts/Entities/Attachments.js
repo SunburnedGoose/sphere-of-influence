@@ -13,10 +13,10 @@ Soi.Entities.Attachments.prototype.constructor = Soi.Entities.Attachments;
 Soi.Entities.Attachments.prototype.update = function () {
 	var label = this.game.instance.currentLang.attachments+': ';
 	var style = {
-    	'font': '15px Arial',
-    	'fill': '#FFF',
-    	'align': 'center'
-  	};
+		'font': '15px Arial',
+		'fill': '#FFF',
+		'align': 'center'
+	};
 
 	this.fixedToCamera = true;
 	this.cameraOffset.x = 10;

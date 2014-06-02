@@ -214,8 +214,9 @@ Soi.Entities.Ship.prototype.update = function() {
     }
   }
 
-  if (this.withinAsteroid)
+  if (this.withinAsteroid){
     this.damage('asteroid');
+  }
 
 
   var positions = this.calculatePositions();
@@ -247,8 +248,8 @@ Soi.Entities.Ship.prototype.captureBeenThere = function() {
   this.beenThereGroup.callAll('increaseAlpha');
 };
 
-Soi.Entities.Ship.prototype.damage = function(type){
-  if(type == 'asteroid'){
+Soi.Entities.Ship.prototype.damage = function(damangeType){
+  if(damangeType === 'asteroid'){
 	  
   }
 };
