@@ -105,13 +105,12 @@ Soi.GameStates.GameplayGameState.prototype.create = function() {
   }
 
   this.player.bringToTop();
-  this.game.time.advancedTiming = true;
 
-  this.sTopLine = new Phaser.Line(this.player.center.x, this.player.center.y, this.system.center.x, this.system.center.y);
-  this.sBottomLine = new Phaser.Line(this.player.center.x, this.player.center.y, this.system.center.x, this.system.center.y);
+  this.sTopLine = new Phaser.Line(0,0,0,0);
+  this.sBottomLine = new Phaser.Line(0,0,0,0);
 
-  this.tTopLine = new Phaser.Line(this.player.center.x, this.player.center.y, this.targetSystem.center.x, this.targetSystem.center.y);
-  this.tBottomLine = new Phaser.Line(this.player.center.x, this.player.center.y, this.targetSystem.center.x, this.targetSystem.center.y);
+  this.tTopLine = new Phaser.Line(0,0,0,0);
+  this.tBottomLine = new Phaser.Line(0,0,0,0);
 
   this.goingToGroup = this.game.add.group();
   this.goingToGroup.create(-1,-1,'goingTo');
@@ -124,10 +123,105 @@ Soi.GameStates.GameplayGameState.prototype.create = function() {
   this.lineE = new Phaser.Line(0,0,0,0);
 
   this.game.time.advancedTiming = true;
+
   this.fpsText = this.game.add.text(
       10, 510, '', { font: '16px Arial', fill: '#ffffff' }
   );
   this.fpsText.fixedToCamera = true;
+};
+
+Soi.GameStates.GameplayGameState.prototype.DrawTargetIndicators = function () {
+  if (this.game.camera.target) {
+    var tCenter = this.targetSystem.center;
+    var tRadius = this.targetSystem.well.radius;
+    var pCenter = { 'x': this.game.camera.target.x, 'y': this.game.camera.target.y };
+    var sCenter = this.system.center;
+    var sRadius = this.system.well.radius;
+    var sTopAngle = Phaser.Math.normalizeAngle(Phaser.Math.angleBetweenPoints(sCenter, pCenter) - Math.PI);
+    var sBottomAngle = sTopAngle + Math.PI;
+    var tTopAngle = Phaser.Math.normalizeAngle(Phaser.Math.angleBetweenPoints(tCenter, pCenter) - Math.PI);
+    var tBottomAngle = tTopAngle + Math.PI;
+
+    this.sTopLine.start.set(pCenter.x, pCenter.y);
+    this.sTopLine.end.set(sCenter.x + (Math.cos(sTopAngle) * sRadius), sCenter.y + (Math.sin(sTopAngle) * sRadius * -1));
+
+    this.sBottomLine.start.set(pCenter.x, pCenter.y);
+    this.sBottomLine.end.set(sCenter.x + (Math.cos(sBottomAngle) * sRadius), sCenter.y + (Math.sin(sBottomAngle) * sRadius * -1));
+
+    var tTop = new Phaser.Point(tCenter.x + (Math.cos(tTopAngle) * tRadius), tCenter.y + (Math.sin(tTopAngle) * tRadius * -1));
+    var tBottom = new Phaser.Point(tCenter.x + (Math.cos(tBottomAngle) * tRadius), tCenter.y + (Math.sin(tBottomAngle) * tRadius * -1));
+
+    this.tTopLine.start.set(pCenter.x, pCenter.y);
+    this.tTopLine.end.set(tTop.x, tTop.y);
+
+    this.tBottomLine.start.set(pCenter.x, pCenter.y);
+    this.tBottomLine.end.set(tBottom.x, tBottom.y);
+
+    var tPlayerAngle = Phaser.Math.normalizeAngle(Soi.Math.angleBetweenPoints(pCenter, tTop));
+    var bPlayerAngle = Phaser.Math.normalizeAngle(Soi.Math.angleBetweenPoints(pCenter, tBottom));
+
+    var triTop = this.getEdgePointOfAngle(tPlayerAngle);
+    var triBottom = this.getEdgePointOfAngle(bPlayerAngle);
+
+    this.triTop = triTop;
+    this.triBottom = triBottom;
+
+    //this.angleInfo = Phaser.Math.normalizeAngle(Soi.Math.angleBetweenPoints(pCenter, tTop)).toFixed(2) + ' ' + a.toFixed(2) + ' - ' + Phaser.Math.normalizeAngle(Soi.Math.angleBetweenPoints(pCenter, tBottom)).toFixed(2) + ' ' + b.toFixed(2);
+    this.angleInfo = triTop.x.toFixed(2) + ' ' + triTop.y.toFixed(2) + ' - ' + triBottom.x.toFixed(2) + ' ' + triBottom.y.toFixed(2);
+  }
+};
+
+Soi.GameStates.GameplayGameState.prototype.getEdgePointOfAngle = function(theta) {
+  // Parts of the Triangle
+  var pT = {
+    'A': 0,
+    'B': 0,
+    'C': 0,
+    'opp': 0,
+    'hyp': 0,
+    'adj': 0
+  };
+
+  pT.A = theta;
+  pT.B = Math.PI / 2;
+  pT.C = (Math.PI / 2) - theta;
+
+  var point = new Phaser.Point(this.game.camera.x, this.game.camera.y);
+  var a = 0;
+
+  // var point = new Phaser.Point(this.game.camera.x, this.game.camera.y);
+  // var a = 0;
+  var playerPosition = new Phaser.Point(this.game.camera.target.x - this.game.camera.x, this.game.camera.target.y - this.game.camera.y);
+
+  var corners = {
+    'tr': Math.atan(playerPosition.y / (this.game.camera.width - playerPosition.x)),
+    'tl': Math.atan(playerPosition.x / playerPosition.y) + Math.PI / 2,
+    'bl': Math.atan((this.game.camera.height - playerPosition.y) / playerPosition.x) + Math.PI,
+    'br': Math.atan((this.game.camera.width - playerPosition.x) / (this.game.camera.height - playerPosition.y)) + Math.PI * 3 / 2
+  };
+
+
+  if ((theta >= corners.tr) && (theta < corners.tl)) {
+    pT.adj = this.game.camera.target.y - this.game.camera.y;
+    a = (Math.tan(Math.PI / 2 - theta) * pT.adj);
+    point.x = this.game.camera.target.x + a;
+  } else if ((theta >= corners.tl) && (theta < corners.bl)) {
+    pT.adj = this.game.camera.target.x - this.game.camera.x;
+    a = (Math.tan(Math.PI - theta) * -1 * pT.adj);
+    point.y = this.game.camera.target.y + a;
+  } else if ((theta >= corners.bl) && (theta < corners.br)) {
+    pT.adj = this.game.stage.bounds.height - (this.game.camera.target.y - this.game.camera.y);
+    a = (Math.tan(Math.PI * 3 / 2 - theta) * -1 * pT.adj);
+    point.x = this.game.camera.target.x + a;
+    point.y = point.y + this.game.camera.height;
+  } else {
+    pT.adj = this.game.stage.bounds.width - (this.game.camera.target.x - this.game.camera.x);
+    a = (Math.tan(theta) * -1 * pT.adj);
+    point.x = point.x + this.game.camera.width;
+    point.y = this.game.camera.target.y + a;
+  }
+
+  return point;
 };
 
 Soi.GameStates.GameplayGameState.prototype.update = function() {
@@ -135,30 +229,7 @@ Soi.GameStates.GameplayGameState.prototype.update = function() {
     this.fpsText.setText(this.game.time.fps + ' FPS');
   }
 
-  var tCenter = this.targetSystem.center;
-  var tRadius = this.targetSystem.well.radius;
-  var pCenter = this.player.center;
-  var sCenter = this.system.center;
-  var sRadius = this.system.well.radius;
-  var sTopAngle = Phaser.Math.normalizeAngle(Phaser.Math.angleBetweenPoints(sCenter, pCenter) - Math.PI);
-  var sBottomAngle = sTopAngle + Math.PI;
-  var tTopAngle = Phaser.Math.normalizeAngle(Phaser.Math.angleBetweenPoints(tCenter, pCenter) - Math.PI);
-  var tBottomAngle = tTopAngle + Math.PI;
-
-  this.sTopLine.start.set(pCenter.x, pCenter.y);
-  this.sTopLine.end.set(sCenter.x + (Math.cos(sTopAngle) * sRadius), sCenter.y + (Math.sin(sTopAngle) * sRadius * -1));
-
-  this.sBottomLine.start.set(pCenter.x, pCenter.y);
-  this.sBottomLine.end.set(sCenter.x + (Math.cos(sBottomAngle) * sRadius), sCenter.y + (Math.sin(sBottomAngle) * sRadius * -1));
-
-  var tTop = new Phaser.Point(tCenter.x + (Math.cos(tTopAngle) * tRadius), tCenter.y + (Math.sin(tTopAngle) * tRadius * -1));
-  var tBottom = new Phaser.Point(tCenter.x + (Math.cos(tBottomAngle) * tRadius), tCenter.y + (Math.sin(tBottomAngle) * tRadius * -1));
-
-  this.tTopLine.start.set(pCenter.x, pCenter.y);
-  this.tTopLine.end.set(tTop.x, tTop.y);
-
-  this.tBottomLine.start.set(pCenter.x, pCenter.y);
-  this.tBottomLine.end.set(tBottom.x, tBottom.y);
+  this.DrawTargetIndicators();
 
   var that = this;
 
@@ -194,10 +265,19 @@ Soi.GameStates.GameplayGameState.prototype.render = function() {
   this.game.debug.geom(this.sBottomLine, 'rgba(255,0,255,1)');
   this.game.debug.geom(this.tTopLine, 'rgba(255,255,0,1)');
   this.game.debug.geom(this.tBottomLine, 'rgba(255,0,255,1)');
+
+  this.game.debug.geom(this.triTop, 'rgba(255,0,255,1)');
+  this.game.debug.geom(this.triBottom, 'rgba(255,0,255,1)');
+  this.game.debug.geom(new Phaser.Line(this.triTop.x - 10, this.triTop.y - 10, this.triTop.x + 10, this.triTop.y + 10), 'rgba(255,0,0,1)');
+  this.game.debug.geom(new Phaser.Line(this.triTop.x + 10, this.triTop.y - 10, this.triTop.x - 10, this.triTop.y + 10), 'rgba(255,0,0,1)');
+  this.game.debug.geom(new Phaser.Line(this.triBottom.x - 10, this.triBottom.y - 10, this.triBottom.x + 10, this.triBottom.y + 10), 'rgba(255,0,0,1)');
+  this.game.debug.geom(new Phaser.Line(this.triBottom.x + 10, this.triBottom.y - 10, this.triBottom.x - 10, this.triBottom.y + 10), 'rgba(255,0,0,1)');
+
   var t = this.targetSystem.center;
   var p = this.player.center;
   this.game.debug.text(Phaser.Math.angleBetweenPoints(t,p).toFixed(2), 10, 542);
   this.game.debug.text(Phaser.Math.angleBetweenPoints(p, t).toFixed(2), 10, 562);
+  this.game.debug.text(this.angleInfo, 32, 582);
 };
 
 Soi.GameStates.GameplayGameState.prototype.collidesWithSurface = function() {
