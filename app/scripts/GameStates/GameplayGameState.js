@@ -106,12 +106,6 @@ Soi.GameStates.GameplayGameState.prototype.create = function() {
 
   this.player.bringToTop();
 
-  // this.sTopLine = new Phaser.Line(0,0,0,0);
-  // this.sBottomLine = new Phaser.Line(0,0,0,0);
-
-  // this.tTopLine = new Phaser.Line(0,0,0,0);
-  // this.tBottomLine = new Phaser.Line(0,0,0,0);
-
   this.goingToGroup = this.game.add.group();
   this.goingToGroup.create(-1,-1,'goingTo');
   this.goingToGroup.create(-1,-1,'goingTo');
@@ -141,34 +135,24 @@ Soi.GameStates.GameplayGameState.prototype.create = function() {
 };
 
 Soi.GameStates.GameplayGameState.prototype.CalculateTargetIndicators = function () {
-  if (this.game.camera.target) {
+  var target = this.player;
+
+  if (!target.soi) {
     var tCenter = this.targetSystem.center;
     var tRadius = this.targetSystem.well.radius;
     var sCenter = this.system.center;
     var sRadius = this.system.well.radius;
-    var pCenter = { 'x': this.game.camera.target.x, 'y': this.game.camera.target.y };
+    var pCenter = { 'x': target.x, 'y': target.y };
     var sTopAngle = Phaser.Math.normalizeAngle(Phaser.Math.angleBetweenPoints(sCenter, pCenter) - Math.PI);
     var sBottomAngle = sTopAngle + Math.PI;
     var tTopAngle = Phaser.Math.normalizeAngle(Phaser.Math.angleBetweenPoints(tCenter, pCenter) - Math.PI);
     var tBottomAngle = tTopAngle + Math.PI;
-
-    // this.sTopLine.start.set(pCenter.x, pCenter.y);
-    // this.sTopLine.end.set(sCenter.x + (Math.cos(sTopAngle) * sRadius), sCenter.y + (Math.sin(sTopAngle) * sRadius * -1));
-
-    // this.sBottomLine.start.set(pCenter.x, pCenter.y);
-    // this.sBottomLine.end.set(sCenter.x + (Math.cos(sBottomAngle) * sRadius), sCenter.y + (Math.sin(sBottomAngle) * sRadius * -1));
 
     var sTop = new Phaser.Point(sCenter.x + (Math.cos(sTopAngle) * sRadius), sCenter.y + (Math.sin(sTopAngle) * sRadius * -1));
     var sBottom = new Phaser.Point(sCenter.x + (Math.cos(sBottomAngle) * sRadius), sCenter.y + (Math.sin(sBottomAngle) * sRadius * -1));
 
     var tTop = new Phaser.Point(tCenter.x + (Math.cos(tTopAngle) * tRadius), tCenter.y + (Math.sin(tTopAngle) * tRadius * -1));
     var tBottom = new Phaser.Point(tCenter.x + (Math.cos(tBottomAngle) * tRadius), tCenter.y + (Math.sin(tBottomAngle) * tRadius * -1));
-
-    // this.tTopLine.start.set(pCenter.x, pCenter.y);
-    // this.tTopLine.end.set(tTop.x, tTop.y);
-
-    // this.tBottomLine.start.set(pCenter.x, pCenter.y);
-    // this.tBottomLine.end.set(tBottom.x, tBottom.y);
 
     var sTopPlayerAngle = Phaser.Math.normalizeAngle(Soi.Math.angleBetweenPoints(pCenter, sTop));
     var sBottomPlayerAngle = Phaser.Math.normalizeAngle(Soi.Math.angleBetweenPoints(pCenter, sBottom));
@@ -181,9 +165,6 @@ Soi.GameStates.GameplayGameState.prototype.CalculateTargetIndicators = function 
 
     this.tTriTop = this.getEdgePointOfAngle(tTopPlayerAngle);
     this.tTriBottom = this.getEdgePointOfAngle(tBottomPlayerAngle);
-
-    //this.angleInfo = Phaser.Math.normalizeAngle(Soi.Math.angleBetweenPoints(pCenter, tTop)).toFixed(2) + ' ' + a.toFixed(2) + ' - ' + Phaser.Math.normalizeAngle(Soi.Math.angleBetweenPoints(pCenter, tBottom)).toFixed(2) + ' ' + b.toFixed(2);
-    //this.angleInfo = triTop.x.toFixed(2) + ' ' + triTop.y.toFixed(2) + ' - ' + triBottom.x.toFixed(2) + ' ' + triBottom.y.toFixed(2);
   }
 
   return [
@@ -223,10 +204,11 @@ Soi.GameStates.GameplayGameState.prototype.getEdgePointOfAngle = function (theta
     'point': point
   };
   var a = 0;
+  var target = this.player;
 
   // var point = new Phaser.Point(this.game.camera.x, this.game.camera.y);
   // var a = 0;
-  var playerPosition = new Phaser.Point(this.game.camera.target.x - this.game.camera.x, this.game.camera.target.y - this.game.camera.y);
+  var playerPosition = new Phaser.Point(target.x - this.game.camera.x, target.y - this.game.camera.y);
 
   var corners = {
     'tr': Math.atan(playerPosition.y / (this.game.camera.width - playerPosition.x)),
@@ -238,26 +220,26 @@ Soi.GameStates.GameplayGameState.prototype.getEdgePointOfAngle = function (theta
 
   if ((theta >= corners.tr) && (theta < corners.tl)) {
     returnValue.direction = 'N';
-    pT.adj = this.game.camera.target.y - this.game.camera.y;
+    pT.adj = target.y - this.game.camera.y;
     a = (Math.tan(Math.PI / 2 - theta) * pT.adj);
-    returnValue.point.x = this.game.camera.target.x + a;
+    returnValue.point.x = target.x + a;
   } else if ((theta >= corners.tl) && (theta < corners.bl)) {
     returnValue.direction = 'W';
-    pT.adj = this.game.camera.target.x - this.game.camera.x;
+    pT.adj = target.x - this.game.camera.x;
     a = (Math.tan(Math.PI - theta) * -1 * pT.adj);
-    returnValue.point.y = this.game.camera.target.y + a;
+    returnValue.point.y = target.y + a;
   } else if ((theta >= corners.bl) && (theta < corners.br)) {
     returnValue.direction = 'S';
-    pT.adj = this.game.stage.bounds.height - (this.game.camera.target.y - this.game.camera.y);
+    pT.adj = this.game.stage.bounds.height - (target.y - this.game.camera.y);
     a = (Math.tan(Math.PI * 3 / 2 - theta) * -1 * pT.adj);
-    returnValue.point.x = this.game.camera.target.x + a;
+    returnValue.point.x = target.x + a;
     returnValue.point.y = point.y + this.game.camera.height;
   } else {
     returnValue.direction = 'E';
-    pT.adj = this.game.stage.bounds.width - (this.game.camera.target.x - this.game.camera.x);
+    pT.adj = this.game.stage.bounds.width - (target.x - this.game.camera.x);
     a = (Math.tan(theta) * -1 * pT.adj);
     returnValue.point.x = point.x + this.game.camera.width;
-    returnValue.point.y = this.game.camera.target.y + a;
+    returnValue.point.y = target.y + a;
   }
 
   returnValue.x = returnValue.point.x;
