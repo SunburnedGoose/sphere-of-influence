@@ -59,6 +59,8 @@ Soi.GameStates.PreloaderGameState.prototype.preload = function() {
   this.load.image('beenThere', 'assets/imgs/beenThere.png?' + a);
   this.load.image('goingTo', 'assets/imgs/goingTo.png?' + a);
   this.load.image('shieldbar', 'assets/imgs/shield.png');
+  this.load.image('goingToIndicator', 'assets/imgs/goingToIndicator.jpg');
+  this.load.image('comingFromIndicator', 'assets/imgs/comingFromIndicator.jpg');
   this.load.physics('ship-physics', 'assets/physics/ship.json?' + a);
   this.load.spritesheet('asteroid', 'assets/imgs/asteroid-sprite.png', 60, 75);
   this.load.spritesheet('explosion', 'assets/imgs/explosion-sprite.png', 41, 41);
