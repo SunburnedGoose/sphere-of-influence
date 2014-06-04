@@ -106,11 +106,11 @@ Soi.GameStates.GameplayGameState.prototype.create = function() {
 
   this.player.bringToTop();
 
-  this.sTopLine = new Phaser.Line(0,0,0,0);
-  this.sBottomLine = new Phaser.Line(0,0,0,0);
+  // this.sTopLine = new Phaser.Line(0,0,0,0);
+  // this.sBottomLine = new Phaser.Line(0,0,0,0);
 
-  this.tTopLine = new Phaser.Line(0,0,0,0);
-  this.tBottomLine = new Phaser.Line(0,0,0,0);
+  // this.tTopLine = new Phaser.Line(0,0,0,0);
+  // this.tBottomLine = new Phaser.Line(0,0,0,0);
 
   this.goingToGroup = this.game.add.group();
   this.goingToGroup.create(-1,-1,'goingTo');
@@ -140,48 +140,69 @@ Soi.GameStates.GameplayGameState.prototype.create = function() {
   lightSprite.blendMode = Phaser.blendModes.SCREEN;
 };
 
-Soi.GameStates.GameplayGameState.prototype.DrawTargetIndicators = function () {
+Soi.GameStates.GameplayGameState.prototype.CalculateTargetIndicators = function () {
   if (this.game.camera.target) {
     var tCenter = this.targetSystem.center;
     var tRadius = this.targetSystem.well.radius;
-    var pCenter = { 'x': this.game.camera.target.x, 'y': this.game.camera.target.y };
     var sCenter = this.system.center;
     var sRadius = this.system.well.radius;
+    var pCenter = { 'x': this.game.camera.target.x, 'y': this.game.camera.target.y };
     var sTopAngle = Phaser.Math.normalizeAngle(Phaser.Math.angleBetweenPoints(sCenter, pCenter) - Math.PI);
     var sBottomAngle = sTopAngle + Math.PI;
     var tTopAngle = Phaser.Math.normalizeAngle(Phaser.Math.angleBetweenPoints(tCenter, pCenter) - Math.PI);
     var tBottomAngle = tTopAngle + Math.PI;
 
-    this.sTopLine.start.set(pCenter.x, pCenter.y);
-    this.sTopLine.end.set(sCenter.x + (Math.cos(sTopAngle) * sRadius), sCenter.y + (Math.sin(sTopAngle) * sRadius * -1));
+    // this.sTopLine.start.set(pCenter.x, pCenter.y);
+    // this.sTopLine.end.set(sCenter.x + (Math.cos(sTopAngle) * sRadius), sCenter.y + (Math.sin(sTopAngle) * sRadius * -1));
 
-    this.sBottomLine.start.set(pCenter.x, pCenter.y);
-    this.sBottomLine.end.set(sCenter.x + (Math.cos(sBottomAngle) * sRadius), sCenter.y + (Math.sin(sBottomAngle) * sRadius * -1));
+    // this.sBottomLine.start.set(pCenter.x, pCenter.y);
+    // this.sBottomLine.end.set(sCenter.x + (Math.cos(sBottomAngle) * sRadius), sCenter.y + (Math.sin(sBottomAngle) * sRadius * -1));
+
+    var sTop = new Phaser.Point(sCenter.x + (Math.cos(sTopAngle) * sRadius), sCenter.y + (Math.sin(sTopAngle) * sRadius * -1));
+    var sBottom = new Phaser.Point(sCenter.x + (Math.cos(sBottomAngle) * sRadius), sCenter.y + (Math.sin(sBottomAngle) * sRadius * -1));
 
     var tTop = new Phaser.Point(tCenter.x + (Math.cos(tTopAngle) * tRadius), tCenter.y + (Math.sin(tTopAngle) * tRadius * -1));
     var tBottom = new Phaser.Point(tCenter.x + (Math.cos(tBottomAngle) * tRadius), tCenter.y + (Math.sin(tBottomAngle) * tRadius * -1));
 
-    this.tTopLine.start.set(pCenter.x, pCenter.y);
-    this.tTopLine.end.set(tTop.x, tTop.y);
+    // this.tTopLine.start.set(pCenter.x, pCenter.y);
+    // this.tTopLine.end.set(tTop.x, tTop.y);
 
-    this.tBottomLine.start.set(pCenter.x, pCenter.y);
-    this.tBottomLine.end.set(tBottom.x, tBottom.y);
+    // this.tBottomLine.start.set(pCenter.x, pCenter.y);
+    // this.tBottomLine.end.set(tBottom.x, tBottom.y);
 
-    var tPlayerAngle = Phaser.Math.normalizeAngle(Soi.Math.angleBetweenPoints(pCenter, tTop));
-    var bPlayerAngle = Phaser.Math.normalizeAngle(Soi.Math.angleBetweenPoints(pCenter, tBottom));
+    var sTopPlayerAngle = Phaser.Math.normalizeAngle(Soi.Math.angleBetweenPoints(pCenter, sTop));
+    var sBottomPlayerAngle = Phaser.Math.normalizeAngle(Soi.Math.angleBetweenPoints(pCenter, sBottom));
 
-    var triTop = this.getEdgePointOfAngle(tPlayerAngle);
-    var triBottom = this.getEdgePointOfAngle(bPlayerAngle);
+    var tTopPlayerAngle = Phaser.Math.normalizeAngle(Soi.Math.angleBetweenPoints(pCenter, tTop));
+    var tBottomPlayerAngle = Phaser.Math.normalizeAngle(Soi.Math.angleBetweenPoints(pCenter, tBottom));
 
-    this.triTop = triTop;
-    this.triBottom = triBottom;
+    this.sTriTop = this.getEdgePointOfAngle(sTopPlayerAngle);
+    this.sTriBottom = this.getEdgePointOfAngle(sBottomPlayerAngle);
+
+    this.tTriTop = this.getEdgePointOfAngle(tTopPlayerAngle);
+    this.tTriBottom = this.getEdgePointOfAngle(tBottomPlayerAngle);
 
     //this.angleInfo = Phaser.Math.normalizeAngle(Soi.Math.angleBetweenPoints(pCenter, tTop)).toFixed(2) + ' ' + a.toFixed(2) + ' - ' + Phaser.Math.normalizeAngle(Soi.Math.angleBetweenPoints(pCenter, tBottom)).toFixed(2) + ' ' + b.toFixed(2);
     //this.angleInfo = triTop.x.toFixed(2) + ' ' + triTop.y.toFixed(2) + ' - ' + triBottom.x.toFixed(2) + ' ' + triBottom.y.toFixed(2);
   }
+
+  return [
+    {
+      'name': 'start',
+      'sprite': this.system.well,
+      'top': this.sTriTop,
+      'bottom': this.sTriBottom
+    },
+    {
+      'name': 'end',
+      'sprite': this.targetSystem.well,
+      'top': this.tTriTop,
+      'bottom': this.tTriBottom
+    }
+  ];
 };
 
-Soi.GameStates.GameplayGameState.prototype.getEdgePointOfAngle = function(theta) {
+Soi.GameStates.GameplayGameState.prototype.getEdgePointOfAngle = function (theta) {
   // Parts of the Triangle
   var pT = {
     'A': 0,
@@ -200,7 +221,7 @@ Soi.GameStates.GameplayGameState.prototype.getEdgePointOfAngle = function(theta)
   var returnValue = {
     'direction': 'N',
     'point': point
-  }
+  };
   var a = 0;
 
   // var point = new Phaser.Point(this.game.camera.x, this.game.camera.y);
@@ -245,135 +266,135 @@ Soi.GameStates.GameplayGameState.prototype.getEdgePointOfAngle = function(theta)
   return returnValue;
 };
 
+Soi.GameStates.GameplayGameState.prototype.drawTargetIndicators = function (targets) {
+  this.shadowTexture.context.fillStyle = 'rgb(0, 0, 0)';
+  this.shadowTexture.context.fillRect(0, 0, this.game.width, this.game.height);
+  this.shadowTexture.context.beginPath();
+
+  _.each(targets, function (target) {
+    if (!target.sprite.inCamera) {
+      // Draw circle of light
+      var iT = 3;
+      this.shadowTexture.context.fillStyle = 'rgba(0, 48, 96, .75)';
+
+      var tX = target.top.x - this.camera.x;
+      var tY = target.top.y - this.camera.y;
+      var bX = target.bottom.x - this.camera.x;
+      var bY = target.bottom.y - this.camera.y;
+
+      var rX = 0;
+      var rY = 0;
+      var rW = 0;
+      var rH = 0;
+
+      var dT = target.top.direction;
+      var dB = target.bottom.direction;
+
+      var cW = this.camera.width;
+      var cH = this.camera.height;
+
+      if (dT === dB) {
+        switch (dT) {
+          case 'N':
+            rX = Math.min(tX, bX);
+            rY = 0;
+            rW = Math.max(Math.abs(tX - bX), iT);
+            rH = iT;
+            break;
+          case 'W':
+            rX = 0;
+            rY = Math.min(tY, bY);
+            rW = iT;
+            rH = Math.max(Math.abs(tY - bY), iT);
+            break;
+          case 'S':
+            rX = Math.min(tX, bX);
+            rY = cH - iT;
+            rW = Math.max(Math.abs(tX - bX), iT);
+            rH = iT;
+            break;
+          case 'E':
+            rX = cW - iT;
+            rY = Math.min(tY, bY);
+            rW = iT;
+            rH = Math.max(Math.abs(tY - bY), iT);
+            break;
+        }
+
+        this.shadowTexture.context.fillRect(rX, rY, rW, rH);
+      } else {
+        switch (dT) {
+          case 'N':
+            rX = ((dB === 'W') ? 0 : tX);
+            rY = 0;
+            rW = cW - tX;
+            rH = iT;
+            break;
+          case 'W':
+            rX = 0;
+            rY = ((dB === 'N') ? 0 : cH - tY);
+            rW = iT;
+            rH = tY;
+            break;
+          case 'S':
+            rX = ((dB === 'W') ? 0 : cW - tX);
+            rY = cH - iT;
+            rW = tX;
+            rH = iT;
+            break;
+          case 'E':
+            rX = cW - iT;
+            rY = ((dB === 'N') ? 0 : tY);
+            rW = iT;
+            rH = cH - tY;
+            break;
+        }
+
+        this.shadowTexture.context.fillRect(rX, rY, rW, rH);
+
+        switch (dB) {
+          case 'N':
+            rX = ((dT === 'W') ? 0 : cW - bX);
+            rY = 0;
+            rW = bX;
+            rH = iT;
+            break;
+          case 'W':
+            rX = 0;
+            rY = ((dT === 'N') ? 0 : bY);
+            rW = iT;
+            rH = cH - bY;
+            break;
+          case 'S':
+            rX = ((dT === 'W') ? 0 : bX);
+            rY = cH - iT;
+            rW = cW - bX;
+            rH = iT;
+            break;
+          case 'E':
+            rX = cW - iT;
+            rY = ((dT === 'N') ? 0 : cH - bY);
+            rW = iT;
+            rH = bY;
+            break;
+        }
+
+        this.shadowTexture.context.fillRect(rX, rY, rW, rH);
+      }
+    }
+  }, this);
+
+  this.shadowTexture.context.fill();
+  this.shadowTexture.dirty = true;
+};
+
 Soi.GameStates.GameplayGameState.prototype.update = function() {
   if (this.game.time.fps !== 0) {
     this.fpsText.setText(this.game.time.fps + ' FPS');
   }
 
-  this.DrawTargetIndicators();
-
-  this.shadowTexture.context.fillStyle = 'rgb(0, 0, 0)';
-  this.shadowTexture.context.fillRect(0, 0, this.game.width, this.game.height);
-
-  if (!this.targetSystem.well.inCamera) {
-    // Draw circle of light
-    var iT = 3;
-    this.shadowTexture.context.beginPath();
-    this.shadowTexture.context.fillStyle = 'rgb(0, 255, 0)';
-
-    var tX = this.triTop.x - this.camera.x;
-    var tY = this.triTop.y - this.camera.y;
-    var bX = this.triBottom.x - this.camera.x;
-    var bY = this.triBottom.y - this.camera.y;
-
-    var rX = 0;
-    var rY = 0;
-    var rW = 0;
-    var rH = 0;
-
-    var dT = this.triTop.direction;
-    var dB = this.triBottom.direction;
-
-    var cW = this.camera.width;
-    var cH = this.camera.height;
-
-    if (dT === dB) {
-      switch (dT) {
-        case 'N':
-          rX = Math.min(tX, bX);
-          rY = 0;
-          rW = Math.max(Math.abs(tX - bX), iT);
-          rH = iT;
-          break;
-        case 'W':
-          rX = 0;
-          rY = Math.min(tY, bY);
-          rW = iT;
-          rH = Math.max(Math.abs(tY - bY), iT);
-          break;
-        case 'S':
-          rX = Math.min(tX, bX);
-          rY = cH - iT;
-          rW = Math.max(Math.abs(tX - bX), iT);
-          rH = iT;
-          break;
-        case 'E':
-          rX = cW - iT;
-          rY = Math.min(tY, bY);
-          rW = iT;
-          rH = Math.max(Math.abs(tY - bY), iT);
-          break;
-      }
-
-      this.shadowTexture.context.fillRect(rX, rY, rW, rH);
-    } else {
-      switch (dT) {
-        case 'N':
-          rX = ((dB === 'W') ? 0 : tX);
-          rY = 0;
-          rW = cW - tX;
-          rH = iT;
-          break;
-        case 'W':
-          rX = 0;
-          rY = ((dB === 'N') ? 0 : cH - tY);
-          rW = iT;
-          rH = tY;
-          break;
-        case 'S':
-          rX = ((dB === 'W') ? 0 : cW - tX);
-          rY = cH - iT;
-          rW = tX;
-          rH = iT;
-          break;
-        case 'E':
-          rX = cW - iT;
-          rY = ((dB === 'N') ? 0 : tY);
-          rW = iT;
-          rH = cH - tY;
-          break;
-      }
-
-      this.shadowTexture.context.fillRect(rX, rY, rW, rH);
-
-      switch (dB) {
-        case 'N':
-          rX = ((dT === 'W') ? 0 : cW - bX);
-          rY = 0;
-          rW = bX;
-          rH = iT;
-          break;
-        case 'W':
-          rX = 0;
-          rY = ((dT === 'N') ? 0 : bY);
-          rW = iT;
-          rH = cH - bY;
-          break;
-        case 'S':
-          rX = ((dT === 'W') ? 0 : bX);
-          rY = cH - iT;
-          rW = cW - bX;
-          rH = iT;
-          break;
-        case 'E':
-          rX = cW - iT;
-          rY = ((dT === 'N') ? 0 : cH - bY);
-          rW = iT;
-          rH = bY;
-          break;
-      }
-
-      this.shadowTexture.context.fillRect(rX, rY, rW, rH);
-    }
-  }
-
-  this.shadowTexture.context.fill();
-  this.shadowTexture.dirty = true;
-
-
-
-
-
+  var targets = this.CalculateTargetIndicators();
+  this.drawTargetIndicators(targets);
 
   var that = this;
 
@@ -410,17 +431,17 @@ Soi.GameStates.GameplayGameState.prototype.render = function() {
   // this.game.debug.geom(this.tTopLine, 'rgba(255,255,0,1)');
   // this.game.debug.geom(this.tBottomLine, 'rgba(255,0,255,1)');
 
-  // this.game.debug.geom(this.triTop, 'rgba(255,0,255,1)');
-  // this.game.debug.geom(this.triBottom, 'rgba(255,0,255,1)');
-  // this.game.debug.geom(new Phaser.Line(this.triTop.x - 10, this.triTop.y - 10, this.triTop.x + 10, this.triTop.y + 10), 'rgba(255,0,0,1)');
-  // this.game.debug.geom(new Phaser.Line(this.triTop.x + 10, this.triTop.y - 10, this.triTop.x - 10, this.triTop.y + 10), 'rgba(255,0,0,1)');
-  // this.game.debug.geom(new Phaser.Line(this.triBottom.x - 10, this.triBottom.y - 10, this.triBottom.x + 10, this.triBottom.y + 10), 'rgba(255,0,0,1)');
-  // this.game.debug.geom(new Phaser.Line(this.triBottom.x + 10, this.triBottom.y - 10, this.triBottom.x - 10, this.triBottom.y + 10), 'rgba(255,0,0,1)');
+  // this.game.debug.geom(this.tTriTop, 'rgba(255,0,255,1)');
+  // this.game.debug.geom(this.tTriBottom, 'rgba(255,0,255,1)');
+  // this.game.debug.geom(new Phaser.Line(this.tTriTop.x - 10, this.tTriTop.y - 10, this.tTriTop.x + 10, this.tTriTop.y + 10), 'rgba(255,0,0,1)');
+  // this.game.debug.geom(new Phaser.Line(this.tTriTop.x + 10, this.tTriTop.y - 10, this.tTriTop.x - 10, this.tTriTop.y + 10), 'rgba(255,0,0,1)');
+  // this.game.debug.geom(new Phaser.Line(this.tTriBottom.x - 10, this.tTriBottom.y - 10, this.tTriBottom.x + 10, this.tTriBottom.y + 10), 'rgba(255,0,0,1)');
+  // this.game.debug.geom(new Phaser.Line(this.tTriBottom.x + 10, this.tTriBottom.y - 10, this.tTriBottom.x - 10, this.tTriBottom.y + 10), 'rgba(255,0,0,1)');
 
   // var t = this.targetSystem.center;
   // var p = this.player.center;
-  // this.game.debug.text(this.triTop.x.toFixed(2) + ' ' + this.triTop.y.toFixed(2), 10, 542);
-  // this.game.debug.text(this.triBottom.x.toFixed(2) + ' ' + this.triBottom.y.toFixed(2), 10, 562);
+  // this.game.debug.text(this.tTriTop.x.toFixed(2) + ' ' + this.tTriTop.y.toFixed(2), 10, 542);
+  // this.game.debug.text(this.tTriBottom.x.toFixed(2) + ' ' + this.tTriBottom.y.toFixed(2), 10, 562);
 };
 
 Soi.GameStates.GameplayGameState.prototype.collidesWithSurface = function() {
