@@ -104,7 +104,7 @@ Soi.Entities.Ship.prototype.particleBurst = function (isForward) {
   this.emitter.x = this.x + dX;
   this.emitter.y = this.y + dY;
   this.emitter.start(true, 15000, null, 1);
-}
+};
 
 Soi.Entities.Ship.prototype.update = function() {
   var state = this.state;
