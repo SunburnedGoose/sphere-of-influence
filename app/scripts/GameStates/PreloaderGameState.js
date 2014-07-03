@@ -43,6 +43,7 @@ Soi.GameStates.PreloaderGameState.prototype.preload = function() {
 
   var a = '1987';
 
+  this.load.image('exhaust', 'assets/imgs/exhaust.png?' + a);
   this.load.image('layer-menu', 'assets/imgs/layer-menu.png?' + a);
   this.load.spritesheet('audio_on', 'assets/imgs/audio_on.png?' + a, 44, 40, 4);
   this.load.spritesheet('audio_muted', 'assets/imgs/audio_muted.png?' + a, 44, 40, 4);

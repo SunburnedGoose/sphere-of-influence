@@ -8,14 +8,23 @@ Soi.Entities.Ship = function(game, x, y, texture) {
   Phaser.Sprite.call(this, game, x, y, texture);
 
   this.game.world.add(this);
-  this.game.physics.p2.enable([this], true);
-  
+  this.game.physics.p2.enable([this], false);
+
   this.beenThere = [];
 
   this.body.clearShapes();
   this.body.addPhaserPolygon('ship-physics', 'ship');
 
   this.beenThereGroup = this.game.add.group();
+
+  this.emitter = this.game.add.emitter(0, 0, 2000);
+
+  this.emitter.makeParticles('exhaust');
+  this.emitter.minRotation = 0;
+  this.emitter.maxRotation = 0;
+  this.emitter.gravity = 0;
+  this.emitter.bounce.setTo(0, 0);
+  this.emitter.setAlpha(1, 0, 15000);
 
   // this.game.input.onHold.add(function(a) {
   //   that.changeVector(a, that);
@@ -69,6 +78,33 @@ Soi.Entities.Ship = function(game, x, y, texture) {
 
 Soi.Entities.Ship.prototype = Object.create(Phaser.Sprite.prototype);
 Soi.Entities.Ship.prototype.constructor = Soi.Entities.Ship;
+
+Soi.Entities.Ship.prototype.particleBurst = function (isForward) {
+  // this.emitter.minRotation = Math.PI / 4;
+  // this.emitter.minRotation = Math.PI / -4;
+
+  var xCoef = Math.sin(this.rotation + Math.PI);
+  var yCoef = Math.cos(this.rotation + Math.PI) * -1;
+  var vX = this.game.physics.p2.mpxi(this.body.velocity.x);
+  var vY = this.game.physics.p2.mpxi(this.body.velocity.y);
+
+  this.emitter.setXSpeed(vX + (50 * xCoef * ((isForward) ? 1 : -1)), vX + (100 * xCoef * ((isForward) ? 1 : -1)));
+  this.emitter.setYSpeed(vY + (50 * yCoef * ((isForward) ? 1 : -1)), vY + (100 * yCoef * ((isForward) ? 1 : -1)));
+
+  // this.emitter.minParticleSpeed = new Phaser.Point(Phaser.Math.normalizeAngle(this.rotation) - (Math.PI / 4), Phaser.Math.normalizeAngle(this.rotation) - (Math.PI / 4));
+  // this.emitter.minParticleSpeed = new Phaser.Point(Phaser.Math.normalizeAngle(this.rotation) + (Math.PI / 4), Phaser.Math.normalizeAngle(this.rotation) + (Math.PI / 4));
+  //this.emitter.rotation = Phaser.Math.normalizeAngle(this.rotation);
+
+  // this.emitter.minParticleSpeed = new Phaser.Point(-100, 0);
+  // this.emitter.maxParticleSpeed = new Phaser.Point(0, -100);
+
+  var dX = ((isForward) ? 12 : -12) * xCoef;
+  var dY = ((isForward) ? 17 : -23) * yCoef;
+
+  this.emitter.x = this.x + dX;
+  this.emitter.y = this.y + dY;
+  this.emitter.start(true, 15000, null, 1);
+}
 
 Soi.Entities.Ship.prototype.update = function() {
   var state = this.state;
@@ -128,7 +164,7 @@ Soi.Entities.Ship.prototype.update = function() {
 
   sT.forward.thrusting = (cursors.up.isDown || keys.up.isDown ||
     (this.game.input.activePointer.isDown && ((this.game.input.activePointer.button === 0) || _.isEmpty(this.game.input.activePointer.button)))) &&
-      (_.isNull(state.rotatingTo));
+    (_.isNull(state.rotatingTo));
   sT.reverse.thrusting = (cursors.down.isDown || keys.down.isDown ||
     (this.game.input.activePointer.isDown && this.game.input.activePointer.button === 2)) && (_.isNull(state.rotatingTo));
 
@@ -151,37 +187,15 @@ Soi.Entities.Ship.prototype.update = function() {
     this.body.reverse(sT.reverse.baseVelocity * sT.reverse.multiplier);
   }
 
-  /* Animations
-     Check and see if I was thrusting in the previous update.
-     If so, apply counter thrust via animation to stop rotation. */
-  if (!sT.thrusting) {
-    /* One or the other, but not both. */
-    if ((pT.left.thrusting || pT.right.thrusting) && !(pT.left.thrusting && pT.right.thrusting)) {
-      this.animations.play((pT.left.thrusting) ? 'right' : 'left');
-    } else {
-      this.animations.play('unpowered');
-    }
-  } else {
-    /* Stock animations. */
-    if (sT.forward.thrusting) {
-      this.animations.play('forward');
-    } else if (sT.reverse.thrusting) {
-      this.animations.play('reverse');
-    } else if (sT.left.thrusting) {
-      this.animations.play('left');
-    } else if (sT.right.thrusting) {
-      this.animations.play('right');
-    } else {
-      this.animations.play('unpowered');
-    }
-  }
-
   if (this.soi) {
     var centerW = this.soi.well.center;
 
     if (this.game.camera.target) {
       this.game.camera.follow(null);
-      this.game.add.tween(this.game.camera).to( {x: centerW.x - (this.game.camera.width / 2), y: centerW.y - (this.game.camera.height / 2) }, 1250, Phaser.Easing.Quadratic.InOut, true);
+      this.game.add.tween(this.game.camera).to({
+        x: centerW.x - (this.game.camera.width / 2),
+        y: centerW.y - (this.game.camera.height / 2)
+      }, 1250, Phaser.Easing.Quadratic.InOut, true);
     }
 
     var forceVector = this.calculateForce();
@@ -214,10 +228,38 @@ Soi.Entities.Ship.prototype.update = function() {
     }
   }
 
-  if (this.withinAsteroid){
+  if (this.withinAsteroid) {
     this.damage('asteroid');
   }
 
+  /* Animations
+     Check and see if I was thrusting in the previous update.
+     If so, apply counter thrust via animation to stop rotation. */
+  if (!sT.thrusting) {
+    /* One or the other, but not both. */
+    if ((pT.left.thrusting || pT.right.thrusting) && !(pT.left.thrusting && pT.right.thrusting)) {
+      this.animations.play((pT.left.thrusting) ? 'right' : 'left');
+    } else {
+      this.animations.play('unpowered');
+    }
+  } else {
+    /* Stock animations. */
+    if (sT.forward.thrusting) {
+      this.animations.play('forward');
+      this.particleBurst(true);
+    } else if (sT.reverse.thrusting) {
+      this.animations.play('reverse');
+      this.particleBurst(false);
+    } else if (sT.left.thrusting) {
+      this.animations.play('left');
+      //this.particleBurst();
+    } else if (sT.right.thrusting) {
+      this.animations.play('right');
+      //this.particleBurst();
+    } else {
+      this.animations.play('unpowered');
+    }
+  }
 
   var positions = this.calculatePositions();
 
@@ -232,7 +274,7 @@ Soi.Entities.Ship.prototype.update = function() {
 
 Soi.Entities.Ship.prototype.captureBeenThere = function() {
   var s = this.beenThereGroup.create(this.center.x, this.center.y, 'beenThere');
-  s.anchor.setTo(0.5,0.5);
+  s.anchor.setTo(0.5, 0.5);
   s.increaseAlpha = function() {
     s.alpha = s.alpha * 0.95;
   };
@@ -248,8 +290,8 @@ Soi.Entities.Ship.prototype.captureBeenThere = function() {
   this.beenThereGroup.callAll('increaseAlpha');
 };
 
-Soi.Entities.Ship.prototype.damage = function(damangeType){
-  if(damangeType === 'asteroid'){
+Soi.Entities.Ship.prototype.damage = function(damangeType) {
+  if (damangeType === 'asteroid') {
     this.game.shield.health -= 0.5;
   }
 };
@@ -273,6 +315,7 @@ Soi.Entities.Ship.prototype.calculatePositions = function() {
   var positions = [];
   var currentPosition = this.center;
   var currentVelocity = new Phaser.Point(this.body.velocity.x, this.body.velocity.y);
+
   this._currentPosition = {
     'x': 0,
     'y': 0,
@@ -288,7 +331,7 @@ Soi.Entities.Ship.prototype.calculatePositions = function() {
   var spanSteps = span / 5;
   var spanMod = spanSteps - 1;
 
-  for(var i = 0; i < span; i++) {
+  for (var i = 0; i < span; i++) {
     this._currentPosition.x = this._currentPosition.center.x = currentPosition.x;
     this._currentPosition.y = this._currentPosition.center.y = currentPosition.y;
     this._currentPosition.exists = this.exists;
@@ -305,25 +348,25 @@ Soi.Entities.Ship.prototype.calculatePositions = function() {
     currentPosition.y += currentVelocity.y * step;
 
     if (i % spanSteps === spanMod) {
-      positions.push({ 'x': currentPosition.x, 'y': currentPosition.y});
+      positions.push({
+        'x': currentPosition.x,
+        'y': currentPosition.y
+      });
     }
   }
 
   return positions;
 };
 
-Soi.Entities.Ship.prototype.calculateForce = function (aBody, bBody) {
+Soi.Entities.Ship.prototype.calculateForce = function(aBody, bBody) {
   var d, g, mass, f, a;
   var force;
 
-  if (!aBody) {
-    aBody = this;
-  }
-
-  bBody = this.getNearestBody(aBody);
+  aBody = aBody || this;
+  bBody = bBody || this.getNearestBody(aBody);
 
   if (!bBody) {
-    force = new Phaser.Point(0,0);
+    force = new Phaser.Point(0, 0);
   } else {
     var bC = bBody.center;
     d = Soi.Math.distanceBetween(aBody.center, bC);
@@ -338,31 +381,29 @@ Soi.Entities.Ship.prototype.calculateForce = function (aBody, bBody) {
   return force;
 };
 
-Soi.Entities.Ship.prototype.getNearestBody = function (aBody) {
-  var body;
+Soi.Entities.Ship.prototype.getNearestBody = function(center) {
+  var nearestBody;
+  var centerBody = center || this;
 
-  if (aBody.soi) {
-    body = aBody.soi;
-  }
+  if (centerBody.soi) {
+    nearestBody = centerBody.soi;
+  } else {
+    if (centerBody.exists) {
+      var gameState = this.game.state.states[this.game.state.current];
+      var bodies = [
+        gameState.targetSystem,
+        gameState.system
+      ];
 
-  if (aBody.exists) {
-    var gameState = this.game.state.states[this.game.state.current];
-    var d;
+      nearestBody = Soi.Bodies.getNearestBody(centerBody, bodies);
 
-    d = Soi.Math.distanceBetween(aBody.center, gameState.targetSystem.center);
-
-    if (d <= gameState.targetSystem.well.radius) {
-      body = gameState.targetSystem;
-    }
-
-    if (!body) {
-      d = Soi.Math.distanceBetween(aBody.center, gameState.system.center);
-
-      if (d <= gameState.system.well.radius) {
-        body = gameState.system;
+      if (nearestBody) {
+        if (Phaser.Math.distance(center.center.x, center.center.y, nearestBody.center.x, nearestBody.center.y) > (nearestBody.well.width / 2)) {
+          nearestBody = undefined;
+        }
       }
     }
   }
 
-  return body;
+  return nearestBody;
 };

@@ -403,6 +403,8 @@ Soi.GameStates.GameplayGameState.prototype.update = function() {
 };
 
 Soi.GameStates.GameplayGameState.prototype.render = function() {
+  // this.game.debug.text(Math.cos(this.player.rotation + Math.PI).toFixed(2), 10, 542);
+  // this.game.debug.text(Math.sin(this.player.rotation + Math.PI).toFixed(2), 10, 562);
   //this.game.debug.text('', 32, 48);
 
   // this.game.debug.geom(this.lineE, 'rgba(255,0,0,1)');
