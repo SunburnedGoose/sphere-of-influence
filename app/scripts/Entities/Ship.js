@@ -17,14 +17,14 @@ Soi.Entities.Ship = function(game, x, y, texture) {
 
   this.beenThereGroup = this.game.add.group();
 
-  this.emitter = this.game.add.emitter(0, 0, 2000);
+  // this.emitter = this.game.add.emitter(0, 0, 2000);
 
-  this.emitter.makeParticles('exhaust');
-  this.emitter.minRotation = 0;
-  this.emitter.maxRotation = 0;
-  this.emitter.gravity = 0;
-  this.emitter.bounce.setTo(0, 0);
-  this.emitter.setAlpha(1, 0, 15000);
+  // this.emitter.makeParticles('exhaust');
+  // this.emitter.minRotation = 0;
+  // this.emitter.maxRotation = 0;
+  // this.emitter.gravity = 0;
+  // this.emitter.bounce.setTo(0, 0);
+  // this.emitter.setAlpha(1, 0, 15000);
 
   // this.game.input.onHold.add(function(a) {
   //   that.changeVector(a, that);
@@ -79,31 +79,31 @@ Soi.Entities.Ship = function(game, x, y, texture) {
 Soi.Entities.Ship.prototype = Object.create(Phaser.Sprite.prototype);
 Soi.Entities.Ship.prototype.constructor = Soi.Entities.Ship;
 
-Soi.Entities.Ship.prototype.particleBurst = function (isForward) {
+Soi.Entities.Ship.prototype.particleBurst = function () {
   // this.emitter.minRotation = Math.PI / 4;
   // this.emitter.minRotation = Math.PI / -4;
 
-  var xCoef = Math.sin(this.rotation + Math.PI);
-  var yCoef = Math.cos(this.rotation + Math.PI) * -1;
-  var vX = this.game.physics.p2.mpxi(this.body.velocity.x);
-  var vY = this.game.physics.p2.mpxi(this.body.velocity.y);
+  // var xCoef = Math.sin(this.rotation + Math.PI);
+  // var yCoef = Math.cos(this.rotation + Math.PI) * -1;
+  // var vX = this.game.physics.p2.mpxi(this.body.velocity.x);
+  // var vY = this.game.physics.p2.mpxi(this.body.velocity.y);
 
-  this.emitter.setXSpeed(vX + (50 * xCoef * ((isForward) ? 1 : -1)), vX + (100 * xCoef * ((isForward) ? 1 : -1)));
-  this.emitter.setYSpeed(vY + (50 * yCoef * ((isForward) ? 1 : -1)), vY + (100 * yCoef * ((isForward) ? 1 : -1)));
+  // this.emitter.setXSpeed(vX + (50 * xCoef * ((isForward) ? 1 : -1)), vX + (100 * xCoef * ((isForward) ? 1 : -1)));
+  // this.emitter.setYSpeed(vY + (50 * yCoef * ((isForward) ? 1 : -1)), vY + (100 * yCoef * ((isForward) ? 1 : -1)));
 
-  // this.emitter.minParticleSpeed = new Phaser.Point(Phaser.Math.normalizeAngle(this.rotation) - (Math.PI / 4), Phaser.Math.normalizeAngle(this.rotation) - (Math.PI / 4));
-  // this.emitter.minParticleSpeed = new Phaser.Point(Phaser.Math.normalizeAngle(this.rotation) + (Math.PI / 4), Phaser.Math.normalizeAngle(this.rotation) + (Math.PI / 4));
-  //this.emitter.rotation = Phaser.Math.normalizeAngle(this.rotation);
+  // // this.emitter.minParticleSpeed = new Phaser.Point(Phaser.Math.normalizeAngle(this.rotation) - (Math.PI / 4), Phaser.Math.normalizeAngle(this.rotation) - (Math.PI / 4));
+  // // this.emitter.minParticleSpeed = new Phaser.Point(Phaser.Math.normalizeAngle(this.rotation) + (Math.PI / 4), Phaser.Math.normalizeAngle(this.rotation) + (Math.PI / 4));
+  // //this.emitter.rotation = Phaser.Math.normalizeAngle(this.rotation);
 
-  // this.emitter.minParticleSpeed = new Phaser.Point(-100, 0);
-  // this.emitter.maxParticleSpeed = new Phaser.Point(0, -100);
+  // // this.emitter.minParticleSpeed = new Phaser.Point(-100, 0);
+  // // this.emitter.maxParticleSpeed = new Phaser.Point(0, -100);
 
-  var dX = ((isForward) ? 12 : -12) * xCoef;
-  var dY = ((isForward) ? 17 : -23) * yCoef;
+  // var dX = ((isForward) ? 12 : -12) * xCoef;
+  // var dY = ((isForward) ? 17 : -23) * yCoef;
 
-  this.emitter.x = this.x + dX;
-  this.emitter.y = this.y + dY;
-  this.emitter.start(true, 15000, null, 1);
+  // this.emitter.x = this.x + dX;
+  // this.emitter.y = this.y + dY;
+  // this.emitter.start(true, 15000, null, 1);
 };
 
 Soi.Entities.Ship.prototype.update = function() {
