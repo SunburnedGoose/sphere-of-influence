@@ -104,6 +104,22 @@ Soi.GameStates.GameplayGameState.prototype.create = function() {
     this.field = new Soi.Entities.AsteroidField(this.game, Soi.Entities.fields[i]);
   }
 
+
+  this.derelict = this.game.add.sprite(1000,1000,'derelict');
+  this.derelict.anchor.setTo(0.5,0.5);
+  this.debris = this.game.add.sprite(1000,1000,'debris');
+  this.debris.anchor.setTo(0.5,0.5);
+  this.debris.alpha = 0.4;
+
+  var textureMeta = this.game.__meta.spritesheet.debris;
+
+  _.each(textureMeta.animations, function(animation) {
+    this.debris.animations.add(animation.name, animation.frames, animation.number, animation.loop);
+  }, this);
+
+
+  this.debris.animations.play('rotate', 4, true);
+
   this.player.bringToTop();
 
   this.goingToGroup = this.game.add.group();

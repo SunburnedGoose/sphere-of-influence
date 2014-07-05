@@ -44,7 +44,9 @@ Soi.GameStates.PreloaderGameState.prototype.preload = function() {
   var a = '1987';
 
   this.load.image('exhaust', 'assets/imgs/exhaust.png?' + a);
+  this.load.image('derelict', 'assets/imgs/derelict.png?' + a);
   this.load.image('layer-menu', 'assets/imgs/layer-menu.png?' + a);
+  this.load.spritesheet('debris', 'assets/imgs/debris.gif?' + a, 504, 360, 4);
   this.load.spritesheet('audio_on', 'assets/imgs/audio_on.png?' + a, 44, 40, 4);
   this.load.spritesheet('audio_muted', 'assets/imgs/audio_muted.png?' + a, 44, 40, 4);
   this.load.audio('all_this', ['assets/audio/all_this.m4a', 'assets/audio/all_this.ogg']);
@@ -96,6 +98,15 @@ Soi.GameStates.PreloaderGameState.prototype.preload = function() {
           'frames': [12],
           'number': 1,
           'loop': false
+        }]
+      },
+      'debris': {
+        'inital': 'rotate',
+        'animations': [{
+          'name': 'rotate',
+          'frames': [0, 1, 2, 3],
+          'number': 4,
+          'loop': true
         }]
       }
     }
